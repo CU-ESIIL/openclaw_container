@@ -1,51 +1,26 @@
-# History files
-.Rhistory
-.Rapp.history
+# Local OpenClaw/Docker runtime state
+workspace/*
+!workspace/.gitkeep
+.openclaw/
+.env
+logs/
+*.log
 
-# Session Data files
-.RData
-.RDataTmp
+# Docker temp and local override files
+.docker/
+docker-compose.override.yml
+docker-compose.*.local.yml
+*.tar
+*.pid
 
-# User-specific files
-.Ruserdata
+# Python/MkDocs local output
+.cache/
+.venv/
+__pycache__/
+site/
+dist/
 
-# Example code in package build process
-*-Ex.R
-
-# Output files from R CMD build
-/*.tar.gz
-
-# Output files from R CMD check
-/*.Rcheck/
-
-# RStudio files
-.Rproj.user/
-
-# produced vignettes
-vignettes/*.html
-vignettes/*.pdf
-
-# OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
-.httr-oauth
-
-# knitr and R markdown default cache directories
-*_cache/
-/cache/
-
-# Temporary files created by R markdown
-*.utf8.md
-*.knit.md
-
-# R Environment Variables
-.Renviron
-
-
-
-# translation temp files
-po/*~
-
-# RStudio Connect folder
-rsconnect/
-
-# macOS
+# OS/editor files
 .DS_Store
+.idea/
+.vscode/

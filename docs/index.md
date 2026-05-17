@@ -1,31 +1,38 @@
-# basic_OASIS
+# OpenClaw Local Docker
 
-`basic_OASIS` is a lightweight MkDocs + Material starter for clear project documentation. It is designed to stay minimal, readable, and easy to extend.
+Run an agent on your laptop, keep the workspace sandboxed, and authenticate with ChatGPT/Codex OAuth when available.
 
-[Explore Examples](examples.md){ .md-button .md-button--primary }
-[View Repository](https://github.com/CU-ESIIL/basic_OASIS){ .md-button }
+[Read the setup guide](README.md){ .md-button .md-button--primary }
+[Compare options](pricing.md){ .md-button }
 
 <div class="grid cards" markdown>
 
-- **Code**
+- **Local control**
 
   ---
 
-  Capture setup steps, scripts, and reproducible snippets in one place.
+  Build the CLI image yourself, persist config on your machine, and decide exactly which project files are mounted into `/workspace`.
 
-- **Data**
-
-  ---
-
-  Document data access, formats, and provenance so work stays transparent.
-
-- **Docs**
+- **Subscription login**
 
   ---
 
-  Write concise guides that future contributors can quickly understand.
+  Use ChatGPT/Codex OAuth when your OpenClaw version, account, quota, and provider policy support it.
+
+- **Safe workspace**
+
+  ---
+
+  Keep agent access focused on `./workspace` instead of exposing your whole home directory or unrelated cloud folders.
 
 </div>
 
-!!! note "Template-first by design"
-    This site is intentionally minimal. Start simple, then extend only what your project needs.
+## Start Here
+
+```bash
+docker compose build
+scripts/login-codex.sh
+scripts/status.sh
+```
+
+The full walkthrough is in the [README](README.md). The [pricing comparison](pricing.md) explains when OAuth, API keys, hosted service, or local models make sense.

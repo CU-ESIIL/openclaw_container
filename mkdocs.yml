@@ -1,21 +1,13 @@
-site_name: "basic_OASIS"
-site_description: "Minimal project website"
-site_url: "https://cu-esiil.github.io/basic_OASIS/"
-
-repo_name: "CU-ESIIL/basic_OASIS"
-repo_url: "https://github.com/CU-ESIIL/basic_OASIS"
-edit_uri: "edit/main/docs/"
+site_name: "OpenClaw Local Docker"
+site_description: "Run OpenClaw locally in Docker with optional ChatGPT/Codex OAuth."
 
 nav:
-  - Site:
-      - Home: index.md
-      - Examples: examples.md
+  - Home: index.md
+  - Pricing comparison: pricing.md
+  - README: README.md
 
 theme:
   name: material
-  logo: assets/esiil_content/esiil_oasis_logo.png
-  favicon: assets/esiil_content/favicon.ico
-  custom_dir: docs/overrides
   features:
     - navigation.sections
     - navigation.top

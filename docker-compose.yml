@@ -1,0 +1,31 @@
+services:
+  openclaw-local:
+    image: openclaw-local
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: openclaw-local
+    working_dir: /workspace
+    stdin_open: true
+    tty: true
+    environment:
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENCLAW_MODEL: ${OPENCLAW_MODEL:-}
+      OPENCLAW_CONFIG_DIR: /root/.openclaw
+      OPENCLAW_AUTH_PROFILE_SECRET_DIR: /root/.openclaw/auth-profile-secrets
+      OPENCLAW_DISABLE_BONJOUR: "1"
+    volumes:
+      - ~/.openclaw:/root/.openclaw
+      - ./workspace:/workspace
+    ports:
+      - "127.0.0.1:18789:18789"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    cpus: "2.0"
+    mem_limit: 4g
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 4G
+    # No restart policy: this service is normally run as an interactive CLI shell.
