@@ -3,6 +3,7 @@
 Run an agent on your laptop, keep the workspace sandboxed, and authenticate with ChatGPT/Codex OAuth when available.
 
 [Read the setup guide](README.md){ .md-button .md-button--primary }
+[Alpha baseline](alpha.md){ .md-button }
 [Compare options](pricing.md){ .md-button }
 
 <div class="grid cards" markdown>

@@ -87,7 +87,6 @@ config.plugins.entries.codex.enabled = true;
 
 config.meta ||= {};
 config.meta.lastTouchedVersion ||= "container-bootstrap";
-config.meta.containerBootstrapAt = new Date().toISOString();
 
 fs.mkdirSync(require("path").dirname(configPath), { recursive: true });
 fs.writeFileSync(configPath, `${JSON.stringify(config, null, 2)}\n`, { mode: 0o600 });
@@ -95,6 +94,17 @@ NODE
 
 chmod 700 "${config_dir}" || true
 chmod 700 "${config_dir}/auth-profile-secrets" || true
+
+if [ "${OPENCLAW_CONFIGURE_SLACK:-1}" != "0" ] \
+  && [ -n "${SLACK_BOT_TOKEN:-}" ] \
+  && [ -n "${SLACK_APP_TOKEN:-}" ]; then
+  echo "Configuring Slack channel from environment-backed credentials..."
+  openclaw channels add --channel slack --use-env --name pi-liaison >/tmp/openclaw-slack-configure.log 2>&1 || {
+    echo "Slack channel configuration failed. Recent log:" >&2
+    sed -E 's/(xoxb-|xapp-)[A-Za-z0-9._-]+/\1****REDACTED/g' /tmp/openclaw-slack-configure.log | tail -n 80 >&2
+    exit 1
+  }
+fi
 
 if [ "${OPENCLAW_START_PI_LIAISON:-1}" != "0" ]; then
   case "${1:-}" in

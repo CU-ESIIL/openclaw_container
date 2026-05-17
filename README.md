@@ -10,6 +10,14 @@ This repository gives you:
 - helper scripts for build, shell access, Codex OAuth login, and model status
 - a simple MkDocs site with a practical pricing-style comparison
 
+## Alpha Baseline
+
+This repository is currently prepared as `0.1.0-alpha.1`: a reproducible base container for an OpenClaw scientific working group.
+
+The alpha image seeds `/workspace` with the PI Liaison workflow, 11 bounded agent roles, shared memory files, project intake documents, review gates, and service templates. Users should not need to reload these files or recreate the agent setup after launching the container.
+
+Slack is configured from local environment variables, not baked into the image. When Slack tokens are present, startup registers the Slack channel with OpenClaw using environment-backed credentials.
+
 ## Why Docker?
 
 Docker keeps OpenClaw, Node, and supporting shell tools separate from your laptop setup. You can rebuild the image, remove containers, or change project files without installing the OpenClaw CLI directly on macOS.
@@ -121,6 +129,12 @@ Or use the helper:
 scripts/start.sh
 ```
 
+Start a long-running Gateway for Slack inbound messages:
+
+```bash
+scripts/start-gateway.sh
+```
+
 Log in with ChatGPT/Codex OAuth from your host terminal:
 
 ```bash
@@ -215,6 +229,14 @@ To start a plain shell instead of the liaison workflow:
 ```bash
 OPENCLAW_START_PI_LIAISON=0 scripts/start.sh
 ```
+
+For Slack to call into OpenClaw while you are not using the interactive TUI, run:
+
+```bash
+scripts/start-gateway.sh
+```
+
+This starts the Gateway in a detached container after validating `.env`.
 
 ## API-Key Mode
 

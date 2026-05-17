@@ -8,6 +8,8 @@ The image also bootstraps local defaults before each command runs: local Gateway
 
 The default workspace is a scientific working group scaffold for environmental data science. It includes 11 bounded roles, a PI Liaison gateway, shared memory registers, project folders, skeptic review, and human approval rules.
 
+The `0.1.0-alpha.1` baseline is intended to be reproducible from the repository: build the image, provide local `.env` credentials, and the container seeds the working-group setup automatically.
+
 ## Quick Start
 
 ```bash

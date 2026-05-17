@@ -5,6 +5,7 @@ workspace/*
 .env
 .env.*
 !.env.example
+!docker/seed-workspace/services/pi_liaison/.env.template
 logs/
 *.log
 secrets/
@@ -14,7 +15,9 @@ secrets/
 
 # Track only explicit workspace templates that are part of this repo.
 !workspace/services/
+workspace/services/*
 !workspace/services/pi_liaison/
+workspace/services/pi_liaison/*
 !workspace/services/pi_liaison/.env.template
 
 # Docker temp and local override files

@@ -3,6 +3,7 @@
 .env
 .env.*
 !.env.example
+!docker/seed-workspace/services/pi_liaison/.env.template
 secrets
 *.pem
 *.key

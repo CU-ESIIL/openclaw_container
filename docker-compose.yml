@@ -8,12 +8,11 @@ services:
     working_dir: /workspace
     stdin_open: true
     tty: true
+    env_file:
+      - path: .env
+        required: false
     environment:
-      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       OPENCLAW_MODEL: ${OPENCLAW_MODEL:-}
-      SLACK_BOT_TOKEN: ${SLACK_BOT_TOKEN:-}
-      SLACK_APP_TOKEN: ${SLACK_APP_TOKEN:-}
-      SLACK_DEFAULT_CHANNEL: ${SLACK_DEFAULT_CHANNEL:-}
       OPENCLAW_CONFIG_DIR: /root/.openclaw
       OPENCLAW_AUTH_PROFILE_SECRET_DIR: /root/.openclaw/auth-profile-secrets
       OPENCLAW_DEFAULT_MODEL: ${OPENCLAW_DEFAULT_MODEL:-codex/gpt-5.5}
@@ -24,6 +23,7 @@ services:
       OPENCLAW_SEED_WORKSPACE: ${OPENCLAW_SEED_WORKSPACE:-1}
       OPENCLAW_INIT_WORKING_GROUP: ${OPENCLAW_INIT_WORKING_GROUP:-1}
       OPENCLAW_START_PI_LIAISON: ${OPENCLAW_START_PI_LIAISON:-1}
+      OPENCLAW_CONFIGURE_SLACK: ${OPENCLAW_CONFIGURE_SLACK:-1}
       OPENCLAW_DISABLE_BONJOUR: "1"
     volumes:
       - ~/.openclaw:/root/.openclaw

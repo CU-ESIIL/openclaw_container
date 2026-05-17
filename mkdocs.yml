@@ -3,6 +3,7 @@ site_description: "Run OpenClaw locally in Docker with optional ChatGPT/Codex OA
 
 nav:
   - Home: index.md
+  - Alpha Baseline: alpha.md
   - Scientific Working Group: working-group.md
   - Security: security.md
   - Pricing comparison: pricing.md
