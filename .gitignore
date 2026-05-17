@@ -3,8 +3,19 @@ workspace/*
 !workspace/.gitkeep
 .openclaw/
 .env
+.env.*
+!.env.example
 logs/
 *.log
+secrets/
+*.pem
+*.key
+*.token
+
+# Track only explicit workspace templates that are part of this repo.
+!workspace/services/
+!workspace/services/pi_liaison/
+!workspace/services/pi_liaison/.env.template
 
 # Docker temp and local override files
 .docker/

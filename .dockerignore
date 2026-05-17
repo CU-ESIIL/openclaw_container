@@ -3,6 +3,10 @@
 .env
 .env.*
 !.env.example
+secrets
+*.pem
+*.key
+*.token
 .openclaw
 workspace/*
 !workspace/.gitkeep

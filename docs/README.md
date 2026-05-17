@@ -4,6 +4,10 @@ OpenClaw Local Docker is a small project for building and running the OpenClaw C
 
 It persists OpenClaw state in `~/.openclaw`, keeps OAuth auth-profile secrets under that same mount, mounts only `./workspace` into the container, and includes helpers for ChatGPT/Codex OAuth login when that route is available.
 
+The image also bootstraps local defaults before each command runs: local Gateway mode, Docker-friendly Gateway bind settings, token auth, Control UI origins for local browser use, a Codex default model, and starter workspace files from `docker/seed-workspace`.
+
+The default workspace is a scientific working group scaffold for environmental data science. It includes 11 bounded roles, a PI Liaison gateway, shared memory registers, project folders, skeptic review, and human approval rules.
+
 ## Quick Start
 
 ```bash
@@ -14,6 +18,8 @@ scripts/status.sh
 ```
 
 If OpenClaw opens a login URL from inside Docker, copy it into your laptop browser. If the CLI asks for a callback URL, paste the full browser redirect URL back into the terminal.
+
+Generated documents, heartbeat notes, soul files, and memory should be written under `/workspace` inside the container. They appear on the host under `./workspace`.
 
 ## Auth Options
 

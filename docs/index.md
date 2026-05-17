@@ -25,6 +25,18 @@ Run an agent on your laptop, keep the workspace sandboxed, and authenticate with
 
   Keep agent access focused on `./workspace` instead of exposing your whole home directory or unrelated cloud folders.
 
+- **Bootstrapped defaults**
+
+  ---
+
+  Start with the local Gateway, Control UI origins, Codex model route, and starter heartbeat/soul workspace files already initialized by the image.
+
+- **Scientific working group**
+
+  ---
+
+  Use an 11-role environmental data science scaffold with a PI Liaison, shared memory, evidence standards, skeptic review, and human approval gates.
+
 </div>
 
 ## Start Here
@@ -36,3 +48,5 @@ scripts/status.sh
 ```
 
 The full walkthrough is in the [README](README.md). The [pricing comparison](pricing.md) explains when OAuth, API keys, hosted service, or local models make sense.
+
+Read [Security](security.md) before connecting Slack tokens to the PI Liaison.

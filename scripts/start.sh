@@ -6,6 +6,14 @@ cd "${repo_root}"
 
 mkdir -p "${HOME}/.openclaw" "${repo_root}/workspace"
 
+if [ "${OPENCLAW_START_PI_LIAISON:-1}" != "0" ]; then
+  case "${1:-}" in
+    ""|bash|/bin/bash|sh|/bin/sh)
+      "${repo_root}/scripts/check-secrets.sh"
+      ;;
+  esac
+fi
+
 if [ "$#" -eq 0 ]; then
   docker compose run --rm --service-ports openclaw-local
 else
