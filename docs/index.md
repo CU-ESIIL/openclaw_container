@@ -5,7 +5,9 @@ Run an agent on your laptop, keep the workspace sandboxed, and authenticate with
 [Read the setup guide](setup.md){ .md-button .md-button--primary }
 [Alpha baseline](alpha.md){ .md-button }
 [Operations](operations.md){ .md-button }
+[Model routing](model-routing.md){ .md-button }
 [Model/auth options](model-options.md){ .md-button }
+[Example snapshots](example-snapshots.md){ .md-button }
 
 <div class="grid cards" markdown>
 
@@ -54,3 +56,7 @@ The full walkthrough is in the [setup guide](setup.md). The [model/auth options]
 Read [Security](security.md) before connecting Slack tokens to the PI Liaison.
 
 Use the [Operations guide](operations.md) for the reproducible Slack pairing, live Gateway OAuth refresh, and smoke-test sequence.
+
+Use [Model routing](model-routing.md) to keep the PI Liaison and Scientific Director on high-reliability routes while testing open-model APIs for bounded specialist roles.
+
+Use [Example snapshots](example-snapshots.md) to see curated outputs captured from live container sessions without committing the whole local workspace.

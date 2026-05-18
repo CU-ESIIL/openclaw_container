@@ -29,6 +29,7 @@ For Slack-connected operation, follow the Gateway, Slack pairing, and live OAuth
 - PI Liaison startup prompt in `prompts/pi-liaison-startup.md`.
 - Working-group memory files: `MEMORY.md`, `ROADMAP.md`, `DECISIONS.md`, `ASSUMPTIONS.md`, and `HUMAN_REVIEW.md`.
 - Intake and routing files: `PROJECT_INTAKE.md`, `PROJECT_CHARTER.md`, `TEAM_BRIEF.md`, `INITIAL_TASKS.md`, `QUESTIONS_FOR_USER.md`, and `USER_CONTEXT.md`.
+- Role-based model routing file: `MODEL_ASSIGNMENTS.md`.
 - Directory READMEs for documents, analysis, figures, literature, meetings, daily notes, agent reports, logs, heartbeat, soul, prompts, services, and scripts.
 - Slack secret validation and masking helpers.
 

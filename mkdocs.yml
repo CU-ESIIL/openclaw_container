@@ -7,7 +7,9 @@ nav:
   - Scientific Working Group: working-group.md
   - Operations: operations.md
   - Security: security.md
+  - Model Routing: model-routing.md
   - Model/Auth Options: model-options.md
+  - Example Snapshots: example-snapshots.md
   - Setup Guide: setup.md
 
 theme:

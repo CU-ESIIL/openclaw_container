@@ -18,6 +18,10 @@ The alpha image seeds `/workspace` with the PI Liaison workflow, 11 bounded agen
 
 Slack is configured from local environment variables, not baked into the image. When Slack tokens are present, startup registers the Slack channel with OpenClaw using environment-backed credentials.
 
+Model routing is role-aware. The PI Liaison and Scientific Director should stay on OpenAI/Codex OAuth or another approved high-reliability route, while narrower specialist agents can be evaluated against open-model API endpoints. The seeded workspace includes `MODEL_ASSIGNMENTS.md` for recording those choices.
+
+Curated outputs from live container sessions can be preserved under `examples/`. The live `workspace/` directory stays ignored so local source materials, credentials, auth state, and project-specific runtime files are not accidentally committed.
+
 ## Why Docker?
 
 Docker keeps OpenClaw, Node, and supporting shell tools separate from your laptop setup. You can rebuild the image, remove containers, or change project files without installing the OpenClaw CLI directly on macOS.
@@ -83,6 +87,25 @@ SLACK_BOT_TOKEN=xoxb-your-real-token
 SLACK_APP_TOKEN=xapp-1-APPID-INSTALLID-your-real-token
 SLACK_DEFAULT_CHANNEL=#science-working-group
 ```
+
+Optional open-model API experiment variables can also live in `.env`:
+
+```dotenv
+VERDE_LLM_BASE_URL=https://llm-api.cyverse.ai/v1
+VERDE_LLM_API_KEY=
+VERDE_LLM_DEFAULT_MODEL=
+VERDE_LLM_PROVIDER_NAME=verde
+```
+
+AI-VERDE API documentation is available at <https://aiverde-docs.cyverse.ai/api/>. After adding a local key, list available models with:
+
+```bash
+curl -s -L "${VERDE_LLM_BASE_URL}/models" \
+  -H "Authorization: Bearer ${VERDE_LLM_API_KEY}" \
+  -H "Content-Type: application/json"
+```
+
+The currently documented candidate model inventory is in `docs/model-routing.md` and seeded into `/workspace/MODEL_ASSIGNMENTS.md`. Confirm availability with the API before assigning a model to a role.
 
 Before startup, run:
 
@@ -200,6 +223,8 @@ The default setup includes 11 bounded roles in `/workspace/AGENTS.md`:
 - Societal Impact / Translation Agent
 
 Use `AGENTS.md` as the role charter. Each role has a mission, responsibilities, allowed changes, actions that require approval, required outputs, review cadence, and failure modes. The structure is intentionally bounded so autonomous work has a clear scope.
+
+Use `MODEL_ASSIGNMENTS.md` as the routing register. Keep the PI Liaison and Scientific Director on the most reliable approved route, and evaluate open-model APIs first on bounded specialist tasks before promoting them to defaults.
 
 Start a project by drafting a project charter in `/workspace/documents`. The charter should define the research question, intended outputs, candidate data sources, expected review gates, and any sensitive domains that require extra human review.
 

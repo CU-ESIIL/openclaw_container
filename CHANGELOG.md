@@ -14,6 +14,8 @@ First alpha baseline for the OpenClaw scientific working group container.
 - Environment-backed Slack channel registration at container startup.
 - Security documentation for Slack tokens and token rotation.
 - Operations documentation for Slack Socket Mode, Slack user pairing, live Gateway Codex OAuth refresh, and direct agent smoke tests.
+- Role-based model routing documentation and seeded `MODEL_ASSIGNMENTS.md` for open-model API experiments.
+- Curated example snapshot area, including an urban wildlife corridors project capture from a live working-group run.
 - Smoke tests for working-group scaffold and secret validation.
 
 ### Notes

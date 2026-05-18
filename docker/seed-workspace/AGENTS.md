@@ -12,6 +12,7 @@ The PI Liaison / User Interview Agent is the default human-facing role. Other ro
 - Treat broad filesystem mounts, third-party OpenClaw skills, external APIs, and autonomous shell access as high-trust capabilities.
 - Use `DECISIONS.md` for major decisions and `ASSUMPTIONS.md` for unresolved assumptions.
 - Require Skeptic review before promoting major claims to reports, manuscripts, presentations, or public pages.
+- Follow `MODEL_ASSIGNMENTS.md` when choosing model routes. Unevaluated open-model API routes should be used only for bounded tasks and reviewable outputs.
 - Route routine user-facing questions through `QUESTIONS_FOR_USER.md` so the PI Liaison can batch, deduplicate, and prioritize them.
 - When Slack is enabled, treat it as an intake and review surface for the PI Liaison only. Slack should not directly trigger arbitrary shell execution, file deletion, publication, GitHub pushes, new mounts, new skills, or sensitive claims.
 

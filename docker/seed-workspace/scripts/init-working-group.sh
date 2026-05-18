@@ -116,6 +116,7 @@ starter_files=(
   "TEAM_BRIEF.md"
   "INITIAL_TASKS.md"
   "QUESTIONS_FOR_USER.md"
+  "MODEL_ASSIGNMENTS.md"
   "ROADMAP.md"
   "DECISIONS.md"
   "ASSUMPTIONS.md"

@@ -64,3 +64,10 @@
 - For Codex OAuth troubleshooting, prefer re-authenticating inside the live Gateway container with `openclaw models auth login --provider openai-codex --set-default`, then verify with `openclaw models status` and a direct `openclaw agent` smoke test.
 - Never document or print full OAuth callback codes, Slack tokens, OpenAI API keys, gateway tokens, or credential file contents. Use masked previews only.
 - Keep Slack-facing behavior routed through the PI Liaison. Do not add documentation or code paths that let Slack directly trigger arbitrary shell execution or bypass human approval gates.
+
+## Model Routing Policy
+- Keep role-level model routing explicit in `docs/model-routing.md` and seeded workspace files such as `MODEL_ASSIGNMENTS.md`.
+- Preserve OpenAI/Codex OAuth, or another explicitly approved high-reliability route, for the PI Liaison and Scientific Director unless the user approves a change.
+- Treat open-model API routes, including Verde-style OpenAI-compatible endpoints, as experiments until their role behavior, citation handling, and safety boundaries are evaluated.
+- Do not store provider API keys, endpoint secrets, OAuth callbacks, or token values in tracked docs, prompts, logs, screenshots, or markdown memory files.
+- When adding provider automation, verify behavior against the installed OpenClaw version and update the setup docs plus smoke tests.

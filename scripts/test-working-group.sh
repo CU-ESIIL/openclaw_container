@@ -50,6 +50,7 @@ required_files=(
   TEAM_BRIEF.md
   INITIAL_TASKS.md
   QUESTIONS_FOR_USER.md
+  MODEL_ASSIGNMENTS.md
   prompts/README.md
   prompts/pi-liaison-startup.md
   services/README.md

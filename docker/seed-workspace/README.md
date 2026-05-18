@@ -8,12 +8,13 @@ This `/workspace` directory is the persistent scientific working area for OpenCl
 2. Draft or review `PROJECT_CHARTER.md`.
 3. Let the PI Liaison create `TEAM_BRIEF.md` and `INITIAL_TASKS.md`.
 4. Record initial assumptions in `ASSUMPTIONS.md`.
-5. Use `ROADMAP.md` to choose the current project phase.
-6. Put literature and citation notes in `literature/`.
-7. Put reproducible scripts in `scripts/` and analysis outputs in `analysis/`.
-8. Put figures in `figures/`, with notes linking each figure to scripts and data sources.
-9. Require Skeptic review before promoting major claims.
-10. Use `HUMAN_REVIEW.md` before any external, destructive, expensive, or sensitive action.
+5. Check `MODEL_ASSIGNMENTS.md` before routing work to a model or provider.
+6. Use `ROADMAP.md` to choose the current project phase.
+7. Put literature and citation notes in `literature/`.
+8. Put reproducible scripts in `scripts/` and analysis outputs in `analysis/`.
+9. Put figures in `figures/`, with notes linking each figure to scripts and data sources.
+10. Require Skeptic review before promoting major claims.
+11. Use `HUMAN_REVIEW.md` before any external, destructive, expensive, or sensitive action.
 
 ## Directory Map
 
@@ -35,6 +36,10 @@ This `/workspace` directory is the persistent scientific working area for OpenCl
 The PI Liaison / User Interview Agent is the default human-facing role. Other agents should file questions in `QUESTIONS_FOR_USER.md` instead of interrupting the user directly. The PI Liaison deduplicates those questions, asks only the highest-value followups, and returns milestone reports or drafts to the user for review.
 
 When Slack is enabled, Slack is an intake and review surface for the PI Liaison, not a direct execution channel for the whole working group. Slack users should be paired intentionally, and requests that affect credentials, filesystem access, publishing, external APIs, or sensitive claims still require human review.
+
+## Model Routing
+
+Use `MODEL_ASSIGNMENTS.md` to decide which model route each role should use. The PI Liaison and Scientific Director should stay on the most reliable approved route, while bounded specialist tasks can be used to evaluate open-model API endpoints. Record model changes and failures in `DECISIONS.md` or `agent_reports/model_evaluations.md`.
 
 ## Security Notes
 
