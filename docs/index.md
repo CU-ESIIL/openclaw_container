@@ -2,7 +2,7 @@
 
 Run an agent on your laptop, keep the workspace sandboxed, and authenticate with ChatGPT/Codex OAuth when available.
 
-[Read the setup guide](README.md){ .md-button .md-button--primary }
+[Read the setup guide](setup.md){ .md-button .md-button--primary }
 [Alpha baseline](alpha.md){ .md-button }
 [Operations](operations.md){ .md-button }
 [Model/auth options](model-options.md){ .md-button }
@@ -49,7 +49,7 @@ scripts/login-codex.sh
 scripts/status.sh
 ```
 
-The full walkthrough is in the [README](README.md). The [model/auth options](model-options.md) page explains when OAuth, API keys, hosted service, or local models make sense.
+The full walkthrough is in the [setup guide](setup.md). The [model/auth options](model-options.md) page explains when OAuth, API keys, hosted service, or local models make sense.
 
 Read [Security](security.md) before connecting Slack tokens to the PI Liaison.
 

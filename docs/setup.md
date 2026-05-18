@@ -1,4 +1,4 @@
-# README
+# Setup Guide
 
 OpenClaw Local Docker is a small project for building and running the OpenClaw CLI on your laptop in Docker.
 

@@ -8,7 +8,7 @@ nav:
   - Operations: operations.md
   - Security: security.md
   - Model/Auth Options: model-options.md
-  - README: README.md
+  - Setup Guide: setup.md
 
 theme:
   name: material
