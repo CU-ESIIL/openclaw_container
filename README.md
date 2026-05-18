@@ -45,6 +45,78 @@ scripts/init-data-layout.sh --data-root ./data
 
 The image also includes baseline scientific and development tools: `git`, `gh`, `curl`, `wget`, `jq`, `ripgrep`, `tree`, `tmux`, `vim`, `nano`, `pandoc`, `poppler-utils`, `imagemagick`, `ghostscript`, `qpdf`, `gdal-bin`, `proj-bin`, LibreOffice, Python, `uv`, JupyterLab, and Playwright Python bindings. Example conversion scripts live in `examples/`.
 
+## Distributed Spatial-Temporal Runtime
+
+ScienceClaw includes a bounded worker-job scaffold for future distributed environmental analysis. Kubernetes sub-agents are isolated execution jobs, not autonomous personalities. A trusted role or human reviewer defines a task YAML, a local worker or Kubernetes Job runs it, the worker streams data where possible, outputs are written to `/data/outputs`, and humans inspect artifacts before further action.
+
+```text
+ScienceClaw UI / Agent
+        |
+        v
+Task Config YAML
+        |
+        v
+Local Worker or Kubernetes Job
+        |
+        v
+Stream STAC / COG / Zarr Data
+        |
+        v
+Write Reports, Figures, Tables, Logs
+        |
+        v
+Output Viewer / Workspace UI
+        |
+        v
+Human Review
+```
+
+Task configs live under `examples/spatiotemporal/tasks/` and should declare explicit inputs, analysis type, and outputs. The initial worker lives in `workers/spatiotemporal-worker/`.
+
+Run the local worker path without a Kubernetes cluster:
+
+```bash
+SCIENCECLAW_WORKER_OFFLINE=1 ./scripts/run_worker_local.sh examples/spatiotemporal/tasks/example_stac_preview.yaml --offline
+python3 scripts/build_output_index.py --data-root ./data
+```
+
+Worker outputs follow this pattern:
+
+```text
+/data/outputs/jobs/<job-id>/
+  task.yaml
+  status.json
+  logs.txt
+  metadata.json
+  report.html
+  report.md
+  figures/
+  tables/
+  maps/
+```
+
+Use the optional browser workspace UI to inspect outputs:
+
+```bash
+docker compose up workspace-ui
+```
+
+Then open `http://127.0.0.1:8888` and browse `/data/outputs/index.html`, reports, figures, tables, maps, logs, notebooks, and workspace files.
+
+The optional Kubernetes scaffold lives in `deploy/kubernetes/`. It includes namespace, PVC, minimal RBAC, service account, example Job, worker Pod spec, ConfigMap task injection, and secret-mounting patterns. Kubernetes is not required for local use, kubeconfig is not baked into the image, and no cluster-admin permissions are granted.
+
+The stream-first stack supports STAC catalog search, COG window reads, Zarr access, object-storage access, HTTP range requests, and derived outputs. Installed or supported packages include GDAL, PROJ, GEOS, libspatialindex, rasterio, rioxarray, xarray, dask, zarr, geopandas, shapely, pyproj, fsspec, s3fs, gcsfs, aiohttp, requests, numpy, pandas, matplotlib, pyarrow, duckdb, pystac-client, odc-stac, stackstac, and folium. Heavier extras such as `leafmap`, `rio-cogeo`, `cogeo-mosaic`, `planetary-computer`, `hvplot`, `holoviews`, and `datashader` should be evaluated per deployment.
+
+Safety rules:
+
+- no arbitrary shell execution by default
+- no uncontrolled recursive job spawning
+- no broad Kubernetes permissions
+- no baked credentials or kubeconfig
+- no large source-data downloads in examples
+- resource limits and explicit output directories required
+- human review before publication, policy claims, expensive jobs, or downstream action
+
 ## Why Docker?
 
 Docker keeps OpenClaw, Node, and supporting shell tools separate from your laptop setup. You can rebuild the image, remove containers, or change project files without installing the OpenClaw CLI directly on macOS.
@@ -192,7 +264,7 @@ Start the optional browser workspace UI:
 docker compose up workspace-ui
 ```
 
-Then open `http://127.0.0.1:8888` with the `WORKSPACE_UI_TOKEN` value from `.env` or the default local token `scienceclaw`.
+Then open `http://127.0.0.1:8888` with the `WORKSPACE_UI_TOKEN` value from `.env` or the default local token `scienceclaw`. The file browser is rooted at `/data`, so generated outputs and the mounted workspace are visible.
 
 Verify Slack Socket Mode:
 

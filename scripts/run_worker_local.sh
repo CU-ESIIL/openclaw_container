@@ -72,6 +72,16 @@ if ! command -v docker >/dev/null 2>&1; then
   exit $?
 fi
 
+if ! docker info >/dev/null 2>&1; then
+  echo "Docker is not reachable; falling back to direct Python mode." >&2
+  if [ "${offline}" -eq 1 ]; then
+    SCIENCECLAW_WORKER_MODE=direct "$0" "${task_path}" --offline
+  else
+    SCIENCECLAW_WORKER_MODE=direct "$0" "${task_path}"
+  fi
+  exit $?
+fi
+
 if ! docker image inspect "${worker_image}" >/dev/null 2>&1; then
   docker build \
     -f "${repo_root}/workers/spatiotemporal-worker/Dockerfile" \

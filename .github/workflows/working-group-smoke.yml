@@ -21,5 +21,8 @@ jobs:
       - name: Run ScienceClaw layout smoke test
         run: scripts/test-scienceclaw-layout.sh
 
+      - name: Run spatiotemporal runtime smoke test
+        run: scripts/test-spatiotemporal-runtime.sh
+
       - name: Run secret smoke test
         run: scripts/test-secrets.sh

@@ -56,6 +56,12 @@ Slack should talk only to the PI Liaison, not directly to execution agents. Slac
 
 Slack must never directly trigger arbitrary shell execution. Any request that would delete files, push to GitHub, install skills, mount directories, use billed APIs, publish content, or make sensitive claims still requires human review.
 
+## Worker and Kubernetes boundary
+
+ScienceClaw worker jobs are bounded execution units, not autonomous sub-agent swarms. A trusted agent may draft a task YAML and summarize results, but cluster execution, new worker images, new mounts, broader RBAC, expensive runs, or external APIs with billing implications require human approval.
+
+Kubernetes deployments should use namespace isolation, minimal Role permissions, resource limits, explicit task ConfigMaps, and persistent output volumes. Do not mount kubeconfig, cloud credentials, or broad host paths into ScienceClaw containers unless a human owner approves the exact scope.
+
 ## Slack app setup checklist
 
 For inbound Slack messages, Socket Mode credentials are necessary but not sufficient. The Slack app also needs message surfaces and events enabled.

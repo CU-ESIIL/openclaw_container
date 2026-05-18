@@ -14,4 +14,5 @@ Examples should include generated reports, analysis scripts, outputs, figures, a
 | `image_thumbnail_example.sh` | Create a thumbnail with ImageMagick. |
 | `playwright_screenshot_example.py` | Capture a web page screenshot with Playwright after browser binaries are installed. |
 | `notebook_placeholder.ipynb` | Minimal notebook scaffold for persistent `/data/notebooks` workflows. |
+| `spatiotemporal/` | Stream-first STAC, COG, Zarr, worker-job, and output-index examples. |
 | `urban_wildlife_corridors/` | Agent-generated project snapshot for an urban wildlife corridor simulation and manuscript-scaffold discussion. |

@@ -56,7 +56,7 @@ scripts/init-data-layout.sh --data-root /tmp/scienceclaw-data
 
 ## Workspace Interface
 
-The OpenClaw service exposes the Gateway and Control UI on `127.0.0.1:18789`. The optional `workspace-ui` service exposes JupyterLab on `127.0.0.1:8888` and points at `/data/workspace`.
+The OpenClaw service exposes the Gateway and Control UI on `127.0.0.1:18789`. The optional `workspace-ui` service exposes JupyterLab on `127.0.0.1:8888` and points at `/data` so outputs, logs, notebooks, and the mounted workspace are browser-inspectable.
 
 ```bash
 docker compose up openclaw-local
@@ -70,6 +70,10 @@ The default Jupyter token is `scienceclaw`; set `WORKSPACE_UI_TOKEN` in `.env` f
 The image includes baseline developer and scientific utilities: `git`, `gh`, `curl`, `wget`, `jq`, `ripgrep`, `tree`, `tmux`, `vim`, `nano`, `pandoc`, `poppler-utils`, `imagemagick`, `ghostscript`, `qpdf`, `gdal-bin`, `proj-bin`, LibreOffice, Python, `uv`, JupyterLab, and Playwright Python bindings.
 
 Document conversion examples live in `examples/`. Playwright browser binaries are intentionally not baked in by default; install them in a running container when that workflow is needed.
+
+## Distributed Runtime
+
+The [Distributed Spatial-Temporal Runtime](distributed-runtime.md) adds a bounded worker execution pattern for STAC, COG, Zarr, and object-storage workflows. It supports local worker runs first, with optional Kubernetes Job manifests for future lab or cloud execution.
 
 ## Safety Boundary
 

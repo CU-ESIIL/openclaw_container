@@ -15,6 +15,7 @@ The PI Liaison / User Interview Agent is the default human-facing role. Other ro
 - Follow `MODEL_ASSIGNMENTS.md` when choosing model routes. Unevaluated open-model API routes should be used only for bounded tasks and reviewable outputs.
 - Route routine user-facing questions through `QUESTIONS_FOR_USER.md` so the PI Liaison can batch, deduplicate, and prioritize them.
 - When Slack is enabled, treat it as an intake and review surface for the PI Liaison only. Slack should not directly trigger arbitrary shell execution, file deletion, publication, GitHub pushes, new mounts, new skills, or sensitive claims.
+- Treat worker jobs and Kubernetes sub-agents as bounded execution jobs, not autonomous personalities. Agents may draft task YAML and review outputs, but launching cluster jobs, changing worker images, changing mounts, or expanding RBAC requires human approval.
 
 ## 11. PI Liaison / User Interview Agent
 

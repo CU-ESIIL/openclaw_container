@@ -18,6 +18,9 @@ required_dirs=(
   "outputs/reports"
   "outputs/figures"
   "outputs/tables"
+  "outputs/maps"
+  "outputs/logs"
+  "outputs/jobs"
   "logs"
   "skills/core"
   "skills/experimental"
@@ -49,6 +52,9 @@ required_scripts=(
   "examples/markdown_to_html.sh"
   "examples/image_thumbnail_example.sh"
   "examples/playwright_screenshot_example.py"
+  "scripts/build_output_index.py"
+  "scripts/run_worker_local.sh"
+  "scripts/test-spatiotemporal-runtime.sh"
 )
 
 for script in "${required_scripts[@]}"; do

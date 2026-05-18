@@ -6,6 +6,7 @@ nav:
   - ScienceClaw Workspace: scienceclaw.md
   - Alpha Baseline: alpha.md
   - Scientific Working Group: working-group.md
+  - Distributed Runtime: distributed-runtime.md
   - Operations: operations.md
   - Security: security.md
   - Template Governance: template-governance.md

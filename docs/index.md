@@ -7,6 +7,7 @@ Run an environmental synthesis workspace on your laptop, keep agent access narro
 [Alpha baseline](alpha.md){ .md-button }
 [Operations](operations.md){ .md-button }
 [Template governance](template-governance.md){ .md-button }
+[Distributed runtime](distributed-runtime.md){ .md-button }
 [Model routing](model-routing.md){ .md-button }
 [Model/auth options](model-options.md){ .md-button }
 [Example snapshots](example-snapshots.md){ .md-button }
@@ -43,6 +44,12 @@ Run an environmental synthesis workspace on your laptop, keep agent access narro
 
   Use an 11-role environmental data science scaffold with a PI Liaison, shared memory, evidence standards, skeptic review, and human approval gates.
 
+- **Distributed runtime**
+
+  ---
+
+  Launch bounded local worker jobs now and render optional Kubernetes Job manifests for future stream-first spatial-temporal analysis.
+
 </div>
 
 ## Start Here
@@ -56,6 +63,8 @@ scripts/status.sh
 The full walkthrough is in the [setup guide](setup.md). The [model/auth options](model-options.md) page explains when OAuth, API keys, hosted service, or local models make sense.
 
 Use [ScienceClaw Workspace](scienceclaw.md) for the `/data` layout, brand foundation, optional JupyterLab workspace UI, and installed tool baseline.
+
+Use [Distributed runtime](distributed-runtime.md) for worker jobs, STAC/COG/Zarr examples, Kubernetes scaffolding, and output indexing.
 
 Read [Security](security.md) before connecting Slack tokens to the PI Liaison.
 

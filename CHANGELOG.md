@@ -19,6 +19,7 @@ First alpha baseline for the OpenClaw scientific working group container.
 - Seeded template governance package: team norms, decision protocol, memory quarantine, artifact registry, societal impact checklist, meeting template, data directories, and role reproducibility notes.
 - ScienceClaw `/data` layout, optional JupyterLab workspace UI, baseline scientific shell tools, document conversion examples, and brand assets.
 - ScienceClaw documentation page with ESIIL-informed palette and workspace architecture notes.
+- Bounded distributed spatial-temporal runtime scaffold with a local worker path, optional Kubernetes manifests, STAC/COG/Zarr examples, output indexing, and job metadata conventions.
 - Smoke tests for working-group scaffold and secret validation.
 
 ### Notes

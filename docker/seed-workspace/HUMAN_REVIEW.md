@@ -14,6 +14,8 @@ Human approval is required before any agent performs or finalizes the actions be
 - Making claims about communities, Tribes, Indigenous knowledge, public health, legal rules, or policy recommendations
 - Running expensive or long jobs
 - Using external APIs with billing implications
+- Launching Kubernetes Jobs or other worker containers outside the approved local test path
+- Changing worker image allowlists, Kubernetes RBAC, mounted volumes, or resource limits
 
 ## Review Expectations
 
