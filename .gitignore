@@ -7,6 +7,8 @@ workspace/*
 !.env.example
 !docker/seed-workspace/services/pi_liaison/.env.template
 logs/
+!docker/seed-workspace/logs/
+!docker/seed-workspace/logs/README.md
 *.log
 secrets/
 *.pem

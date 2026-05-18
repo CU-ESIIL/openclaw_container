@@ -12,6 +12,8 @@ secrets
 workspace/*
 !workspace/.gitkeep
 logs
+!docker/seed-workspace/logs
+!docker/seed-workspace/logs/README.md
 *.log
 site
 dist
