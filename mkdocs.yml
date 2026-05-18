@@ -1,12 +1,14 @@
-site_name: "OpenClaw Local Docker"
-site_description: "Run OpenClaw locally in Docker with optional ChatGPT/Codex OAuth."
+site_name: "ScienceClaw"
+site_description: "AI-native environmental synthesis workspace built on OpenClaw."
 
 nav:
   - Home: index.md
+  - ScienceClaw Workspace: scienceclaw.md
   - Alpha Baseline: alpha.md
   - Scientific Working Group: working-group.md
   - Operations: operations.md
   - Security: security.md
+  - Template Governance: template-governance.md
   - Model Routing: model-routing.md
   - Model/Auth Options: model-options.md
   - Example Snapshots: example-snapshots.md
@@ -14,6 +16,11 @@ nav:
 
 theme:
   name: material
+  logo: assets/brand/scienceclaw.png
+  favicon: assets/brand/scienceclaw.png
+  palette:
+    primary: custom
+    accent: custom
   features:
     - navigation.sections
     - navigation.top

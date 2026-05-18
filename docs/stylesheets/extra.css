@@ -1,5 +1,15 @@
 :root {
-  --openclaw-accent: #0f766e;
+  --scienceclaw-primary-blue: #234a65;
+  --scienceclaw-accent-blue: #42bcdc;
+  --scienceclaw-accent-green: #007135;
+  --scienceclaw-body: #161a19;
+  --scienceclaw-gray: #e3e3e3;
+  --md-primary-fg-color: var(--scienceclaw-primary-blue);
+  --md-primary-fg-color--light: #2d668d;
+  --md-primary-fg-color--dark: #153247;
+  --md-accent-fg-color: var(--scienceclaw-accent-blue);
+  --md-typeset-a-color: #006c8c;
+  --openclaw-accent: var(--scienceclaw-accent-green);
 }
 
 .md-content h1 {
@@ -22,4 +32,53 @@
 
 .md-typeset table:not([class]) th {
   min-width: 8rem;
+}
+
+.scienceclaw-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(8rem, 14rem);
+  gap: 1.25rem;
+  align-items: center;
+  padding: 1.2rem;
+  border: 1px solid var(--scienceclaw-gray);
+  border-radius: 0.45rem;
+}
+
+.scienceclaw-hero img {
+  width: 100%;
+  max-width: 13rem;
+  justify-self: end;
+}
+
+.scienceclaw-palette {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  gap: 0.75rem;
+}
+
+.scienceclaw-swatch {
+  border: 1px solid var(--scienceclaw-gray);
+  border-radius: 0.45rem;
+  overflow: hidden;
+}
+
+.scienceclaw-swatch span {
+  display: block;
+  min-height: 3rem;
+}
+
+.scienceclaw-swatch code {
+  display: block;
+  padding: 0.5rem;
+  background: transparent;
+}
+
+@media screen and (max-width: 44rem) {
+  .scienceclaw-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .scienceclaw-hero img {
+    justify-self: start;
+  }
 }

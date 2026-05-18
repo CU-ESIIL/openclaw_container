@@ -1,12 +1,13 @@
-# OpenClaw Local Docker
+# ScienceClaw
 
-Run OpenClaw locally in Docker with a small, persistent workspace and support for ChatGPT/Codex OAuth login when your installed OpenClaw version and account allow it.
+ScienceClaw is an AI-native environmental synthesis workspace built on OpenClaw. It runs locally in Docker, keeps agent access focused on a narrow workspace, and supports ChatGPT/Codex OAuth login when your installed OpenClaw version and account allow it.
 
 This repository gives you:
 
-- a local Docker image for the OpenClaw CLI
-- a Compose service with a persisted `/root/.openclaw` config directory
+- a local Docker image for the OpenClaw CLI plus scientific utilities
+- a Compose service with a persisted `/data/.openclaw` config directory
 - image-level bootstrap defaults for the local Gateway, Control UI origins, default model, and starter workspace files
+- an optional browser workspace UI through JupyterLab
 - helper scripts for build, shell access, Codex OAuth login, and model status
 - a simple MkDocs site with setup, security, and model/auth option notes
 
@@ -22,16 +23,39 @@ Model routing is role-aware. The PI Liaison and Scientific Director should stay 
 
 Curated outputs from live container sessions can be preserved under `examples/`. The live `workspace/` directory stays ignored so local source materials, credentials, auth state, and project-specific runtime files are not accidentally committed.
 
+The default workspace also includes reusable governance templates: team norms, decision protocol, memory quarantine, artifact registry, societal impact checklist, role reproducibility notes, data provenance folders, and a meeting template.
+
+## ScienceClaw Workspace
+
+The alpha container initializes a persistent `/data` layout alongside the compatibility `/workspace` mount:
+
+- `/data/.openclaw` for OpenClaw state and auth profiles
+- `/data/workspace` for the primary scientific workspace, also mounted as `/workspace`
+- `/data/downloads` for user-approved downloads awaiting provenance notes
+- `/data/outputs/reports`, `/data/outputs/figures`, and `/data/outputs/tables` for generated artifacts
+- `/data/skills/core`, `/data/skills/experimental`, and `/data/skills/local` for future tool extension
+- `/data/notebooks` for persistent notebooks
+- `/data/stac` for geospatial catalog examples or configuration
+
+Initialize or inspect that layout with:
+
+```bash
+scripts/init-data-layout.sh --data-root ./data
+```
+
+The image also includes baseline scientific and development tools: `git`, `gh`, `curl`, `wget`, `jq`, `ripgrep`, `tree`, `tmux`, `vim`, `nano`, `pandoc`, `poppler-utils`, `imagemagick`, `ghostscript`, `qpdf`, `gdal-bin`, `proj-bin`, LibreOffice, Python, `uv`, JupyterLab, and Playwright Python bindings. Example conversion scripts live in `examples/`.
+
 ## Why Docker?
 
 Docker keeps OpenClaw, Node, and supporting shell tools separate from your laptop setup. You can rebuild the image, remove containers, or change project files without installing the OpenClaw CLI directly on macOS.
 
 The important persistent pieces are mounted from the host:
 
-- `~/.openclaw` -> `/root/.openclaw` for OpenClaw config, sessions, and auth profiles
-- `./workspace` -> `/workspace` for files you intentionally let the agent see
+- `~/.openclaw` -> `/data/.openclaw` for OpenClaw config, sessions, and auth profiles
+- `./data` -> `/data` for persistent runtime state and outputs
+- `./workspace` -> `/data/workspace` and `/workspace` for files you intentionally let the agent see
 
-The container sets `OPENCLAW_AUTH_PROFILE_SECRET_DIR=/root/.openclaw/auth-profile-secrets` so OAuth profile encryption state is kept inside the same persisted mount.
+The container sets `OPENCLAW_AUTH_PROFILE_SECRET_DIR=/data/.openclaw/auth-profile-secrets` so OAuth profile encryption state is kept inside the same persisted mount.
 
 Avoid mounting your whole home directory. Keep the workspace small and explicit.
 
@@ -162,6 +186,14 @@ Start a long-running Gateway for Slack inbound messages:
 scripts/start-gateway.sh
 ```
 
+Start the optional browser workspace UI:
+
+```bash
+docker compose up workspace-ui
+```
+
+Then open `http://127.0.0.1:8888` with the `WORKSPACE_UI_TOKEN` value from `.env` or the default local token `scienceclaw`.
+
 Verify Slack Socket Mode:
 
 ```bash
@@ -225,6 +257,8 @@ The default setup includes 11 bounded roles in `/workspace/AGENTS.md`:
 Use `AGENTS.md` as the role charter. Each role has a mission, responsibilities, allowed changes, actions that require approval, required outputs, review cadence, and failure modes. The structure is intentionally bounded so autonomous work has a clear scope.
 
 Use `MODEL_ASSIGNMENTS.md` as the routing register. Keep the PI Liaison and Scientific Director on the most reliable approved route, and evaluate open-model APIs first on bounded specialist tasks before promoting them to defaults.
+
+Use `documents/TEAM_NORMS.md`, `documents/DECISION_PROTOCOL.md`, `documents/ARTIFACT_REGISTRY.md`, and the seeded role reproducibility notes to make the working group auditable across sessions. Treat them as templates to review during project intake.
 
 Start a project by drafting a project charter in `/workspace/documents`. The charter should define the research question, intended outputs, candidate data sources, expected review gates, and any sensitive domains that require extra human review.
 
@@ -323,6 +357,16 @@ The Compose service asks Docker for about 2 CPUs and 4 GB of memory:
 - `deploy.resources.limits.memory: 4G`
 
 Docker Desktop settings still matter. If builds or agent sessions feel heavy, reduce concurrent work, keep the mounted workspace small, and avoid large generated files or logs inside `workspace/`.
+
+## Publishing Images
+
+GitHub Actions build the container for pull requests and can publish tagged releases. The GHCR workflow publishes to GitHub Container Registry. The Docker Hub workflow is optional and expects repository-level secrets or variables, not local `.env` values:
+
+- `DOCKERHUB_USERNAME`
+- `DOCKERHUB_TOKEN`
+- optional repository variable `DOCKERHUB_IMAGE`, defaulting to `cu-esiil/scienceclaw`
+
+Do not put Docker Hub publishing credentials in `.env`; that file is loaded into local runtime containers.
 
 ## Security Notes
 

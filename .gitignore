@@ -1,4 +1,6 @@
 # Local OpenClaw/Docker runtime state
+data/*
+!data/.gitkeep
 workspace/*
 !workspace/.gitkeep
 .openclaw/

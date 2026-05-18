@@ -1,4 +1,4 @@
-name: Build OpenClaw container
+name: Build ScienceClaw container
 
 on:
   push:

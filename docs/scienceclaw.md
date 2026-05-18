@@ -1,0 +1,76 @@
+# ScienceClaw Workspace
+
+<div class="scienceclaw-hero" markdown>
+
+<div markdown>
+
+ScienceClaw is the branded template layer for this OpenClaw container: a persistent environmental synthesis workspace with a PI Liaison, bounded scientific roles, durable memory, reproducible folders, and cautious human review gates.
+
+OpenClaw remains one interface into the workspace. The repository is the source of truth, `/data` is the persistent runtime root, and `/workspace` is the inspectable scientific working area that can be mounted narrowly from the host.
+
+</div>
+
+![ScienceClaw logo](assets/brand/scienceclaw.png)
+
+</div>
+
+## Brand Foundation
+
+The visual direction follows the provided ScienceClaw and ESIIL materials: modern environmental science, clean information hierarchy, restrained colors, and visible links between computation, evidence, and ecological context.
+
+<div class="scienceclaw-palette" markdown>
+
+<div class="scienceclaw-swatch" markdown><span style="background:#234a65"></span>`#234A65` Primary blue</div>
+<div class="scienceclaw-swatch" markdown><span style="background:#42bcdc"></span>`#42BCDC` Accent blue</div>
+<div class="scienceclaw-swatch" markdown><span style="background:#007135"></span>`#007135` Accent green</div>
+<div class="scienceclaw-swatch" markdown><span style="background:#161a19"></span>`#161A19` Body text</div>
+<div class="scienceclaw-swatch" markdown><span style="background:#e3e3e3"></span>`#E3E3E3` Relief gray</div>
+
+</div>
+
+Brand assets are tracked under `docs/assets/brand/` for documentation and future interface work. They are not used for secrets, auth, or runtime configuration.
+
+## Persistent Layout
+
+The container initializes a `/data` root for persistent runtime state and scientific artifacts:
+
+| Path | Purpose |
+| --- | --- |
+| `/data/.openclaw` | OpenClaw state and auth profile storage. |
+| `/data/workspace` | Primary scientific workspace, also available as `/workspace`. |
+| `/data/downloads` | User-approved downloads awaiting provenance review. |
+| `/data/outputs/reports` | Rendered reports and review packets. |
+| `/data/outputs/figures` | Generated figures and images. |
+| `/data/outputs/tables` | Generated tables and CSV summaries. |
+| `/data/skills/core` | Trusted shared skills. |
+| `/data/skills/experimental` | Opt-in skills that need review before use. |
+| `/data/skills/local` | Local deployment-specific skills. |
+| `/data/notebooks` | Persistent notebooks. |
+| `/data/stac` | STAC/geospatial catalog examples or configuration. |
+
+The initializer is idempotent:
+
+```bash
+scripts/init-data-layout.sh --data-root /tmp/scienceclaw-data
+```
+
+## Workspace Interface
+
+The OpenClaw service exposes the Gateway and Control UI on `127.0.0.1:18789`. The optional `workspace-ui` service exposes JupyterLab on `127.0.0.1:8888` and points at `/data/workspace`.
+
+```bash
+docker compose up openclaw-local
+docker compose up workspace-ui
+```
+
+The default Jupyter token is `scienceclaw`; set `WORKSPACE_UI_TOKEN` in `.env` for a local deployment.
+
+## Tools
+
+The image includes baseline developer and scientific utilities: `git`, `gh`, `curl`, `wget`, `jq`, `ripgrep`, `tree`, `tmux`, `vim`, `nano`, `pandoc`, `poppler-utils`, `imagemagick`, `ghostscript`, `qpdf`, `gdal-bin`, `proj-bin`, LibreOffice, Python, `uv`, JupyterLab, and Playwright Python bindings.
+
+Document conversion examples live in `examples/`. Playwright browser binaries are intentionally not baked in by default; install them in a running container when that workflow is needed.
+
+## Safety Boundary
+
+ScienceClaw keeps workspace access narrow by default. Mount the specific project folder you want agents to inspect, not a whole home directory. Secrets stay in `.env` or service-specific credential stores and must not be copied into Markdown memory, reports, screenshots, or logs.

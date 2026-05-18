@@ -5,11 +5,21 @@ config_dir="${OPENCLAW_CONFIG_DIR:-/root/.openclaw}"
 config_path="${OPENCLAW_CONFIG_PATH:-${config_dir}/openclaw.json}"
 workspace="${OPENCLAW_WORKSPACE:-/workspace}"
 seed_dir="/opt/openclaw/seed-workspace"
+data_root="${DATA_ROOT:-/data}"
+
+if command -v scienceclaw-init-data-layout >/dev/null 2>&1; then
+  scienceclaw-init-data-layout --data-root "${data_root}" >/tmp/scienceclaw-data-layout.log 2>&1 || {
+    echo "ScienceClaw data layout initialization failed. Recent log:" >&2
+    tail -n 80 /tmp/scienceclaw-data-layout.log >&2
+    exit 1
+  }
+fi
 
 mkdir -p \
   "${config_dir}" \
   "${config_dir}/auth-profile-secrets" \
   "${config_dir}/agents/main/sessions" \
+  "${data_root}/logs" \
   "${workspace}"
 
 if [ "${OPENCLAW_SEED_WORKSPACE:-1}" != "0" ] && [ -d "${seed_dir}" ]; then

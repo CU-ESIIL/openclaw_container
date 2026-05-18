@@ -30,6 +30,8 @@ J. What should the agents not do without asking you first?
 - `TEAM_BRIEF.md`: working brief for the scientific agents.
 - `INITIAL_TASKS.md`: first task assignments routed to the Scientific Director and Deputy Director / Integrator.
 - `QUESTIONS_FOR_USER.md`: only if important questions remain unresolved.
+- `documents/ARTIFACT_REGISTRY.md`: update when the project creates meaningful scripts, data outputs, figures, reports, or review packets.
+- Governance review note: ask whether the seeded team norms and decision protocol should be adopted, revised, or deferred.
 
 ## Intake handling rules
 
@@ -39,3 +41,4 @@ J. What should the agents not do without asking you first?
 - Record uncertainty explicitly instead of smoothing it away.
 - Route scientific planning through the Scientific Director.
 - Route coordination and artifact tracking through the Deputy Director / Integrator.
+- Keep project-specific memory isolated in `memory/quarantine/<project_slug>/` until it is deliberately promoted.

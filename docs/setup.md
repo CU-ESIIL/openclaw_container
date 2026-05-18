@@ -1,10 +1,10 @@
 # Setup Guide
 
-OpenClaw Local Docker is a small project for building and running the OpenClaw CLI on your laptop in Docker.
+ScienceClaw is a small project for building and running an OpenClaw-based environmental synthesis workspace on your laptop in Docker.
 
-It persists OpenClaw state in `~/.openclaw`, keeps OAuth auth-profile secrets under that same mount, mounts only `./workspace` into the container, and includes helpers for ChatGPT/Codex OAuth login when that route is available.
+It persists OpenClaw state in `~/.openclaw`, exposes that state inside the container at `/data/.openclaw`, mounts a narrow `./workspace` into `/data/workspace` and `/workspace`, and includes helpers for ChatGPT/Codex OAuth login when that route is available.
 
-The image also bootstraps local defaults before each command runs: local Gateway mode, Docker-friendly Gateway bind settings, token auth, Control UI origins for local browser use, a Codex default model, and starter workspace files from `docker/seed-workspace`.
+The image also bootstraps local defaults before each command runs: local Gateway mode, Docker-friendly Gateway bind settings, token auth, Control UI origins for local browser use, a Codex default model, the `/data` runtime layout, and starter workspace files from `docker/seed-workspace`.
 
 The default workspace is a scientific working group scaffold for environmental data science. It includes 11 bounded roles, a PI Liaison gateway, shared memory registers, project folders, skeptic review, and human approval rules.
 
@@ -37,6 +37,14 @@ docker exec -it <container-id> openclaw pairing approve slack <PAIRING_CODE>
 ```
 
 Generated documents, heartbeat notes, soul files, and memory should be written under `/workspace` inside the container. They appear on the host under `./workspace`.
+
+To inspect or edit files through the optional browser workspace UI:
+
+```bash
+docker compose up workspace-ui
+```
+
+Then open `http://127.0.0.1:8888` and use the `WORKSPACE_UI_TOKEN` value from `.env`, or the default local token `scienceclaw`.
 
 ## Auth Options
 

@@ -1,0 +1,56 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: scienceclaw-example-stac-preview
+  namespace: scienceclaw
+  labels:
+    app.kubernetes.io/name: scienceclaw
+    scienceclaw.esl/job-type: spatiotemporal-worker
+spec:
+  backoffLimit: 1
+  activeDeadlineSeconds: 1800
+  ttlSecondsAfterFinished: 86400
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: scienceclaw
+        scienceclaw.esl/job-type: spatiotemporal-worker
+    spec:
+      serviceAccountName: scienceclaw-job-runner
+      restartPolicy: Never
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+      containers:
+        - name: worker
+          image: ghcr.io/cu-esiil/openclaw_container/spatiotemporal-worker:latest
+          imagePullPolicy: IfNotPresent
+          args:
+            - --task
+            - /task/task.yaml
+          env:
+            - name: DATA_ROOT
+              value: /data
+            - name: SCIENCECLAW_WORKER_IMAGE
+              value: ghcr.io/cu-esiil/openclaw_container/spatiotemporal-worker:latest
+          resources:
+            requests:
+              cpu: "500m"
+              memory: 1Gi
+            limits:
+              cpu: "2"
+              memory: 4Gi
+          volumeMounts:
+            - name: scienceclaw-data
+              mountPath: /data
+            - name: task-config
+              mountPath: /task
+              readOnly: true
+      volumes:
+        - name: scienceclaw-data
+          persistentVolumeClaim:
+            claimName: scienceclaw-data
+        - name: task-config
+          configMap:
+            name: scienceclaw-example-stac-preview-task

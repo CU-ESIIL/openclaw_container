@@ -8,4 +8,10 @@ Examples should include generated reports, analysis scripts, outputs, figures, a
 
 | Example | Description |
 | --- | --- |
+| `pdf_to_text.sh` | Convert a PDF to text with `pdftotext`. |
+| `pdf_to_images.sh` | Render PDF pages to images with `pdftoppm`. |
+| `markdown_to_html.sh` | Render Markdown to HTML with `pandoc`. |
+| `image_thumbnail_example.sh` | Create a thumbnail with ImageMagick. |
+| `playwright_screenshot_example.py` | Capture a web page screenshot with Playwright after browser binaries are installed. |
+| `notebook_placeholder.ipynb` | Minimal notebook scaffold for persistent `/data/notebooks` workflows. |
 | `urban_wildlife_corridors/` | Agent-generated project snapshot for an urban wildlife corridor simulation and manuscript-scaffold discussion. |

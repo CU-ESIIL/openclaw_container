@@ -2,6 +2,8 @@
 
 This `/workspace` directory is the persistent scientific working area for OpenClaw inside the container. It is designed to behave like a small environmental data science synthesis center: bounded roles, shared memory, reproducible analysis, documented assumptions, explicit disagreement, and human review.
 
+In the ScienceClaw container this same working area is available at `/data/workspace` and `/workspace`. The broader `/data` root holds runtime state, outputs, logs, notebooks, skills, and other inspectable artifacts that should survive container restarts.
+
 ## Start Here
 
 1. Start with the PI Liaison interview in `PROJECT_INTAKE.md`.
@@ -9,16 +11,18 @@ This `/workspace` directory is the persistent scientific working area for OpenCl
 3. Let the PI Liaison create `TEAM_BRIEF.md` and `INITIAL_TASKS.md`.
 4. Record initial assumptions in `ASSUMPTIONS.md`.
 5. Check `MODEL_ASSIGNMENTS.md` before routing work to a model or provider.
-6. Use `ROADMAP.md` to choose the current project phase.
-7. Put literature and citation notes in `literature/`.
-8. Put reproducible scripts in `scripts/` and analysis outputs in `analysis/`.
-9. Put figures in `figures/`, with notes linking each figure to scripts and data sources.
-10. Require Skeptic review before promoting major claims.
-11. Use `HUMAN_REVIEW.md` before any external, destructive, expensive, or sensitive action.
+6. Review `documents/TEAM_NORMS.md` and `documents/DECISION_PROTOCOL.md` before treating local governance as settled.
+7. Use `ROADMAP.md` to choose the current project phase.
+8. Put literature and citation notes in `literature/`.
+9. Put reproducible scripts in `scripts/` and analysis outputs in `analysis/`.
+10. Put figures in `figures/`, with notes linking each figure to scripts and data sources.
+11. Require Skeptic review before promoting major claims.
+12. Use `HUMAN_REVIEW.md` before any external, destructive, expensive, or sensitive action.
 
 ## Directory Map
 
 - `documents/` - charters, reports, manuscripts, memos, and synthesis drafts
+- `data/` - intentionally added raw, processed, and derived data with provenance notes
 - `analysis/` - reproducible analysis outputs and notebooks
 - `figures/` - generated figures and figure provenance notes
 - `literature/` - papers, source notes, citation inventories, and evidence tables
@@ -28,6 +32,7 @@ This `/workspace` directory is the persistent scientific working area for OpenCl
 - `logs/` - user-requested logs or summaries
 - `heartbeat/` - periodic check notes and lightweight reminders
 - `soul/` - role tone, continuity, and working norms
+- `memory/` - structured memory and quarantined project-specific context
 - `prompts/` - startup prompts and role-specific prompt templates
 - `scripts/` - initialization, checks, reproducible workflows, and utilities
 
@@ -40,6 +45,10 @@ When Slack is enabled, Slack is an intake and review surface for the PI Liaison,
 ## Model Routing
 
 Use `MODEL_ASSIGNMENTS.md` to decide which model route each role should use. The PI Liaison and Scientific Director should stay on the most reliable approved route, while bounded specialist tasks can be used to evaluate open-model API endpoints. Record model changes and failures in `DECISIONS.md` or `agent_reports/model_evaluations.md`.
+
+## Governance Templates
+
+The seed includes reusable templates for team norms, decision protocol, artifact registry, memory quarantine, societal impact review, role reproducibility notes, and meeting records. These files make the container more reproducible, but local teams should still review them before treating them as approved governance.
 
 ## Security Notes
 

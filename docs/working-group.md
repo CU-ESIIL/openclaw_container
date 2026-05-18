@@ -8,6 +8,8 @@ The core files are simple Markdown registers. `MEMORY.md` holds durable institut
 
 `MODEL_ASSIGNMENTS.md` records which model route each role should use. The PI Liaison and Scientific Director should stay on the most reliable approved route, while open-model API endpoints can be evaluated for bounded specialist tasks before they become defaults.
 
+The seed also includes reusable governance templates: team norms, decision protocol, memory quarantine protocol, artifact registry, societal impact checklist, role reproducibility notes, and a meeting template. These make the container reproducible without requiring every new deployment to recreate working-group norms from scratch.
+
 Analyses belong in `analysis/` and reproducible utilities belong in `scripts/`. Figures belong in `figures/`, with enough provenance to trace them back to scripts and data sources. Literature, citation notes, and evidence tables belong in `literature/`. Daily working memory belongs in `daily_notes/`, while role-specific memos and skeptic reviews belong in `agent_reports/`.
 
 The design is intentionally bounded. Each role has expected inputs, expected outputs, and limits. Third-party skills, broad filesystem mounts, autonomous shell access, external APIs, and credentials should be treated as high-trust capabilities. Human review is required before publication, destructive file operations, new mounts, new skills, external messages, expensive jobs, billed APIs, or sensitive claims.

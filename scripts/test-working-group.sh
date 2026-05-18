@@ -21,6 +21,10 @@ trap cleanup_workspace EXIT
 
 required_dirs=(
   documents
+  data
+  data/raw
+  data/processed
+  data/derived
   analysis
   figures
   literature
@@ -30,6 +34,8 @@ required_dirs=(
   logs
   heartbeat
   soul
+  memory
+  memory/quarantine
   prompts
   services
   services/pi_liaison
@@ -40,6 +46,11 @@ required_files=(
   README.md
   MEMORY.md
   AGENTS.md
+  IDENTITY.md
+  USER.md
+  SOUL.md
+  TOOLS.md
+  HEARTBEAT.md
   ROADMAP.md
   DECISIONS.md
   ASSUMPTIONS.md
@@ -51,6 +62,26 @@ required_files=(
   INITIAL_TASKS.md
   QUESTIONS_FOR_USER.md
   MODEL_ASSIGNMENTS.md
+  documents/TEAM_NORMS.md
+  documents/DECISION_PROTOCOL.md
+  documents/MEMORY_QUARANTINE_PROTOCOL.md
+  documents/ARTIFACT_REGISTRY.md
+  documents/SOCIETAL_IMPACT_CHECKLIST.md
+  meetings/TEMPLATE.md
+  memory/quarantine/README.md
+  agent_reports/role_reproducibility_index.md
+  agent_reports/team_norms_review_packet.md
+  agent_reports/pi_liaison_reproducibility_notes.md
+  agent_reports/scientific_director_reproducibility_notes.md
+  agent_reports/deputy_integrator_reproducibility_notes.md
+  agent_reports/data_engineer_reproducibility_notes.md
+  agent_reports/quantitative_modeler_reproducibility_notes.md
+  agent_reports/domain_scientist_reproducibility_notes.md
+  agent_reports/scientific_narrative_lead_reproducibility_notes.md
+  agent_reports/technical_communicator_reproducibility_notes.md
+  agent_reports/citation_evidence_curator_reproducibility_notes.md
+  agent_reports/skeptic_reproducibility_notes.md
+  agent_reports/societal_impact_translation_reproducibility_notes.md
   prompts/README.md
   prompts/pi-liaison-startup.md
   services/README.md

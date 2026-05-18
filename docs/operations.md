@@ -1,6 +1,6 @@
 # Operations Guide
 
-This page documents the reproducible operating path for the OpenClaw scientific working group container with Slack Socket Mode and ChatGPT/Codex OAuth.
+This page documents the reproducible operating path for the ScienceClaw/OpenClaw scientific working group container with Slack Socket Mode and ChatGPT/Codex OAuth.
 
 The working deployment has four separate gates:
 
@@ -52,7 +52,7 @@ Approve that user inside the running Gateway container:
 docker exec -it <container-id> openclaw pairing approve slack <PAIRING_CODE>
 ```
 
-This approval is stored in the persisted OpenClaw config mount under `~/.openclaw`. Pair each human operator explicitly. Do not approve unknown users or broad groups without review.
+This approval is stored in the persisted OpenClaw config mount under `~/.openclaw` on the host and `/data/.openclaw` in the container. Pair each human operator explicitly. Do not approve unknown users or broad groups without review.
 
 ## Refresh Codex OAuth in the Live Gateway
 
@@ -104,7 +104,7 @@ Then test in Slack:
 
 ## Scaling Notes
 
-Use one narrowly mounted `workspace/` per scientific working group or project. Avoid mounting the user's whole home directory. The source scaffold lives in `docker/seed-workspace`; runtime notes and project files live in the mounted `workspace/`.
+Use one narrowly mounted `workspace/` per scientific working group or project. Avoid mounting the user's whole home directory. The source scaffold lives in `docker/seed-workspace`; runtime notes and project files live in the mounted `workspace/`, while durable runtime state and optional outputs live under `/data`.
 
 For multiple Slack channels, prefer explicit channel ids in `.env` or deployment-specific environment files. Use a stable value such as `channel:C0123456789` when supported, because channel names can change.
 

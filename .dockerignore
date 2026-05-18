@@ -9,6 +9,8 @@ secrets
 *.key
 *.token
 .openclaw
+data/*
+!data/.gitkeep
 workspace/*
 !workspace/.gitkeep
 logs

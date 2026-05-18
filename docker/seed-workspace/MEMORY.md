@@ -16,3 +16,7 @@ This workspace is a persistent environmental data science working group. The rep
 ## Memory Practice
 
 Use `daily_notes/` for dated notes and raw working memory. Promote only durable, project-level memory here. Keep entries concise, evidence-aware, and dated when possible.
+
+## Quarantined Memory
+
+When the group is exploring multiple projects that should not share assumptions or context by default, use `memory/quarantine/<project_slug>/`. Follow `documents/MEMORY_QUARANTINE_PROTOCOL.md`. Quarantined memory should not be promoted into shared project memory, decisions, assumptions, charters, or briefs until the destination owner reviews it and the promotion rule is satisfied.

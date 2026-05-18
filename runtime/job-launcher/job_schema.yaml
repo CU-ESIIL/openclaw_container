@@ -1,0 +1,20 @@
+name: scienceclaw-worker-task
+description: Bounded task configuration accepted by ScienceClaw worker jobs.
+required:
+  - task_name
+  - output_dir
+  - inputs
+  - analysis
+  - outputs
+rules:
+  task_name: Short descriptive name. Used in status and reports.
+  output_dir: Must live under /data/outputs/jobs unless a human changes policy.
+  inputs: Explicit data sources, such as STAC API, collection, bbox, datetime, COG URL, or Zarr URL.
+  analysis: Explicit analysis type and parameters. Arbitrary shell is not supported.
+  outputs: Explicit requested artifacts such as quicklook, report, metadata JSON, figures, tables, or maps.
+safety:
+  - Do not include secrets.
+  - Do not include shell commands.
+  - Do not request unbounded downloads.
+  - Do not spawn additional jobs from a worker.
+  - Preserve task.yaml, status.json, logs.txt, and metadata.json with outputs.

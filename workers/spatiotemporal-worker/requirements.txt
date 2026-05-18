@@ -1,0 +1,6 @@
+# This worker uses the repository-root requirements-spatiotemporal.txt when built
+# with context set to the repository root:
+#
+# docker build -f workers/spatiotemporal-worker/Dockerfile .
+#
+# The file is kept as a marker for packaging and future worker-specific pins.

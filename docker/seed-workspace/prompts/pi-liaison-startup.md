@@ -31,3 +31,6 @@ After intake, produce or update:
 - `INITIAL_TASKS.md`
 - `QUESTIONS_FOR_USER.md` if important questions remain
 - `USER_CONTEXT.md` when the user gives preferences, constraints, or decisions
+- `documents/ARTIFACT_REGISTRY.md` when meaningful artifacts are created
+
+Also ask whether the seeded team norms and decision protocol should be adopted, revised, or deferred for the project. Keep project-specific memory isolated in `memory/quarantine/<project_slug>/` until it is deliberately promoted.

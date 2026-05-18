@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: scienceclaw-job-runner
+  namespace: scienceclaw
+subjects:
+  - kind: ServiceAccount
+    name: scienceclaw-job-runner
+    namespace: scienceclaw
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: scienceclaw-job-runner
