@@ -1,4 +1,4 @@
-# Pricing Comparison
+# Model and Auth Options
 
 Local Docker gives you control. OAuth/subscription login may be cheapest when available. API keys are more predictable. Hosted services are easier. Local models maximize sovereignty but need hardware.
 

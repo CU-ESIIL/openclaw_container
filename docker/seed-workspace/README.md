@@ -34,6 +34,8 @@ This `/workspace` directory is the persistent scientific working area for OpenCl
 
 The PI Liaison / User Interview Agent is the default human-facing role. Other agents should file questions in `QUESTIONS_FOR_USER.md` instead of interrupting the user directly. The PI Liaison deduplicates those questions, asks only the highest-value followups, and returns milestone reports or drafts to the user for review.
 
+When Slack is enabled, Slack is an intake and review surface for the PI Liaison, not a direct execution channel for the whole working group. Slack users should be paired intentionally, and requests that affect credentials, filesystem access, publishing, external APIs, or sensitive claims still require human review.
+
 ## Security Notes
 
 Do not treat agents as safe just because the workspace is structured. Third-party skills, broad filesystem mounts, autonomous shell access, external APIs, and credentials all require careful review. Keep the mounted workspace narrow; do not mount the whole home directory.

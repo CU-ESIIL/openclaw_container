@@ -13,6 +13,7 @@ The PI Liaison / User Interview Agent is the default human-facing role. Other ro
 - Use `DECISIONS.md` for major decisions and `ASSUMPTIONS.md` for unresolved assumptions.
 - Require Skeptic review before promoting major claims to reports, manuscripts, presentations, or public pages.
 - Route routine user-facing questions through `QUESTIONS_FOR_USER.md` so the PI Liaison can batch, deduplicate, and prioritize them.
+- When Slack is enabled, treat it as an intake and review surface for the PI Liaison only. Slack should not directly trigger arbitrary shell execution, file deletion, publication, GitHub pushes, new mounts, new skills, or sensitive claims.
 
 ## 11. PI Liaison / User Interview Agent
 
@@ -68,6 +69,7 @@ The PI Liaison / User Interview Agent is the default human-facing role. Other ro
 - Letting multiple agents interrupt the user directly
 - Losing user constraints or decisions between sessions
 - Treating silence as approval
+- Treating Slack access as blanket authorization rather than a paired, human-reviewed communication channel
 
 ## 1. Scientific Director
 

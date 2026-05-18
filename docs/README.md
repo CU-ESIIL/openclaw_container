@@ -21,6 +21,21 @@ scripts/status.sh
 
 If OpenClaw opens a login URL from inside Docker, copy it into your laptop browser. If the CLI asks for a callback URL, paste the full browser redirect URL back into the terminal.
 
+For Slack-connected Gateway operation, use the operations runbook:
+
+```bash
+scripts/start-gateway.sh
+docker exec <container-id> openclaw channels status --channel slack --probe --timeout 20000
+docker exec -it <container-id> openclaw models auth login --provider openai-codex --set-default
+docker exec <container-id> openclaw agent --session-id slack-ready-check --message 'Reply with exactly: PI Liaison ready' --timeout 120
+```
+
+If Slack returns an access pairing code, approve the specific user:
+
+```bash
+docker exec -it <container-id> openclaw pairing approve slack <PAIRING_CODE>
+```
+
 Generated documents, heartbeat notes, soul files, and memory should be written under `/workspace` inside the container. They appear on the host under `./workspace`.
 
 ## Auth Options

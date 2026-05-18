@@ -5,8 +5,9 @@ nav:
   - Home: index.md
   - Alpha Baseline: alpha.md
   - Scientific Working Group: working-group.md
+  - Operations: operations.md
   - Security: security.md
-  - Pricing comparison: pricing.md
+  - Model/Auth Options: model-options.md
   - README: README.md
 
 theme:

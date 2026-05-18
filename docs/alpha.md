@@ -21,6 +21,8 @@ For a long-running Gateway service:
 scripts/start-gateway.sh
 ```
 
+For Slack-connected operation, follow the Gateway, Slack pairing, and live OAuth verification sequence in the [Operations guide](operations.md).
+
 ## What Is Included
 
 - Eleven role definitions in `AGENTS.md`.

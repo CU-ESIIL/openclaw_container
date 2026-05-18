@@ -13,6 +13,7 @@ First alpha baseline for the OpenClaw scientific working group container.
 - Slack credential handling through local `.env` variables, with masked validation.
 - Environment-backed Slack channel registration at container startup.
 - Security documentation for Slack tokens and token rotation.
+- Operations documentation for Slack Socket Mode, Slack user pairing, live Gateway Codex OAuth refresh, and direct agent smoke tests.
 - Smoke tests for working-group scaffold and secret validation.
 
 ### Notes

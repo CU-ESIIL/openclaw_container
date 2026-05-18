@@ -51,6 +51,11 @@ looks_like_placeholder() {
   return 1
 }
 
+looks_like_slack_app_token() {
+  local value="${1:-}"
+  [[ "${value}" =~ ^xapp-[0-9]+-[A-Z0-9]+-[0-9]+-[A-Za-z0-9]+$ ]]
+}
+
 load_env_file "${env_file}"
 
 status=0
@@ -70,6 +75,29 @@ require_var() {
     status=1
     return
   fi
+
+  case "${name}:${value}" in
+    SLACK_BOT_TOKEN:xoxb-*) ;;
+    SLACK_APP_TOKEN:xapp-*)
+      if ! looks_like_slack_app_token "${value}"; then
+        echo "Invalid ${name}: expected a Slack app-level Socket Mode token like xapp-1-APPID-INSTALLID-SECRET ($(mask_secret "${value}"))." >&2
+        echo "Do not use the Slack signing secret or legacy verification token here." >&2
+        status=1
+        return
+      fi
+      ;;
+    SLACK_BOT_TOKEN:*)
+      echo "Invalid ${name}: expected a token beginning with xoxb- ($(mask_secret "${value}"))." >&2
+      status=1
+      return
+      ;;
+    SLACK_APP_TOKEN:*)
+      echo "Invalid ${name}: expected a token beginning with xapp- ($(mask_secret "${value}"))." >&2
+      echo "Use a Slack app-level token with connections:write, not the signing secret or legacy verification token." >&2
+      status=1
+      return
+      ;;
+  esac
 
   case "${name}" in
     SLACK_BOT_TOKEN|SLACK_APP_TOKEN|OPENAI_API_KEY)

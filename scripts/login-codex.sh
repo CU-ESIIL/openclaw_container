@@ -6,9 +6,9 @@ cd "${repo_root}"
 
 mkdir -p "${HOME}/.openclaw" "${repo_root}/workspace"
 
-docker compose run --rm --service-ports openclaw-local \
-  openclaw models auth login --provider openai-codex "$@"
+docker compose run --rm openclaw-local \
+  openclaw models auth login --provider openai-codex --set-default "$@"
 
 # Fallback for OpenClaw versions that document onboarding as the Codex OAuth path:
-# docker compose run --rm --service-ports openclaw-local \
+# docker compose run --rm openclaw-local \
 #   openclaw onboard --auth-choice openai-codex

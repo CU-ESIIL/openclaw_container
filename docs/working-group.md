@@ -20,6 +20,8 @@ When other agents need user input, they write questions in `QUESTIONS_FOR_USER.m
 
 For Slack-connected use, the Liaison is the only Slack-facing component. Slack messages should enter queues and workspace memory before they are routed to the team. Slack must never directly trigger arbitrary shell execution, and Slack tokens must stay in local environment variables rather than markdown, logs, screenshots, prompts, or git.
 
+Operationally, Slack use has a few distinct gates: Socket Mode must be healthy, the Slack sender must be paired, and the running Gateway must have a fresh model login. Keep those checks separate when diagnosing failures. The reproducible command sequence is documented in the [Operations guide](operations.md).
+
 ## Role Summary
 
 | Role | Primary purpose | Main outputs |

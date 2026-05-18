@@ -4,7 +4,8 @@ Run an agent on your laptop, keep the workspace sandboxed, and authenticate with
 
 [Read the setup guide](README.md){ .md-button .md-button--primary }
 [Alpha baseline](alpha.md){ .md-button }
-[Compare options](pricing.md){ .md-button }
+[Operations](operations.md){ .md-button }
+[Model/auth options](model-options.md){ .md-button }
 
 <div class="grid cards" markdown>
 
@@ -14,11 +15,11 @@ Run an agent on your laptop, keep the workspace sandboxed, and authenticate with
 
   Build the CLI image yourself, persist config on your machine, and decide exactly which project files are mounted into `/workspace`.
 
-- **Subscription login**
+- **Model options**
 
   ---
 
-  Use ChatGPT/Codex OAuth when your OpenClaw version, account, quota, and provider policy support it.
+  Start with ChatGPT/Codex OAuth when available, or switch to API-key mode when repeatable automation matters more.
 
 - **Safe workspace**
 
@@ -48,6 +49,8 @@ scripts/login-codex.sh
 scripts/status.sh
 ```
 
-The full walkthrough is in the [README](README.md). The [pricing comparison](pricing.md) explains when OAuth, API keys, hosted service, or local models make sense.
+The full walkthrough is in the [README](README.md). The [model/auth options](model-options.md) page explains when OAuth, API keys, hosted service, or local models make sense.
 
 Read [Security](security.md) before connecting Slack tokens to the PI Liaison.
+
+Use the [Operations guide](operations.md) for the reproducible Slack pairing, live Gateway OAuth refresh, and smoke-test sequence.

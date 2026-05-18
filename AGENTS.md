@@ -57,3 +57,10 @@
 
 ## Decision Logging
 - Reflect meaningful structural, architectural, documentation, data-source, or design decisions in changelog, dev log, roadmap, or equivalent history files when appropriate.
+
+## OpenClaw Slack/Gateway Operations
+- Keep the reproducible Slack path documented in `docs/operations.md` whenever scripts, Docker behavior, auth setup, Slack setup, or pairing behavior changes.
+- Treat Gateway startup, Slack Socket Mode, Slack user pairing, and model OAuth as four separate gates. Do not collapse them into one vague "Slack is broken" diagnosis.
+- For Codex OAuth troubleshooting, prefer re-authenticating inside the live Gateway container with `openclaw models auth login --provider openai-codex --set-default`, then verify with `openclaw models status` and a direct `openclaw agent` smoke test.
+- Never document or print full OAuth callback codes, Slack tokens, OpenAI API keys, gateway tokens, or credential file contents. Use masked previews only.
+- Keep Slack-facing behavior routed through the PI Liaison. Do not add documentation or code paths that let Slack directly trigger arbitrary shell execution or bypass human approval gates.

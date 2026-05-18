@@ -8,6 +8,8 @@ Slack credentials are high-value secrets. A bot token can allow an application t
 
 `SLACK_APP_TOKEN` values usually begin with `xapp-`. They are app-level tokens commonly used for Socket Mode or app connectivity. They are not a substitute for least-privilege bot scopes.
 
+Do not use the Slack signing secret or legacy verification token as `SLACK_APP_TOKEN`. The signing secret verifies HTTP requests when Slack sends events to a public endpoint. The legacy verification token is not the Socket Mode app-level token. For this container, create an app-level token under the Slack app's Basic Information page with the `connections:write` scope; the value should look like `xapp-1-APPID-INSTALLID-SECRET`.
+
 Do not commit either token to git. Do not paste them into chat, markdown files, issue comments, screenshots, prompt logs, terminal transcripts, or documentation.
 
 ## Local environment files
@@ -53,3 +55,16 @@ Screenshots and prompt logs can leak secrets even when git is clean. Do not capt
 Slack should talk only to the PI Liaison, not directly to execution agents. Slack messages should enter workspace queues and memory files, such as `QUESTIONS_FOR_USER.md`, `TEAM_BRIEF.md`, and `daily_notes/`, where they can be reviewed and routed.
 
 Slack must never directly trigger arbitrary shell execution. Any request that would delete files, push to GitHub, install skills, mount directories, use billed APIs, publish content, or make sensitive claims still requires human review.
+
+## Slack app setup checklist
+
+For inbound Slack messages, Socket Mode credentials are necessary but not sufficient. The Slack app also needs message surfaces and events enabled.
+
+- Enable Socket Mode.
+- Create an app-level token with `connections:write` and use that value as `SLACK_APP_TOKEN`.
+- Invite the bot to the target channel.
+- In **App Home**, enable the Messages tab if users should DM the app.
+- In **Event Subscriptions**, subscribe to bot events needed for the Liaison, such as `app_mention` for channel mentions and `message.im` for direct messages.
+- Reinstall the Slack app to the workspace after changing scopes or event subscriptions.
+
+If Slack shows "Sending messages to this app has been turned off," enable the App Home Messages tab and reinstall the app.

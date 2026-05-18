@@ -8,7 +8,7 @@ This repository gives you:
 - a Compose service with a persisted `/root/.openclaw` config directory
 - image-level bootstrap defaults for the local Gateway, Control UI origins, default model, and starter workspace files
 - helper scripts for build, shell access, Codex OAuth login, and model status
-- a simple MkDocs site with a practical pricing-style comparison
+- a simple MkDocs site with setup, security, and model/auth option notes
 
 ## Alpha Baseline
 
@@ -80,7 +80,7 @@ Edit `.env` and set:
 
 ```dotenv
 SLACK_BOT_TOKEN=xoxb-your-real-token
-SLACK_APP_TOKEN=xapp-your-real-token
+SLACK_APP_TOKEN=xapp-1-APPID-INSTALLID-your-real-token
 SLACK_DEFAULT_CHANNEL=#science-working-group
 ```
 
@@ -92,9 +92,13 @@ scripts/check-secrets.sh
 
 The checker refuses missing or placeholder Slack tokens and prints only masked previews, such as `xoxb-****abcd`.
 
+`SLACK_APP_TOKEN` must be a Slack app-level Socket Mode token with the `connections:write` scope. Do not use the Slack signing secret or legacy verification token here.
+
 Rotate Slack tokens immediately if they appear in git, screenshots, prompt logs, terminal transcripts, browser captures, or chat. Revoke the old token in Slack, regenerate it, update `.env`, restart the service, and inspect git history if the token was committed.
 
 Slack should connect only to the PI Liaison. Slack messages should enter queues and workspace memory for reviewable routing; they should not directly trigger arbitrary shell execution or bypass human approval rules.
+
+Slack-side setup also matters. Enable Socket Mode, invite the bot to the target channel, enable the App Home Messages tab if direct messages are needed, subscribe to `app_mention` and `message.im` bot events as appropriate, and reinstall the app after changing scopes or events.
 
 ## Prerequisites
 
@@ -135,6 +139,12 @@ Start a long-running Gateway for Slack inbound messages:
 scripts/start-gateway.sh
 ```
 
+Verify Slack Socket Mode:
+
+```bash
+docker exec <container-id> openclaw channels status --channel slack --probe --timeout 20000
+```
+
 Log in with ChatGPT/Codex OAuth from your host terminal:
 
 ```bash
@@ -148,6 +158,26 @@ Check model/auth status:
 ```bash
 scripts/status.sh
 ```
+
+For Slack-connected operation, the most reliable OAuth refresh path is inside the live Gateway container:
+
+```bash
+docker exec -it <container-id> openclaw models auth login --provider openai-codex --set-default
+```
+
+If Slack returns a pairing code, approve the specific Slack user:
+
+```bash
+docker exec -it <container-id> openclaw pairing approve slack <PAIRING_CODE>
+```
+
+Then smoke-test the model path before testing Slack:
+
+```bash
+docker exec <container-id> openclaw agent --session-id slack-ready-check --message 'Reply with exactly: PI Liaison ready' --timeout 120
+```
+
+See `docs/operations.md` for the full reproducible Slack/Gateway runbook.
 
 Generated documents, heartbeat notes, soul files, and memory files should be saved under `/workspace` inside the container. They will appear on the host under `./workspace`.
 
@@ -318,6 +348,26 @@ scripts/login-codex.sh
 ```
 
 OAuth-backed sessions may expire or need refreshing.
+
+If `openclaw models status` shows a fresh OAuth profile but agent runs still fail
+with `OAuth token refresh failed` or `token_expired`, treat the OAuth route as
+stale in the running Gateway. Re-auth inside the live Gateway container:
+
+```bash
+docker exec -it <container-id> openclaw models auth login --provider openai-codex --set-default
+```
+
+Then run the direct agent smoke test from the Quick Start section. If repeated live-container re-auth still fails, use API-key mode for automation.
+
+### Slack says access is not configured
+
+Approve the Slack pairing code shown by the bot:
+
+```bash
+docker exec -it <container-id> openclaw pairing approve slack <PAIRING_CODE>
+```
+
+Pair each human operator intentionally. Do not approve unknown Slack users.
 
 ### Docker on Apple Silicon
 
