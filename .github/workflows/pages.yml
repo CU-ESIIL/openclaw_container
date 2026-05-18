@@ -42,13 +42,8 @@ jobs:
       - name: Build MkDocs site
         run: mkdocs build --strict --clean --site-dir dist
 
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
-        with:
-          enablement: true
-        continue-on-error: true
-
-      - name: Verify Pages is enabled
+      - name: Check GitHub Pages availability
+        id: pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -56,19 +51,27 @@ jobs:
           api_url="https://api.github.com/repos/${GITHUB_REPOSITORY}/pages"
           status="$(curl -sS -H "Authorization: Bearer ${GITHUB_TOKEN}" -H "Accept: application/vnd.github+json" -o /tmp/pages-response.json -w "%{http_code}" "${api_url}")"
           if [ "${status}" = "404" ]; then
-            echo "::error::Enable GitHub Pages: Settings → Pages → Source = GitHub Actions and Settings → Actions → Workflow permissions = Read and write."
-            exit 1
+            echo "::warning::GitHub Pages is not enabled. Built the MkDocs site, but skipping deploy. To publish, enable Settings > Pages > Source = GitHub Actions and Settings > Actions > Workflow permissions = Read and write."
+            echo "enabled=false" >> "${GITHUB_OUTPUT}"
           elif [ "${status}" != "200" ]; then
-            echo "::error::Failed to verify GitHub Pages (HTTP ${status})."
+            echo "::warning::Could not verify GitHub Pages (HTTP ${status}); skipping deploy."
             cat /tmp/pages-response.json
-            exit 1
+            echo "enabled=false" >> "${GITHUB_OUTPUT}"
+          else
+            echo "enabled=true" >> "${GITHUB_OUTPUT}"
           fi
 
+      - name: Configure GitHub Pages
+        if: steps.pages.outputs.enabled == 'true'
+        uses: actions/configure-pages@v5
+
       - name: Upload Pages artifact
+        if: steps.pages.outputs.enabled == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
       - name: Deploy to GitHub Pages
+        if: steps.pages.outputs.enabled == 'true'
         id: deployment
         uses: actions/deploy-pages@v4
