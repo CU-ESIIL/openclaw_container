@@ -2,6 +2,7 @@
 set -Eeuo pipefail
 
 data_root="${DATA_ROOT:-/data}"
+external_storage_root="${EXTERNAL_STORAGE_ROOT:-/external_storage}"
 
 usage() {
   cat <<'EOF'
@@ -17,6 +18,10 @@ while [ "$#" -gt 0 ]; do
   case "$1" in
     --data-root)
       data_root="$2"
+      shift 2
+      ;;
+    --external-storage-root)
+      external_storage_root="$2"
       shift 2
       ;;
     -h|--help)
@@ -55,6 +60,7 @@ dirs=(
   "notebooks"
   "stac"
   "secrets-example"
+  "workspace/cache"
 )
 
 readme_for() {
@@ -83,6 +89,7 @@ readme_for() {
     "notebooks") echo "Persistent notebooks for scientific workflows." ;;
     "stac") echo "STAC and geospatial catalog examples or local configuration." ;;
     "secrets-example") echo "Documentation-only placeholder for secret shapes. Never put real secrets here." ;;
+    "workspace/cache") echo "Small approved cache for streamed subsets. Prefer streaming remote data and document cached provenance." ;;
     *) echo "ScienceClaw persistent directory." ;;
   esac
 }
@@ -112,5 +119,17 @@ for dir in "${dirs[@]}"; do
     } > "${readme}"
   fi
 done
+
+mkdir -p "${external_storage_root}/local"
+external_readme="${external_storage_root}/README.md"
+if [ ! -e "${external_readme}" ]; then
+  {
+    echo "# ScienceClaw External Storage"
+    echo
+    echo "Optional large-data shelf for mounted or remote-backed artifacts. Keep large rasters, Zarr stores, Parquet collections, NetCDF files, model outputs, and private storage sync targets outside git and outside the container image."
+    echo
+    echo "Default local mount: ${external_storage_root}/local"
+  } > "${external_readme}"
+fi
 
 echo "ScienceClaw data layout initialized at ${data_root}"

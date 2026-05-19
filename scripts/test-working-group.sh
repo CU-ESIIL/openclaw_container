@@ -62,8 +62,10 @@ required_files=(
   INITIAL_TASKS.md
   QUESTIONS_FOR_USER.md
   MODEL_ASSIGNMENTS.md
+  CONTINUOUS_IMPROVEMENT_LOG.md
   documents/TEAM_NORMS.md
   documents/DECISION_PROTOCOL.md
+  documents/CONTINUOUS_IMPROVEMENT_PROTOCOL.md
   documents/MEMORY_QUARANTINE_PROTOCOL.md
   documents/ARTIFACT_REGISTRY.md
   documents/SOCIETAL_IMPACT_CHECKLIST.md
@@ -71,6 +73,7 @@ required_files=(
   memory/quarantine/README.md
   agent_reports/role_reproducibility_index.md
   agent_reports/team_norms_review_packet.md
+  agent_reports/continuous_improvement_review_template.md
   agent_reports/pi_liaison_reproducibility_notes.md
   agent_reports/scientific_director_reproducibility_notes.md
   agent_reports/deputy_integrator_reproducibility_notes.md

@@ -6,9 +6,10 @@ tmp_root="$(mktemp -d)"
 trap 'rm -rf "${tmp_root}"' EXIT
 
 data_root="${tmp_root}/data"
+external_storage_root="${tmp_root}/external_storage"
 
-"${repo_root}/scripts/init-data-layout.sh" --data-root "${data_root}" >/tmp/scienceclaw-layout-1.log
-"${repo_root}/scripts/init-data-layout.sh" --data-root "${data_root}" >/tmp/scienceclaw-layout-2.log
+"${repo_root}/scripts/init-data-layout.sh" --data-root "${data_root}" --external-storage-root "${external_storage_root}" >/tmp/scienceclaw-layout-1.log
+"${repo_root}/scripts/init-data-layout.sh" --data-root "${data_root}" --external-storage-root "${external_storage_root}" >/tmp/scienceclaw-layout-2.log
 
 required_dirs=(
   ".openclaw"
@@ -30,6 +31,7 @@ required_dirs=(
   "notebooks"
   "stac"
   "secrets-example"
+  "workspace/cache"
 )
 
 for dir in "${required_dirs[@]}"; do
@@ -43,6 +45,11 @@ for dir in "${required_dirs[@]}"; do
   fi
 done
 
+if [ ! -d "${external_storage_root}/local" ]; then
+  echo "Missing external storage local directory: ${external_storage_root}/local" >&2
+  exit 1
+fi
+
 required_scripts=(
   "scripts/init-data-layout.sh"
   "scripts/setup_env.sh"
@@ -55,6 +62,15 @@ required_scripts=(
   "scripts/build_output_index.py"
   "scripts/run_worker_local.sh"
   "scripts/test-spatiotemporal-runtime.sh"
+  "scripts/test-storage-cms.sh"
+  "storage/scripts/storage_common.py"
+  "storage/scripts/browse_storage.py"
+  "storage/scripts/list_storage.py"
+  "storage/scripts/test_storage.py"
+  "storage/scripts/register_dataset.py"
+  "storage/scripts/cache_dataset.py"
+  "storage/scripts/sync_outputs.py"
+  "cms/scienceclaw_cms.py"
 )
 
 for script in "${required_scripts[@]}"; do
@@ -65,5 +81,6 @@ for script in "${required_scripts[@]}"; do
 done
 
 python3 -m py_compile "${repo_root}/examples/playwright_screenshot_example.py"
+python3 -m py_compile "${repo_root}/cms/scienceclaw_cms.py" "${repo_root}/storage/scripts/storage_common.py" "${repo_root}/storage/scripts/browse_storage.py" "${repo_root}/storage/scripts/list_storage.py" "${repo_root}/storage/scripts/test_storage.py" "${repo_root}/storage/scripts/register_dataset.py" "${repo_root}/storage/scripts/cache_dataset.py" "${repo_root}/storage/scripts/sync_outputs.py"
 
 echo "ScienceClaw layout smoke test passed."

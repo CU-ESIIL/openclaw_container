@@ -17,6 +17,9 @@ services:
       OPENCLAW_CONFIG_DIR: /data/.openclaw
       OPENCLAW_AUTH_PROFILE_SECRET_DIR: /data/.openclaw/auth-profile-secrets
       OPENCLAW_WORKSPACE: /data/workspace
+      EXTERNAL_STORAGE_ROOT: /external_storage
+      SCIENCECLAW_CMS_PORT: ${SCIENCECLAW_CMS_PORT:-8090}
+      SCIENCECLAW_STORAGE_CONFIG: /repo/storage/storage.yml
       OPENCLAW_DEFAULT_MODEL: ${OPENCLAW_DEFAULT_MODEL:-codex/gpt-5.5}
       OPENCLAW_GATEWAY_BIND: ${OPENCLAW_GATEWAY_BIND:-lan}
       OPENCLAW_GATEWAY_PORT: ${OPENCLAW_GATEWAY_PORT:-18789}
@@ -34,6 +37,8 @@ services:
       - ./data:/data
       - ${WORKSPACE_DIR:-./workspace}:/data/workspace
       - ${WORKSPACE_DIR:-./workspace}:/workspace
+      - ${EXTERNAL_STORAGE_DIR:-./external_storage}:/external_storage/local
+      - ./storage:/repo/storage:ro
     ports:
       - "127.0.0.1:18789:18789"
     extra_hosts:
@@ -58,6 +63,8 @@ services:
       OPENCLAW_CONFIG_DIR: /data/.openclaw
       OPENCLAW_AUTH_PROFILE_SECRET_DIR: /data/.openclaw/auth-profile-secrets
       OPENCLAW_WORKSPACE: /data/workspace
+      EXTERNAL_STORAGE_ROOT: /external_storage
+      SCIENCECLAW_STORAGE_CONFIG: /repo/storage/storage.yml
       OPENCLAW_SEED_WORKSPACE: ${OPENCLAW_SEED_WORKSPACE:-1}
       OPENCLAW_INIT_WORKING_GROUP: ${OPENCLAW_INIT_WORKING_GROUP:-1}
       OPENCLAW_START_PI_LIAISON: "0"
@@ -70,6 +77,8 @@ services:
       - ./data:/data
       - ${WORKSPACE_DIR:-./workspace}:/data/workspace
       - ${WORKSPACE_DIR:-./workspace}:/workspace
+      - ${EXTERNAL_STORAGE_DIR:-./external_storage}:/external_storage/local
+      - ./storage:/repo/storage:ro
     ports:
       - "127.0.0.1:${WORKSPACE_UI_PORT:-8888}:8888"
     command:
@@ -83,3 +92,31 @@ services:
       - --allow-root
       - --ServerApp.root_dir=/data
       - --ServerApp.token=${WORKSPACE_UI_TOKEN:-scienceclaw}
+
+  workspace-cms:
+    image: openclaw-local
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /data
+    environment:
+      DATA_ROOT: /data
+      OPENCLAW_WORKSPACE: /data/workspace
+      EXTERNAL_STORAGE_ROOT: /external_storage
+      SCIENCECLAW_CMS_PORT: 8090
+      SCIENCECLAW_STORAGE_CONFIG: /repo/storage/storage.yml
+      SCIENCECLAW_REPO_ROOT: /repo
+      SCIENCECLAW_CMS_ROOTS: /workspace,/data/outputs,/repo/docs,/repo/examples,/repo/storage,/external_storage/local
+    volumes:
+      - ./data:/data
+      - ${WORKSPACE_DIR:-./workspace}:/data/workspace
+      - ${WORKSPACE_DIR:-./workspace}:/workspace
+      - ${EXTERNAL_STORAGE_DIR:-./external_storage}:/external_storage/local
+      - ./docs:/repo/docs
+      - ./examples:/repo/examples:ro
+      - ./storage:/repo/storage:ro
+    ports:
+      - "127.0.0.1:${SCIENCECLAW_CMS_PORT:-8090}:8090"
+    command:
+      - python3
+      - /opt/scienceclaw/cms/scienceclaw_cms.py

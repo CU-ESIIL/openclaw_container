@@ -6,7 +6,7 @@
 
 ScienceClaw is the branded template layer for this OpenClaw container: a persistent environmental synthesis workspace with a PI Liaison, bounded scientific roles, durable memory, reproducible folders, and cautious human review gates.
 
-OpenClaw remains one interface into the workspace. The repository is the source of truth, `/data` is the persistent runtime root, and `/workspace` is the inspectable scientific working area that can be mounted narrowly from the host.
+OpenClaw remains one interface into the workspace. The repository is the source of truth, `/data` is the persistent runtime root, `/workspace` is the private scientific working area, and `/external_storage` is the optional large-data shelf.
 
 </div>
 
@@ -38,6 +38,7 @@ The container initializes a `/data` root for persistent runtime state and scient
 | --- | --- |
 | `/data/.openclaw` | OpenClaw state and auth profile storage. |
 | `/data/workspace` | Primary scientific workspace, also available as `/workspace`. |
+| `/external_storage/local` | Optional large local or institutional storage mounted outside git. |
 | `/data/downloads` | User-approved downloads awaiting provenance review. |
 | `/data/outputs/reports` | Rendered reports and review packets. |
 | `/data/outputs/figures` | Generated figures and images. |
@@ -54,20 +55,33 @@ The initializer is idempotent:
 scripts/init-data-layout.sh --data-root /tmp/scienceclaw-data
 ```
 
+## Three-Zone Model
+
+| Zone | Purpose | Publication rule |
+| --- | --- | --- |
+| Repository | Public template, docs, examples, small public assets, storage templates. | Committed and published intentionally. |
+| `/workspace` | Private working lab for drafts, prompt logs, notebooks, notes, intermediate analysis, and review packets. | Ignored by git and promoted only after review. |
+| `/external_storage` | Large rasters, Zarr stores, Parquet collections, NetCDF files, COGs, model outputs, and synced storage targets. | Ignored by git; public pages link to metadata or public endpoints. |
+
+This separation keeps the public site reproducible while protecting private work and avoiding large accidental commits.
+
 ## Workspace Interface
 
-The OpenClaw service exposes the Gateway and Control UI on `127.0.0.1:18789`. The optional `workspace-ui` service exposes JupyterLab on `127.0.0.1:8888` and points at `/data` so outputs, logs, notebooks, and the mounted workspace are browser-inspectable.
+The OpenClaw service exposes the Gateway and Control UI on `127.0.0.1:18789`. The optional `workspace-ui` service exposes JupyterLab on `127.0.0.1:8888` and points at `/data` so outputs, logs, notebooks, and the mounted workspace are browser-inspectable. The optional `workspace-cms` service exposes a small review interface on `127.0.0.1:8090`.
 
 ```bash
 docker compose up openclaw-local
 docker compose up workspace-ui
+docker compose up workspace-cms
 ```
 
 The default Jupyter token is `scienceclaw`; set `WORKSPACE_UI_TOKEN` in `.env` for a local deployment.
 
+Use the [Workspace CMS](workspace-cms.md) when a private artifact is ready for review. The CMS can mark status, preserve metadata sidecars, and promote approved content into `docs/reports/`, `docs/dashboard/`, or `docs/assets/`.
+
 ## Tools
 
-The image includes baseline developer and scientific utilities: `git`, `gh`, `curl`, `wget`, `jq`, `ripgrep`, `tree`, `tmux`, `vim`, `nano`, `pandoc`, `poppler-utils`, `imagemagick`, `ghostscript`, `qpdf`, `gdal-bin`, `proj-bin`, LibreOffice, Python, `uv`, JupyterLab, and Playwright Python bindings.
+The image includes baseline developer and scientific utilities: `git`, `gh`, `curl`, `wget`, `jq`, `ripgrep`, `tree`, `tmux`, `vim`, `nano`, `pandoc`, a lean LaTeX/PDF toolchain (`latexmk`, `lmodern`, `texlive-latex-base`, `texlive-latex-recommended`, `texlive-fonts-recommended`, `texlive-xetex`), `poppler-utils`, `imagemagick`, `ghostscript`, `qpdf`, `gdal-bin`, `proj-bin`, LibreOffice, Python, `uv`, JupyterLab, and Playwright Python bindings.
 
 Document conversion examples live in `examples/`. Playwright browser binaries are intentionally not baked in by default; install them in a running container when that workflow is needed.
 

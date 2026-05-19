@@ -1,6 +1,12 @@
+<section class="scienceclaw-title" markdown>
+![ScienceClaw mark](assets/brand/scienceclaw.png){ .scienceclaw-title-logo }
+
 # ScienceClaw
 
-Run an environmental synthesis workspace on your laptop, keep agent access narrow, and authenticate with ChatGPT/Codex OAuth when available.
+**ESIIL Scientific Agent Workspace**
+
+Run an environmental synthesis workspace on your laptop, keep agent access narrow, and publish reviewed outputs without mixing private workspace files into the public site.
+</section>
 
 [ScienceClaw workspace](scienceclaw.md){ .md-button .md-button--primary }
 [Read the setup guide](setup.md){ .md-button }
@@ -8,6 +14,9 @@ Run an environmental synthesis workspace on your laptop, keep agent access narro
 [Operations](operations.md){ .md-button }
 [Template governance](template-governance.md){ .md-button }
 [Distributed runtime](distributed-runtime.md){ .md-button }
+[Workspace CMS](workspace-cms.md){ .md-button }
+[Storage model](storage/index.md){ .md-button }
+[Publishing workflow](publishing-workflow.md){ .md-button }
 [Model routing](model-routing.md){ .md-button }
 [Model/auth options](model-options.md){ .md-button }
 [Example snapshots](example-snapshots.md){ .md-button }
@@ -50,6 +59,18 @@ Run an environmental synthesis workspace on your laptop, keep agent access narro
 
   Launch bounded local worker jobs now and render optional Kubernetes Job manifests for future stream-first spatial-temporal analysis.
 
+- **Workspace CMS**
+
+  ---
+
+  Review private drafts, attach provenance/status sidecars, and promote approved pages into the public MkDocs source.
+
+- **External storage**
+
+  ---
+
+  Keep large data and outputs outside git and the image while registering streamable STAC, COG, Zarr, Parquet, S3, WebDAV, iRODS, or local stores.
+
 </div>
 
 ## Start Here
@@ -65,6 +86,8 @@ The full walkthrough is in the [setup guide](setup.md). The [model/auth options]
 Use [ScienceClaw Workspace](scienceclaw.md) for the `/data` layout, brand foundation, optional JupyterLab workspace UI, and installed tool baseline.
 
 Use [Distributed runtime](distributed-runtime.md) for worker jobs, STAC/COG/Zarr examples, Kubernetes scaffolding, and output indexing.
+
+Use [Workspace CMS](workspace-cms.md), [Storage architecture](storage/index.md), and [Publishing workflow](publishing-workflow.md) to move from private `/workspace` drafts to reviewed public MkDocs reports and dashboards.
 
 Read [Security](security.md) before connecting Slack tokens to the PI Liaison.
 

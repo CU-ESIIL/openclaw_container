@@ -21,6 +21,12 @@
   font-size: 1.05rem;
 }
 
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3 {
+  letter-spacing: 0;
+}
+
 .md-button {
   border-radius: 0.4rem;
 }
@@ -48,6 +54,45 @@
   width: 100%;
   max-width: 13rem;
   justify-self: end;
+}
+
+.scienceclaw-title {
+  display: grid;
+  grid-template-columns: 5.6rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: center;
+  padding: 0.8rem 0 1rem;
+  border-bottom: 2px solid color-mix(in srgb, var(--scienceclaw-accent-blue), white 60%);
+}
+
+.scienceclaw-title h1 {
+  margin: 0;
+  color: var(--scienceclaw-primary-blue);
+}
+
+.scienceclaw-title p {
+  margin: 0.15rem 0;
+}
+
+.scienceclaw-title-logo {
+  width: 5.2rem;
+  height: 5.2rem;
+  object-fit: contain;
+}
+
+.scienceclaw-status {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 0.65rem;
+}
+
+.scienceclaw-status span {
+  display: block;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--scienceclaw-gray);
+  border-left: 0.25rem solid var(--scienceclaw-accent-green);
+  border-radius: 0.45rem;
+  background: #fbfdfd;
 }
 
 .scienceclaw-palette {
@@ -80,5 +125,9 @@
 
   .scienceclaw-hero img {
     justify-self: start;
+  }
+
+  .scienceclaw-title {
+    grid-template-columns: 1fr;
   }
 }

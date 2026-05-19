@@ -101,6 +101,32 @@ Then test in Slack:
 | Slack replies with `Model login expired` | Gateway cannot refresh Codex OAuth | Run `openclaw models auth login --provider openai-codex --set-default` inside the live Gateway container |
 | Direct agent test fails with `token_expired` | OAuth metadata exists but backend refresh is rejected | Re-auth in the live Gateway container; restart Gateway only after confirming the profile works |
 | Direct messages show "Sending messages to this app has been turned off" | Slack App Home messages are disabled | Enable the App Home Messages tab and reinstall the Slack app |
+| Approval button does not respond or CLI says `scope upgrade pending approval` | The local operator device needs a scope upgrade, or background cron jobs are locking the same session | Run `openclaw devices list`, approve the pending local device with `openclaw devices approve <REQUEST_ID>`, then pause noisy cron jobs with `openclaw cron disable <JOB_ID>` |
+| Agent replies stall while cron jobs keep spawning subagents | A recurring improvement/review loop is overloading the Gateway or sharing a locked session | Run `openclaw cron list`, disable the loop, and check `openclaw tasks list --status running --json` before restarting work |
+
+## Recover a Stuck Approval Flow
+
+If the Control UI approval button appears to do nothing, first check whether the Gateway is waiting on a device scope upgrade:
+
+```bash
+docker exec <container-id> openclaw devices list
+```
+
+If a pending request is shown for your local operator device, approve that exact request:
+
+```bash
+docker exec <container-id> openclaw devices approve <REQUEST_ID>
+```
+
+Then inspect and pause noisy cron jobs before retrying the UI:
+
+```bash
+docker exec <container-id> openclaw cron list
+docker exec <container-id> openclaw cron disable <JOB_ID>
+docker exec <container-id> openclaw tasks list --status running --json
+```
+
+Use recurring jobs conservatively. Continuous-improvement loops should be opt-in and slow enough that one run finishes before the next begins.
 
 ## Scaling Notes
 

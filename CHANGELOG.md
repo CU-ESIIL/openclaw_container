@@ -20,6 +20,13 @@ First alpha baseline for the OpenClaw scientific working group container.
 - ScienceClaw `/data` layout, optional JupyterLab workspace UI, baseline scientific shell tools, document conversion examples, and brand assets.
 - ScienceClaw documentation page with ESIIL-informed palette and workspace architecture notes.
 - Bounded distributed spatial-temporal runtime scaffold with a local worker path, optional Kubernetes manifests, STAC/COG/Zarr examples, output indexing, and job metadata conventions.
+- Three-zone repository/workspace/external-storage architecture, including `/external_storage/local` support.
+- Lightweight file-backed workspace CMS for reviewing private artifacts and promoting approved pages/assets into the MkDocs public site.
+- Storage registry templates, provider profiles, schema, and safe helper commands for local, STAC, COG, S3-compatible, WebDAV, iRODS, and OSN-style storage patterns.
+- Public publishing workflow docs, sample promoted report, and sample metadata-only dashboard pattern.
+- Continuous improvement protocol, starter log, and role review template seeded into the working group scaffold.
+- Pre-remodel capture audit notes for separating reusable template changes from private workspace/project artifacts.
+- Lean Pandoc PDF toolchain added to the image with LaTeX packages needed for manuscript-style PDF exports.
 - Smoke tests for working-group scaffold and secret validation.
 
 ### Notes

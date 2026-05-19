@@ -3,6 +3,8 @@ data/*
 !data/.gitkeep
 workspace/*
 !workspace/.gitkeep
+external_storage/*
+!external_storage/.gitkeep
 .openclaw/
 .env
 .env.*
@@ -16,6 +18,8 @@ secrets/
 *.pem
 *.key
 *.token
+storage/datasets.local.json
+storage/*.local.yml
 
 # Track only explicit workspace templates that are part of this repo.
 !workspace/services/
@@ -33,6 +37,7 @@ docker-compose.*.local.yml
 
 # Python/MkDocs local output
 .cache/
+.workspace_cache/
 .venv/
 __pycache__/
 site/

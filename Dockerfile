@@ -8,6 +8,8 @@ ENV DATA_ROOT=/data
 ENV OPENCLAW_CONFIG_DIR=/data/.openclaw
 ENV OPENCLAW_AUTH_PROFILE_SECRET_DIR=/data/.openclaw/auth-profile-secrets
 ENV OPENCLAW_WORKSPACE=/data/workspace
+ENV EXTERNAL_STORAGE_ROOT=/external_storage
+ENV SCIENCECLAW_CMS_PORT=8090
 ENV OPENCLAW_DEFAULT_MODEL=codex/gpt-5.5
 ENV OPENCLAW_GATEWAY_BIND=lan
 ENV OPENCLAW_GATEWAY_PORT=18789
@@ -44,7 +46,14 @@ RUN apt-get update \
         python3-venv \
         qpdf \
         ripgrep \
+        rclone \
         sqlite3 \
+        latexmk \
+        lmodern \
+        texlive-fonts-recommended \
+        texlive-latex-base \
+        texlive-latex-recommended \
+        texlive-xetex \
         tini \
         tmux \
         tree \
@@ -67,19 +76,25 @@ RUN python3 -m pip install --break-system-packages --no-cache-dir \
 
 WORKDIR /data/workspace
 
-RUN mkdir -p /data/.openclaw/auth-profile-secrets /data/workspace /workspace
+RUN mkdir -p /data/.openclaw/auth-profile-secrets /data/workspace /workspace /external_storage/local
 
 COPY docker/entrypoint.sh /usr/local/bin/openclaw-container-entrypoint
 COPY scripts/init-data-layout.sh /usr/local/bin/scienceclaw-init-data-layout
+COPY scripts/openclaw-storage /usr/local/bin/openclaw-storage
 COPY docker/seed-workspace /opt/openclaw/seed-workspace
+COPY cms /opt/scienceclaw/cms
+COPY storage /opt/scienceclaw/storage
 RUN chmod +x /usr/local/bin/openclaw-container-entrypoint \
     && chmod +x /usr/local/bin/scienceclaw-init-data-layout \
+    && chmod +x /usr/local/bin/openclaw-storage \
     && chmod +x /opt/openclaw/seed-workspace/scripts/init-working-group.sh \
     && chmod +x /opt/openclaw/seed-workspace/scripts/start-pi-liaison.sh \
     && chmod +x /opt/openclaw/seed-workspace/scripts/check-secrets.sh \
-    && chmod +x /opt/openclaw/seed-workspace/scripts/mask-secrets.sh
+    && chmod +x /opt/openclaw/seed-workspace/scripts/mask-secrets.sh \
+    && chmod +x /opt/scienceclaw/cms/scienceclaw_cms.py \
+    && chmod +x /opt/scienceclaw/storage/scripts/*.py
 
-VOLUME ["/data", "/workspace"]
+VOLUME ["/data", "/workspace", "/external_storage"]
 
 ENTRYPOINT ["/usr/bin/tini", "--", "/usr/local/bin/openclaw-container-entrypoint"]
 CMD ["/bin/bash"]

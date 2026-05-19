@@ -8,6 +8,8 @@ This repository gives you:
 - a Compose service with a persisted `/data/.openclaw` config directory
 - image-level bootstrap defaults for the local Gateway, Control UI origins, default model, and starter workspace files
 - an optional browser workspace UI through JupyterLab
+- a lightweight workspace CMS for reviewing private outputs and promoting approved public pages
+- an optional external storage registry for large local, object-store, STAC, COG, Zarr, WebDAV, and iRODS-backed data
 - helper scripts for build, shell access, Codex OAuth login, and model status
 - a simple MkDocs site with setup, security, and model/auth option notes
 
@@ -25,12 +27,25 @@ Curated outputs from live container sessions can be preserved under `examples/`.
 
 The default workspace also includes reusable governance templates: team norms, decision protocol, memory quarantine, artifact registry, societal impact checklist, role reproducibility notes, data provenance folders, and a meeting template.
 
+It also seeds a bounded continuous improvement loop. The loop lets agents review drafts, scripts, claims, provenance, tests, and assumptions, but it does not authorize publication, deletion, GitHub pushes, new tools, new mounts, paid API use, or sensitive claims without human review.
+
+## Repository, Workspace, and External Storage
+
+ScienceClaw uses a three-zone model:
+
+- **Repository**: the public template, Docker configuration, docs, examples, storage templates, and small public assets. This is the source of truth for reproducible deployment.
+- **`/workspace`**: the private working lab for agent outputs, drafts, notebooks, source notes, prompt logs, intermediate analyses, and review packets. It is mounted from `./workspace` and ignored by git.
+- **`/external_storage`**: the optional large-data shelf for mounted or remote-backed data such as rasters, Zarr stores, Parquet collections, NetCDF files, COGs, and model outputs. It is mounted from `EXTERNAL_STORAGE_DIR` and ignored by git.
+
+The public MkDocs site lives under `docs/`. Approved outputs are promoted from `/workspace` or `/data/outputs` into `docs/reports/`, `docs/dashboard/`, or `docs/assets/`. Public pages must not depend on private mounts, local secrets, or unpublished datasets.
+
 ## ScienceClaw Workspace
 
 The alpha container initializes a persistent `/data` layout alongside the compatibility `/workspace` mount:
 
 - `/data/.openclaw` for OpenClaw state and auth profiles
 - `/data/workspace` for the primary scientific workspace, also mounted as `/workspace`
+- `/external_storage/local` for optional large local or institution-backed storage mounted outside git
 - `/data/downloads` for user-approved downloads awaiting provenance notes
 - `/data/outputs/reports`, `/data/outputs/figures`, and `/data/outputs/tables` for generated artifacts
 - `/data/skills/core`, `/data/skills/experimental`, and `/data/skills/local` for future tool extension
@@ -43,7 +58,13 @@ Initialize or inspect that layout with:
 scripts/init-data-layout.sh --data-root ./data
 ```
 
-The image also includes baseline scientific and development tools: `git`, `gh`, `curl`, `wget`, `jq`, `ripgrep`, `tree`, `tmux`, `vim`, `nano`, `pandoc`, `poppler-utils`, `imagemagick`, `ghostscript`, `qpdf`, `gdal-bin`, `proj-bin`, LibreOffice, Python, `uv`, JupyterLab, and Playwright Python bindings. Example conversion scripts live in `examples/`.
+To initialize an external storage mount as well:
+
+```bash
+EXTERNAL_STORAGE_ROOT=./external_storage scripts/init-data-layout.sh --data-root ./data --external-storage-root ./external_storage
+```
+
+The image also includes baseline scientific and development tools: `git`, `gh`, `curl`, `wget`, `jq`, `ripgrep`, `tree`, `tmux`, `vim`, `nano`, `pandoc`, a lean LaTeX/PDF toolchain (`latexmk`, `lmodern`, `texlive-latex-base`, `texlive-latex-recommended`, `texlive-fonts-recommended`, `texlive-xetex`), `poppler-utils`, `imagemagick`, `ghostscript`, `qpdf`, `gdal-bin`, `proj-bin`, LibreOffice, Python, `uv`, JupyterLab, and Playwright Python bindings. Example conversion scripts live in `examples/`.
 
 ## Distributed Spatial-Temporal Runtime
 
@@ -103,6 +124,58 @@ docker compose up workspace-ui
 
 Then open `http://127.0.0.1:8888` and browse `/data/outputs/index.html`, reports, figures, tables, maps, logs, notebooks, and workspace files.
 
+## Workspace CMS and Publishing
+
+ScienceClaw includes a lightweight, file-backed workspace CMS for human review:
+
+```bash
+docker compose up workspace-cms
+```
+
+Open `http://127.0.0.1:8090` to browse `/workspace`, `/data/outputs`, selected repo folders, and `/external_storage/local`.
+
+The CMS can preview Markdown, text, CSV/JSON, HTML, and images; edit text-like drafts; write `.scienceclaw.meta.json` sidecars; mark artifacts as `draft`, `needs_review`, `approved`, or `published`; and promote approved files into the MkDocs tree. It does not execute arbitrary shell commands or publish to GitHub by itself.
+
+Promotion pattern:
+
+1. Drafts and agent outputs start in `/workspace` or `/data/outputs`.
+2. CMS records status and provenance metadata next to the source artifact.
+3. Human-reviewed Markdown moves to `docs/reports/` or `docs/dashboard/`.
+4. Small approved public assets move to `docs/assets/`.
+5. Large outputs stay in `/external_storage` or remote storage and are represented with metadata and links.
+6. MkDocs builds and publishes the public story through GitHub Pages.
+
+See `docs/workspace-cms.md`, `docs/publishing-workflow.md`, and `docs/dashboard-patterns.md`.
+
+## External Storage Registry
+
+Storage configuration lives in `storage/`. Copy the example registry when you need local customization:
+
+```bash
+cp storage/storage.example.yml storage/storage.yml
+```
+
+Keep real credentials out of the registry. Use environment variables in `.env`, Docker secrets, or Kubernetes Secrets.
+
+Examples:
+
+```bash
+scripts/openclaw-storage list --config storage/storage.example.yml
+scripts/openclaw-storage test --config storage/storage.example.yml
+scripts/openclaw-storage browse public_stac_demo --config storage/storage.example.yml
+scripts/openclaw-storage register --name my_dataset --href https://example.org/catalog.json --type stac
+scripts/openclaw-storage cache --dataset public_stac_demo --config storage/storage.example.yml --dry-run
+scripts/openclaw-storage sync-output ./data/outputs/jobs/example --store local_external --config storage/storage.example.yml --dry-run
+```
+
+The intended data modes are:
+
+- `stream`: read windows, chunks, or metadata directly from remote storage.
+- `cache`: copy only a reviewed subset into `/workspace/cache`.
+- `download`: explicitly copy a dataset into `/workspace` or `/external_storage` after human approval.
+
+Default demos should remain anonymous and public. Provider-specific remote syncs are scaffolded first and should be enabled only after reviewing credentials, permissions, billing implications, and data rights.
+
 The optional Kubernetes scaffold lives in `deploy/kubernetes/`. It includes namespace, PVC, minimal RBAC, service account, example Job, worker Pod spec, ConfigMap task injection, and secret-mounting patterns. Kubernetes is not required for local use, kubeconfig is not baked into the image, and no cluster-admin permissions are granted.
 
 The stream-first stack supports STAC catalog search, COG window reads, Zarr access, object-storage access, HTTP range requests, and derived outputs. Installed or supported packages include GDAL, PROJ, GEOS, libspatialindex, rasterio, rioxarray, xarray, dask, zarr, geopandas, shapely, pyproj, fsspec, s3fs, gcsfs, aiohttp, requests, numpy, pandas, matplotlib, pyarrow, duckdb, pystac-client, odc-stac, stackstac, and folium. Heavier extras such as `leafmap`, `rio-cogeo`, `cogeo-mosaic`, `planetary-computer`, `hvplot`, `holoviews`, and `datashader` should be evaluated per deployment.
@@ -126,6 +199,7 @@ The important persistent pieces are mounted from the host:
 - `~/.openclaw` -> `/data/.openclaw` for OpenClaw config, sessions, and auth profiles
 - `./data` -> `/data` for persistent runtime state and outputs
 - `./workspace` -> `/data/workspace` and `/workspace` for files you intentionally let the agent see
+- `./external_storage` or `EXTERNAL_STORAGE_DIR` -> `/external_storage/local` for large local data outside git
 
 The container sets `OPENCLAW_AUTH_PROFILE_SECRET_DIR=/data/.openclaw/auth-profile-secrets` so OAuth profile encryption state is kept inside the same persisted mount.
 
@@ -265,6 +339,14 @@ docker compose up workspace-ui
 ```
 
 Then open `http://127.0.0.1:8888` with the `WORKSPACE_UI_TOKEN` value from `.env` or the default local token `scienceclaw`. The file browser is rooted at `/data`, so generated outputs and the mounted workspace are visible.
+
+Start the optional workspace CMS:
+
+```bash
+docker compose up workspace-cms
+```
+
+Then open `http://127.0.0.1:8090` or the port set by `SCIENCECLAW_CMS_PORT`.
 
 Verify Slack Socket Mode:
 
