@@ -29,6 +29,8 @@ First alpha baseline for the OpenClaw scientific working group container.
 - Continuous improvement protocol, starter log, and role review template seeded into the working group scaffold.
 - Pre-remodel capture audit notes for separating reusable template changes from private workspace/project artifacts.
 - Lean Pandoc PDF toolchain added to the image with LaTeX packages needed for manuscript-style PDF exports.
+- Beginner-oriented MkDocs learning path with Start Here, First 10 Minutes, Concepts for Scientists, Launch and Daily Use, Troubleshooting, and Glossary pages.
+- Makefile entry points and lightweight `init-working-group`, `doctor`, and `checkpoint` scripts for calm startup, validation, and session preservation.
 - Smoke tests for working-group scaffold and secret validation.
 
 ### Notes

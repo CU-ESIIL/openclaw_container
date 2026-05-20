@@ -50,6 +50,16 @@ New deployments should feel like spawning a small scientific organization, not l
 
 The default Control UI branding is **OASIS ScienceClaw** with the subtitle **ESIIL's multi-agent workspace**. It also adds a persistent current-working-group banner below the model controls so users can distinguish multiple running instances. The banner uses an in-browser edited title when one has been saved, `SCIENCECLAW_PROJECT_TITLE` when that value is set to a custom title, or the current `PROJECT_CHARTER.md` project title when available. Set `SCIENCECLAW_BRANDING=0` to leave the upstream OpenClaw Control UI unmodified.
 
+The calm local command loop is:
+
+```bash
+make init-working-group
+make doctor
+make checkpoint
+```
+
+`make init-working-group` creates or refreshes the local workspace scaffold without overwriting user-edited files. `make doctor` runs safe health checks for the repository, Docker, seeded workspace, layout, and secret hygiene. `make checkpoint` writes a local checkpoint summary so work can survive rebuilds and handoffs.
+
 ## Repository, Workspace, and External Storage
 
 ScienceClaw uses a three-zone model:

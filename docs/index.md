@@ -8,45 +8,38 @@
 Run an environmental synthesis workspace on your laptop, keep agent access narrow, and publish reviewed outputs without mixing private workspace files into the public site.
 </section>
 
-[ScienceClaw workspace](scienceclaw.md){ .md-button .md-button--primary }
-[OASIS template](oasis-template.md){ .md-button }
-[Read the setup guide](setup.md){ .md-button }
-[Alpha baseline](alpha.md){ .md-button }
-[Operations](operations.md){ .md-button }
-[Template governance](template-governance.md){ .md-button }
-[Distributed runtime](distributed-runtime.md){ .md-button }
-[Workspace CMS](workspace-cms.md){ .md-button }
-[Storage model](storage/index.md){ .md-button }
-[Publishing workflow](publishing-workflow.md){ .md-button }
-[Model routing](model-routing.md){ .md-button }
-[Model/auth options](model-options.md){ .md-button }
-[Example snapshots](example-snapshots.md){ .md-button }
+[Start here](start-here/index.md){ .md-button .md-button--primary }
+[First 10 minutes](start-here/first-10-minutes.md){ .md-button }
+[What is a container?](concepts/what-is-a-container.md){ .md-button }
+[Launch locally](use/launch-locally.md){ .md-button }
+[Where files go](use/where-files-go.md){ .md-button }
+[Troubleshooting](troubleshooting/index.md){ .md-button }
 
 <div class="grid cards" markdown>
 
-- **Local control**
+- **Beginner-safe path**
 
   ---
 
-  Build the image yourself, persist config on your machine, and decide exactly which project files are mounted into `/workspace`.
+  Learn the mental model first, then launch the container and do one small useful action.
 
-- **Model options**
-
-  ---
-
-  Start with ChatGPT/Codex OAuth when available, or switch to API-key mode when repeatable automation matters more.
-
-- **Safe workspace**
+- **Portable scientific workspace**
 
   ---
 
-  Keep agent access focused on `./workspace` and `/data` instead of exposing your whole home directory or unrelated cloud folders.
+  Think of the container as a field station in a box: a reproducible set of tools for shared work.
 
-- **Bootstrapped defaults**
+- **Repo as memory**
 
   ---
 
-  Start with the local Gateway, Control UI origins, Codex model route, `/data` layout, and starter heartbeat/soul workspace files already initialized by the image.
+  Keep decisions, assumptions, prompts, tasks, reports, and template improvements in versioned project memory.
+
+- **Narrow, safer mounts**
+
+  ---
+
+  Mount only the folders agents need. Keep secrets local and large data in external storage.
 
 - **Scientific working group**
 
@@ -54,50 +47,39 @@ Run an environmental synthesis workspace on your laptop, keep agent access narro
 
   Use an 11-role environmental data science scaffold with a PI Liaison, shared memory, evidence standards, skeptic review, and human approval gates.
 
-- **Distributed runtime**
+- **Visible outputs**
 
   ---
 
-  Launch bounded local worker jobs now and render optional Kubernetes Job manifests for future stream-first spatial-temporal analysis.
+  Find figures, reports, logs, notebooks, maps, and provenance in predictable workspace folders.
 
-- **Workspace CMS**
-
-  ---
-
-  Review private drafts, attach provenance/status sidecars, and promote approved pages into the public MkDocs source.
-
-- **External storage**
+- **Recoverable by design**
 
   ---
 
-  Keep large data and outputs outside git and the image while registering streamable STAC, COG, Zarr, Parquet, S3, WebDAV, iRODS, or local stores.
+  Treat troubleshooting as normal work: checkpoint, inspect, recover, and avoid destructive commands.
+
+- **Advanced when ready**
+
+  ---
+
+  Add model routing, storage backends, GitHub workflows, branded skins, and Kubernetes workers after the basics feel stable.
 
 </div>
 
-## Start Here
+## Quick Win
 
 ```bash
+cp .env.example .env
+make init-working-group
+make doctor
 docker compose build
 scripts/login-codex.sh
-scripts/status.sh
+make checkpoint
 ```
 
-The full walkthrough is in the [setup guide](setup.md). The [model/auth options](model-options.md) page explains when OAuth, API keys, hosted service, or local models make sense.
-
-Use [ScienceClaw Workspace](scienceclaw.md) for the `/data` layout, brand foundation, optional JupyterLab workspace UI, and installed tool baseline.
-
-Use [OASIS ScienceClaw Template](oasis-template.md) for the spawnable working-group philosophy, canonical configuration, cockpit file, and workspace conventions.
-
-Use [Distributed runtime](distributed-runtime.md) for worker jobs, STAC/COG/Zarr examples, Kubernetes scaffolding, and output indexing.
-
-Use [Workspace CMS](workspace-cms.md), [Storage architecture](storage/index.md), and [Publishing workflow](publishing-workflow.md) to move from private `/workspace` drafts to reviewed public MkDocs reports and dashboards.
+The [First 10 Minutes](start-here/first-10-minutes.md) page gives the calm walkthrough. The [Glossary](reference/glossary.md) explains container terms without assuming command-line fluency.
 
 Read [Security](security.md) before connecting Slack tokens to the PI Liaison.
 
-Use the [Operations guide](operations.md) for the reproducible Slack pairing, live Gateway OAuth refresh, and smoke-test sequence.
-
-Use [Template governance](template-governance.md) to see which norms, protocols, role notes, data directories, and review checklists are seeded by default.
-
-Use [Model routing](model-routing.md) to keep the PI Liaison and Scientific Director on high-reliability routes while testing open-model APIs for bounded specialist roles.
-
-Use [Example snapshots](example-snapshots.md) to see curated outputs captured from live container sessions without committing the whole local workspace.
+For deeper work, continue to [OASIS ScienceClaw Template](oasis-template.md), [Model Routing](model-routing.md), [Storage](storage/index.md), [Publishing Workflow](publishing-workflow.md), and [Distributed Runtime](distributed-runtime.md).

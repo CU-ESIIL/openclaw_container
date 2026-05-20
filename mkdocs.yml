@@ -3,33 +3,60 @@ site_description: "ESIIL's multi-agent workspace built on OpenClaw."
 
 nav:
   - Home: index.md
-  - ScienceClaw Workspace: scienceclaw.md
-  - OASIS ScienceClaw Template: oasis-template.md
-  - Alpha Baseline: alpha.md
-  - Scientific Working Group: working-group.md
-  - Distributed Runtime: distributed-runtime.md
-  - Workspace CMS: workspace-cms.md
-  - Publishing Workflow: publishing-workflow.md
-  - Dashboard Patterns: dashboard-patterns.md
+  - Start Here:
+      - Overview: start-here/index.md
+      - First 10 Minutes: start-here/first-10-minutes.md
+      - Choose Your Path: start-here/user-paths.md
+  - Concepts for Scientists:
+      - What Is OASIS ScienceClaw?: concepts/what-is-scienceclaw.md
+      - What Is a Container?: concepts/what-is-a-container.md
+      - GitHub Repo as Memory: concepts/github-repo-as-memory.md
+      - Ephemeral vs Persistent: concepts/ephemeral-vs-persistent.md
+      - Computational Calm: concepts/computational-calm.md
+  - Launch and Daily Use:
+      - Launch Locally: use/launch-locally.md
+      - Working Group Cockpit: use/working-group-cockpit.md
+      - Where Files Go: use/where-files-go.md
+      - Tasks, Decisions, Checkpoints: use/tasks-decisions-checkpoints.md
+      - Outputs and Reports: use/outputs-and-reports.md
+  - Creating Working Groups:
+      - OASIS ScienceClaw Template: oasis-template.md
+      - ScienceClaw Workspace: scienceclaw.md
+      - Template Governance: template-governance.md
+      - Alpha Baseline: alpha.md
+  - Agents:
+      - Scientific Working Group: working-group.md
+      - Model Routing: model-routing.md
+      - Model/Auth Options: model-options.md
   - Storage:
       - Overview: storage/index.md
       - Local Mounts: storage/local-mounts.md
       - Remote Storage: storage/remote-storage.md
       - Stream-First Data: storage/stream-first-data.md
       - Storage Secrets: storage/secrets.md
+  - Reproducibility and Publication:
+      - Publishing Workflow: publishing-workflow.md
+      - Workspace CMS: workspace-cms.md
+      - Example Snapshots: example-snapshots.md
+      - Reports Overview: reports/index.md
+      - Sample Promoted Report: reports/sample-promoted-report.md
   - Reports:
       - Overview: reports/index.md
       - Sample Promoted Report: reports/sample-promoted-report.md
   - Dashboards:
       - Overview: dashboard/index.md
       - Sample Storage Dashboard: dashboard/sample-storage-dashboard.md
-  - Operations: operations.md
-  - Security: security.md
-  - Template Governance: template-governance.md
-  - Model Routing: model-routing.md
-  - Model/Auth Options: model-options.md
-  - Example Snapshots: example-snapshots.md
-  - Setup Guide: setup.md
+  - Troubleshooting:
+      - Start Here: troubleshooting/index.md
+  - Advanced Customization:
+      - Setup Guide: setup.md
+      - Operations: operations.md
+      - Security: security.md
+      - Distributed Runtime: distributed-runtime.md
+      - Workspace CMS: workspace-cms.md
+      - Dashboard Patterns: dashboard-patterns.md
+  - Reference:
+      - Glossary: reference/glossary.md
 
 theme:
   name: material

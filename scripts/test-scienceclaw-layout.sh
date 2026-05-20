@@ -53,6 +53,9 @@ fi
 required_scripts=(
   "scripts/init-data-layout.sh"
   "scripts/setup_env.sh"
+  "scripts/init_working_group.sh"
+  "scripts/doctor.sh"
+  "scripts/checkpoint.sh"
   "scripts/check_auth.sh"
   "examples/pdf_to_text.sh"
   "examples/pdf_to_images.sh"
