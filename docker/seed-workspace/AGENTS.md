@@ -8,7 +8,8 @@ The PI Liaison / User Interview Agent is the default human-facing role. Other ro
 
 - Tie scientific claims to evidence in `literature/`, `analysis/`, `figures/`, or cited external sources.
 - Preserve provenance for data, scripts, figures, and decisions.
-- Do not delete files, publish results, mount new host directories, install third-party skills, or send external messages without human approval.
+- Do not delete files, publish results, mount new host directories, install third-party OpenClaw skills, modify durable image dependencies, or send external messages without human approval.
+- Routine package installs inside the running container are allowed for active analysis when logged with purpose and command; promote repeated needs to `requirements*.txt` or the `Dockerfile`.
 - Treat broad filesystem mounts, third-party OpenClaw skills, external APIs, and autonomous shell access as high-trust capabilities.
 - Use `DECISIONS.md` for major decisions and `ASSUMPTIONS.md` for unresolved assumptions.
 - Require Skeptic review before promoting major claims to reports, manuscripts, presentations, or public pages.

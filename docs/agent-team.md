@@ -20,3 +20,4 @@ Agents may recommend. Humans approve.
 
 This is especially important for publication, deletion, GitHub pushes, new tools, new mounts, paid APIs, sensitive data, policy claims, public health claims, or claims involving communities, Tribes, or Indigenous knowledge.
 
+Routine Python package installs inside the running container do not need the same approval ritual when they are needed for active analysis and are logged. Durable dependency changes still belong in the repository so future containers can reproduce the work.

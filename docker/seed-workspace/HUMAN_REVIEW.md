@@ -6,7 +6,8 @@ Human approval is required before any agent performs or finalizes the actions be
 
 - Deleting files or directories
 - Pushing to GitHub or another remote
-- Installing third-party OpenClaw skills, plugins, packages, or system tools
+- Installing third-party OpenClaw skills, plugins, or system tools
+- Adding durable dependencies to the template image, `Dockerfile`, or requirements files
 - Mounting new host folders into the container
 - Sending emails, messages, posts, or other external communications
 - Modifying credentials, tokens, auth profiles, API keys, or secrets
@@ -16,6 +17,12 @@ Human approval is required before any agent performs or finalizes the actions be
 - Using external APIs with billing implications
 - Launching Kubernetes Jobs or other worker containers outside the approved local test path
 - Changing worker image allowlists, Kubernetes RBAC, mounted volumes, or resource limits
+
+## Container-Local Package Installs
+
+Routine package installs inside the running container may proceed without an extra chat approval when they are needed for active analysis, do not alter credentials, do not mount host folders, and do not use paid services. Agents should log the package name, reason, and command in `daily_notes/`, `agent_reports/`, or a relevant provenance file.
+
+If the package is needed again, propose a durable template change to `requirements-spatiotemporal.txt`, `requirements.txt`, or the `Dockerfile` so future containers are reproducible.
 
 ## Review Expectations
 

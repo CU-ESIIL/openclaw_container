@@ -2,7 +2,7 @@
 
 The continuous improvement loop is a bounded review practice for ScienceClaw working groups. It helps agents and humans notice stale assumptions, fragile scripts, unclear prose, missing provenance, and incomplete review packets.
 
-It is not an autonomous permission system. It does not grant authority to publish, delete files, push to GitHub, install new tools, mount broad folders, spend money, or bypass human review.
+It is not an autonomous permission system. It does not grant authority to publish, delete files, push to GitHub, install new OpenClaw skills or system tools, mount broad folders, spend money, or bypass human review.
 
 ## Objectives
 
@@ -38,15 +38,16 @@ It is not an autonomous permission system. It does not grant authority to publis
 - Publishing or promoting public claims.
 - Deleting files or overwriting user-edited artifacts.
 - Pushing to GitHub.
-- Installing third-party skills or packages.
+- Installing third-party OpenClaw skills, system tools, or durable template dependencies.
 - Mounting new host folders.
 - Sending emails or messages outside the approved PI Liaison channel.
 - Running expensive, long, or externally billed jobs.
 - Making claims about communities, Tribes, Indigenous knowledge, public health, legal rules, policy, or governance.
+
+Routine package installs inside the disposable running container may proceed when needed for analysis, provided the command and purpose are logged and the package is not a credential tool, external service client with billing implications, or broad execution framework.
 
 ## Output Expectations
 
 Each loop should produce one short entry in `CONTINUOUS_IMPROVEMENT_LOG.md` and, when useful, one concise review packet in `agent_reports/`.
 
 Avoid long unstructured transcripts. The point is to make the next human decision easier.
-

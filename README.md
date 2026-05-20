@@ -80,6 +80,7 @@ Secrets belong in `.env`, GitHub Secrets, Docker secrets, Kubernetes Secrets, or
 - Specialist agents work through shared files and review packets.
 - Slack, when enabled, should talk to the PI Liaison rather than execution agents.
 - Human approval is required before publication, deletion, GitHub pushes, new mounts, third-party tools, billed APIs, or sensitive claims.
+- Routine analysis packages may be installed inside a running disposable container when logged; durable dependencies should be added to requirements or the Dockerfile.
 - Kubernetes workers are optional bounded execution jobs, not autonomous self-spawning agents.
 
 ## Stable And Experimental
