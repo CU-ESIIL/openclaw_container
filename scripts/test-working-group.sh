@@ -21,12 +21,24 @@ trap cleanup_workspace EXIT
 
 required_dirs=(
   documents
+  config
   data
+  datasets
   data/raw
   data/processed
   data/derived
   analysis
   figures
+  maps
+  outputs
+  reports
+  manuscripts
+  presentations
+  notebooks
+  tasks
+  reviews
+  decisions
+  assumptions
   literature
   meetings
   daily_notes
@@ -37,6 +49,8 @@ required_dirs=(
   memory
   memory/quarantine
   prompts
+  runtime
+  cache
   services
   services/pi_liaison
   scripts
@@ -44,6 +58,7 @@ required_dirs=(
 
 required_files=(
   README.md
+  WORKING_GROUP_COCKPIT.md
   MEMORY.md
   AGENTS.md
   IDENTITY.md
@@ -55,6 +70,10 @@ required_files=(
   DECISIONS.md
   ASSUMPTIONS.md
   HUMAN_REVIEW.md
+  CONTRIBUTION_GUIDE.md
+  CONSENSUS_STATE.md
+  CHECKPOINT.md
+  config/working_group.yaml
   USER_CONTEXT.md
   PROJECT_INTAKE.md
   PROJECT_CHARTER.md

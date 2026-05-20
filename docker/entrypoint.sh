@@ -15,6 +15,14 @@ if command -v scienceclaw-init-data-layout >/dev/null 2>&1; then
   }
 fi
 
+if [ "${SCIENCECLAW_BRANDING:-1}" != "0" ] && command -v scienceclaw-install-control-ui-branding >/dev/null 2>&1; then
+  scienceclaw-install-control-ui-branding >/tmp/scienceclaw-branding.log 2>&1 || {
+    echo "ScienceClaw Control UI branding failed. Recent log:" >&2
+    tail -n 80 /tmp/scienceclaw-branding.log >&2
+    exit 1
+  }
+fi
+
 mkdir -p \
   "${config_dir}" \
   "${config_dir}/auth-profile-secrets" \
@@ -43,6 +51,14 @@ if [ "${OPENCLAW_INIT_WORKING_GROUP:-1}" != "0" ]; then
   fi
 fi
 
+if [ "${SCIENCECLAW_BRANDING:-1}" != "0" ] && command -v scienceclaw-install-control-ui-branding >/dev/null 2>&1; then
+  scienceclaw-install-control-ui-branding >/tmp/scienceclaw-branding.log 2>&1 || {
+    echo "ScienceClaw Control UI branding failed. Recent log:" >&2
+    tail -n 80 /tmp/scienceclaw-branding.log >&2
+    exit 1
+  }
+fi
+
 node <<'NODE'
 const fs = require("fs");
 const crypto = require("crypto");
@@ -57,6 +73,7 @@ const origins = (process.env.OPENCLAW_CONTROL_ORIGINS || "http://127.0.0.1:18789
   .split(",")
   .map((value) => value.trim())
   .filter(Boolean);
+const visibleRepliesMode = process.env.OPENCLAW_VISIBLE_REPLIES_MODE || "message_tool";
 
 let config = {};
 try {
@@ -94,6 +111,11 @@ config.plugins.entries.openai ||= {};
 config.plugins.entries.openai.enabled = true;
 config.plugins.entries.codex ||= {};
 config.plugins.entries.codex.enabled = true;
+
+config.messages ||= {};
+delete config.messages.visibleReplies;
+config.messages.groupChat ||= {};
+config.messages.groupChat.visibleReplies = visibleRepliesMode;
 
 config.meta ||= {};
 config.meta.lastTouchedVersion ||= "container-bootstrap";

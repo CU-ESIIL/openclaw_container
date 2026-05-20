@@ -1,10 +1,10 @@
-# ScienceClaw Workspace
+# OASIS ScienceClaw Workspace
 
 <div class="scienceclaw-hero" markdown>
 
 <div markdown>
 
-ScienceClaw is the branded template layer for this OpenClaw container: a persistent environmental synthesis workspace with a PI Liaison, bounded scientific roles, durable memory, reproducible folders, and cautious human review gates.
+OASIS ScienceClaw is the branded template layer for this OpenClaw container: a persistent environmental synthesis workspace with a PI Liaison, bounded scientific roles, durable memory, reproducible folders, and cautious human review gates.
 
 OpenClaw remains one interface into the workspace. The repository is the source of truth, `/data` is the persistent runtime root, `/workspace` is the private scientific working area, and `/external_storage` is the optional large-data shelf.
 
@@ -16,7 +16,7 @@ OpenClaw remains one interface into the workspace. The repository is the source 
 
 ## Brand Foundation
 
-The visual direction follows the provided ScienceClaw and ESIIL materials: modern environmental science, clean information hierarchy, restrained colors, and visible links between computation, evidence, and ecological context.
+The visual direction follows the provided ScienceClaw and ESIIL materials: modern environmental science, clean information hierarchy, restrained colors, and visible links between computation, evidence, and ecological context. The default user-facing lockup is **OASIS ScienceClaw** with the subtitle **ESIIL's multi-agent workspace**.
 
 <div class="scienceclaw-palette" markdown>
 

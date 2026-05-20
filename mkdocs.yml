@@ -1,9 +1,10 @@
-site_name: "ScienceClaw"
-site_description: "AI-native environmental synthesis workspace built on OpenClaw."
+site_name: "OASIS ScienceClaw"
+site_description: "ESIIL's multi-agent workspace built on OpenClaw."
 
 nav:
   - Home: index.md
   - ScienceClaw Workspace: scienceclaw.md
+  - OASIS ScienceClaw Template: oasis-template.md
   - Alpha Baseline: alpha.md
   - Scientific Working Group: working-group.md
   - Distributed Runtime: distributed-runtime.md

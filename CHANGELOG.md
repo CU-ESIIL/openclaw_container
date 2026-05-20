@@ -6,6 +6,8 @@ First alpha baseline for the OpenClaw scientific working group container.
 
 ### Added
 
+- OASIS ScienceClaw template mode with durable Control UI branding, a current-working-group banner, canonical working-group configuration, cockpit orientation, checkpoint, consensus, and contribution files.
+- Canonical seeded workspace folders for datasets, outputs, maps, reports, manuscripts, presentations, notebooks, tasks, reviews, decisions, assumptions, runtime notes, cache, and config.
 - Reproducible `/workspace` seed under `docker/seed-workspace`.
 - Eleven bounded working-group roles, including the PI Liaison / User Interview Agent as the default human-facing role.
 - Project memory, intake, charter, team brief, initial tasks, human-review, assumption, decision, and question-queue files.

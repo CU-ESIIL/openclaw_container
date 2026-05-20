@@ -5,6 +5,8 @@ workspace/*
 !workspace/.gitkeep
 external_storage/*
 !external_storage/.gitkeep
+instances/*
+!instances/.gitkeep
 .openclaw/
 .env
 .env.*
@@ -38,6 +40,7 @@ docker-compose.*.local.yml
 # Python/MkDocs local output
 .cache/
 .workspace_cache/
+.playwright-mcp/
 .venv/
 __pycache__/
 site/

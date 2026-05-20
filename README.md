@@ -1,6 +1,6 @@
-# ScienceClaw
+# OASIS ScienceClaw
 
-ScienceClaw is an AI-native environmental synthesis workspace built on OpenClaw. It runs locally in Docker, keeps agent access focused on a narrow workspace, and supports ChatGPT/Codex OAuth login when your installed OpenClaw version and account allow it.
+OASIS ScienceClaw is an AI-native environmental synthesis workspace built on OpenClaw. It runs locally in Docker, keeps agent access focused on a narrow workspace, and supports ChatGPT/Codex OAuth login when your installed OpenClaw version and account allow it.
 
 This repository gives you:
 
@@ -28,6 +28,27 @@ Curated outputs from live container sessions can be preserved under `examples/`.
 The default workspace also includes reusable governance templates: team norms, decision protocol, memory quarantine, artifact registry, societal impact checklist, role reproducibility notes, data provenance folders, and a meeting template.
 
 It also seeds a bounded continuous improvement loop. The loop lets agents review drafts, scripts, claims, provenance, tests, and assumptions, but it does not authorize publication, deletion, GitHub pushes, new tools, new mounts, paid API use, or sensitive claims without human review.
+
+## OASIS ScienceClaw Template Mode
+
+The template is organized around a simple operating model:
+
+```text
+GitHub = control plane
+repo = memory
+container = runtime
+```
+
+New deployments should feel like spawning a small scientific organization, not launching a generic chatbot. The seed workspace now includes:
+
+- `WORKING_GROUP_COCKPIT.md` for first orientation, status, next actions, and review gates
+- `config/working_group.yaml` for project identity, branding, lifecycle state, integrations, storage posture, and workflow modes
+- `CHECKPOINT.md` for recoverable checkpoint summaries
+- `CONSENSUS_STATE.md` for visible agreement, uncertainty, and dissent
+- `CONTRIBUTION_GUIDE.md` for collaboration, attribution, and review norms
+- canonical folders for datasets, outputs, maps, reports, manuscripts, presentations, notebooks, tasks, reviews, decisions, assumptions, runtime notes, and cache
+
+The default Control UI branding is **OASIS ScienceClaw** with the subtitle **ESIIL's multi-agent workspace**. It also adds a persistent current-working-group banner below the model controls so users can distinguish multiple running instances. The banner uses an in-browser edited title when one has been saved, `SCIENCECLAW_PROJECT_TITLE` when that value is set to a custom title, or the current `PROJECT_CHARTER.md` project title when available. Set `SCIENCECLAW_BRANDING=0` to leave the upstream OpenClaw Control UI unmodified.
 
 ## Repository, Workspace, and External Storage
 
@@ -502,15 +523,30 @@ Then run:
 docker compose run --rm openclaw-local openclaw models status
 ```
 
-## Keeping Your Laptop Usable
+## Runtime Resource Limits
 
-The Compose service asks Docker for about 2 CPUs and 4 GB of memory:
+The main OpenClaw gateway container uses configurable Docker resource limits:
 
-- `cpus: "2.0"`
-- `mem_limit: 4g`
-- `deploy.resources.limits.memory: 4G`
+- `SCIENCECLAW_CONTAINER_CPUS`, default `2.0`
+- `SCIENCECLAW_CONTAINER_MEMORY`, default `50g`
 
-Docker Desktop settings still matter. If builds or agent sessions feel heavy, reduce concurrent work, keep the mounted workspace small, and avoid large generated files or logs inside `workspace/`.
+Docker Desktop settings still matter. If Docker Desktop is configured with less memory than `SCIENCECLAW_CONTAINER_MEMORY`, the container may be configured for a larger limit than Docker can practically provide. Increase Docker Desktop resources when running heavier agent sessions, reduce concurrent work when the laptop feels constrained, keep the mounted workspace small, and avoid large generated files or logs inside `workspace/`.
+
+## Multiple Local Instances
+
+To start a separate local ScienceClaw instance for a new project, use:
+
+```bash
+scripts/start-instance.sh project-two 18790 8889 8091
+```
+
+This creates isolated runtime folders under `instances/project-two/` and starts:
+
+- Gateway: `http://127.0.0.1:18790`
+- Workspace UI: `http://127.0.0.1:8889/lab?token=scienceclaw`
+- Workspace CMS: `http://127.0.0.1:8091`
+
+Use a different instance name and port trio for each additional project. Instance folders are ignored by git by default.
 
 ## Publishing Images
 

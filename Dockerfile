@@ -19,6 +19,8 @@ ENV OPENCLAW_SEED_WORKSPACE=1
 ENV OPENCLAW_INIT_WORKING_GROUP=1
 ENV OPENCLAW_START_PI_LIAISON=1
 ENV OPENCLAW_CONFIGURE_SLACK=1
+ENV SCIENCECLAW_BRANDING=1
+ENV SCIENCECLAW_PROJECT_TITLE="OASIS ScienceClaw Working Group"
 ENV NODE_ENV=production
 
 RUN apt-get update \
@@ -84,9 +86,13 @@ COPY scripts/openclaw-storage /usr/local/bin/openclaw-storage
 COPY docker/seed-workspace /opt/openclaw/seed-workspace
 COPY cms /opt/scienceclaw/cms
 COPY storage /opt/scienceclaw/storage
+COPY branding/control-ui /opt/scienceclaw/branding/control-ui
+COPY docs/assets/brand /opt/scienceclaw/branding/assets
+COPY scripts/install-control-ui-branding.sh /usr/local/bin/scienceclaw-install-control-ui-branding
 RUN chmod +x /usr/local/bin/openclaw-container-entrypoint \
     && chmod +x /usr/local/bin/scienceclaw-init-data-layout \
     && chmod +x /usr/local/bin/openclaw-storage \
+    && chmod +x /usr/local/bin/scienceclaw-install-control-ui-branding \
     && chmod +x /opt/openclaw/seed-workspace/scripts/init-working-group.sh \
     && chmod +x /opt/openclaw/seed-workspace/scripts/start-pi-liaison.sh \
     && chmod +x /opt/openclaw/seed-workspace/scripts/check-secrets.sh \
