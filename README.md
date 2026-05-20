@@ -42,6 +42,14 @@ make checkpoint
 
 The demo writes a small reproducible environmental workflow to `workspace/outputs/demo/`, including a CSV table, SVG figure, metadata, and report.
 
+To start a second working-group instance while another one is already open:
+
+```bash
+scripts/start-instance.sh project-two 18790 8889 8091
+```
+
+That command creates a separate `instances/project-two/` workspace and prints links for the Gateway, Workspace UI, and CMS.
+
 ## Core Commands
 
 | Command | Purpose |

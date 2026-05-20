@@ -28,6 +28,46 @@ make up
 
 The container starts with the PI Liaison workflow, a seeded `/workspace`, and the OASIS ScienceClaw branding. When multiple instances are running, use `docker compose ps` to confirm ports.
 
+## Restart Or Start Another Working Group
+
+To restart the default local stack:
+
+```bash
+make up
+```
+
+To stop it:
+
+```bash
+make down
+```
+
+To start a separate working-group instance while another one is already open, use the instance helper with a unique name and ports:
+
+```bash
+scripts/start-instance.sh project-two 18790 8889 8091
+```
+
+This creates an isolated instance directory:
+
+```text
+instances/project-two/
+  data/
+  workspace/
+  external_storage/
+  openclaw/
+```
+
+The helper prints three links when it finishes:
+
+| Link | Purpose |
+| --- | --- |
+| Gateway | OpenClaw chat and control UI for that instance |
+| Workspace UI | JupyterLab file browser for that instance |
+| Workspace CMS | Review and promote outputs for that instance |
+
+Use a different instance name and different ports for each additional working group.
+
 ## 4. Run The Demo Workflow
 
 ```bash
@@ -72,4 +112,3 @@ make checkpoint
 | `make demo` | Run the deterministic environmental demo |
 | `make smoke-test` | Run lightweight operational validation |
 | `make checkpoint` | Write a local checkpoint summary |
-

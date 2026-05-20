@@ -46,6 +46,27 @@ docker compose ps
 
 If a port is already in use, start a second instance with the instance helper or adjust the port variables in `.env`.
 
+## Start A Second Instance
+
+Use this when one ScienceClaw container is already running and you want a separate working group for a different project.
+
+```bash
+scripts/start-instance.sh project-two 18790 8889 8091
+```
+
+Arguments are:
+
+| Argument | Example | Meaning |
+| --- | --- | --- |
+| instance name | `project-two` | folder name under `instances/` and Docker Compose project suffix |
+| gateway port | `18790` | OpenClaw Gateway / Control UI |
+| workspace UI port | `8889` | JupyterLab file browser |
+| CMS port | `8091` | workspace CMS |
+
+The instance stores its state separately under `instances/project-two/`, including its own `workspace`, `data`, `external_storage`, and OpenClaw state. This lets you keep multiple working groups open without mixing files.
+
+!!! tip "Name instances after projects"
+    Use memorable names such as `wildfire-synthesis`, `urban-greenspace`, or `workshop-demo`. The title banner inside the UI can be edited after launch.
+
 !!! warning "Mount narrowly"
     Mount only the folders the working group needs. Avoid mounting your whole home directory into an agent-accessible container.
-
