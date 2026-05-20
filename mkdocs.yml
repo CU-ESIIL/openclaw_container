@@ -3,6 +3,8 @@ site_description: "ESIIL's multi-agent workspace built on OpenClaw."
 
 nav:
   - Home: index.md
+  - Quick Start: quick-start.md
+  - Architecture: architecture.md
   - Start Here:
       - Overview: start-here/index.md
       - First 10 Minutes: start-here/first-10-minutes.md
@@ -25,10 +27,12 @@ nav:
       - Template Governance: template-governance.md
       - Alpha Baseline: alpha.md
   - Agents:
+      - Agent Team: agent-team.md
       - Scientific Working Group: working-group.md
       - Model Routing: model-routing.md
       - Model/Auth Options: model-options.md
   - Storage:
+      - Storage Model: storage-model.md
       - Overview: storage/index.md
       - Local Mounts: storage/local-mounts.md
       - Remote Storage: storage/remote-storage.md
@@ -36,6 +40,7 @@ nav:
       - Storage Secrets: storage/secrets.md
   - Reproducibility and Publication:
       - Publishing Workflow: publishing-workflow.md
+      - CMS Output Review: cms-output-review.md
       - Workspace CMS: workspace-cms.md
       - Example Snapshots: example-snapshots.md
       - Reports Overview: reports/index.md
@@ -47,12 +52,15 @@ nav:
       - Overview: dashboard/index.md
       - Sample Storage Dashboard: dashboard/sample-storage-dashboard.md
   - Troubleshooting:
-      - Start Here: troubleshooting/index.md
+      - Start Here: troubleshooting.md
   - Advanced Customization:
       - Setup Guide: setup.md
       - Operations: operations.md
+      - Security and Credentials: security-and-credentials.md
       - Security: security.md
+      - Slack Integration: slack-integration.md
       - Distributed Runtime: distributed-runtime.md
+      - Kubernetes Workers: kubernetes-workers.md
       - Workspace CMS: workspace-cms.md
       - Dashboard Patterns: dashboard-patterns.md
   - Reference:

@@ -13,7 +13,7 @@ Run an environmental synthesis workspace on your laptop, keep agent access narro
 [What is a container?](concepts/what-is-a-container.md){ .md-button }
 [Launch locally](use/launch-locally.md){ .md-button }
 [Where files go](use/where-files-go.md){ .md-button }
-[Troubleshooting](troubleshooting/index.md){ .md-button }
+[Troubleshooting](troubleshooting.md){ .md-button }
 
 <div class="grid cards" markdown>
 

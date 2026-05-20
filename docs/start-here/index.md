@@ -29,7 +29,7 @@ Repeat this when you feel lost:
 2. Launch the workspace with [Launch Locally](../use/launch-locally.md).
 3. Open the [Working Group Cockpit](../use/working-group-cockpit.md).
 4. Learn [Where Files Go](../use/where-files-go.md).
-5. Check the [Troubleshooting](../troubleshooting/index.md) page if anything feels strange.
+5. Check the [Troubleshooting](../troubleshooting.md) page if anything feels strange.
 
 The calm command loop is:
 

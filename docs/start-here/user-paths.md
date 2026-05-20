@@ -38,7 +38,7 @@ Different users need different doors into the same system.
 
   ---
 
-  Start with [Troubleshooting and Recovery](../troubleshooting/index.md). Most problems are recoverable.
+  Start with [Troubleshooting and Recovery](../troubleshooting.md). Most problems are recoverable.
 
 </div>
 
