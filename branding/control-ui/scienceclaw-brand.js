@@ -59,6 +59,11 @@
   }
 
   function installBrandPlate() {
+    if (!isChatView()) {
+      var existing = document.querySelector(".scienceclaw-brand-plate");
+      if (existing) existing.remove();
+      return;
+    }
     if (document.querySelector(".scienceclaw-brand-plate")) return;
     var candidates = Array.prototype.slice.call(document.querySelectorAll("header, nav, [class*=header], [class*=topbar], [class*=breadcrumb]"));
     var host = candidates.find(function (el) {
@@ -141,6 +146,11 @@
   }
 
   function installProjectBanner() {
+    if (!isChatView()) {
+      var existing = document.querySelector(".scienceclaw-project-banner");
+      if (existing) existing.remove();
+      return;
+    }
     var title = getProjectTitle();
     var host = findControlRow();
     if (!host || !host.parentElement) return;
@@ -191,6 +201,53 @@
       }
     }
     positionProjectBanner(host, banner);
+  }
+
+  function isChatView() {
+    return window.location.pathname.indexOf("/chat") === 0;
+  }
+
+  function getCmsPort() {
+    return (
+      window.SCIENCECLAW_CONFIG && window.SCIENCECLAW_CONFIG.cmsPort ||
+      window.SCIENCECLAW_CMS_PORT ||
+      "8090"
+    );
+  }
+
+  function getFilesUrl() {
+    var protocol = window.location.protocol || "http:";
+    var hostname = window.location.hostname || "127.0.0.1";
+    return protocol + "//" + hostname + ":" + getCmsPort() + "/files?path=/workspace";
+  }
+
+  function getGithubUrl() {
+    var protocol = window.location.protocol || "http:";
+    var hostname = window.location.hostname || "127.0.0.1";
+    return protocol + "//" + hostname + ":" + getCmsPort() + "/github";
+  }
+
+  function installWorkspaceLinks() {
+    if (document.querySelector(".scienceclaw-workspace-links")) return;
+    var sidebarTargets = Array.prototype.slice.call(document.querySelectorAll("aside, nav, [class*=sidebar]"));
+    var host = sidebarTargets.find(function (el) {
+      var rect = el.getBoundingClientRect();
+      return rect.width > 120 && rect.width < 520 && rect.height > 240;
+    });
+    if (!host) return;
+
+    var wrapper = document.createElement("div");
+    wrapper.className = "scienceclaw-workspace-links";
+    wrapper.innerHTML =
+      '<a class="scienceclaw-files-link" href="' + getFilesUrl() + '" target="_blank" rel="noopener">' +
+      '<span class="scienceclaw-files-link__icon" aria-hidden="true">▣</span>' +
+      '<span><strong>Files</strong><small>Browse workspace and outputs</small></span>' +
+      '</a>' +
+      '<a class="scienceclaw-files-link" href="' + getGithubUrl() + '" target="_blank" rel="noopener">' +
+      '<span class="scienceclaw-files-link__icon" aria-hidden="true">⌁</span>' +
+      '<span><strong>GitHub</strong><small>Authorized project repositories</small></span>' +
+      '</a>';
+    host.appendChild(wrapper);
   }
 
   function startProjectTitleEdit(banner) {
@@ -253,6 +310,7 @@
     replaceExactText(document.body);
     installBrandPlate();
     installProjectBanner();
+    installWorkspaceLinks();
     cleanSidebarBrand();
     Array.prototype.forEach.call(document.querySelectorAll(".scienceclaw-oasis-mark"), function (el) {
       el.remove();

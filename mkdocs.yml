@@ -18,6 +18,8 @@ nav:
   - Launch and Daily Use:
       - Launch Locally: use/launch-locally.md
       - Working Group Cockpit: use/working-group-cockpit.md
+      - Workspace File Manager: workspace-file-manager.md
+      - GitHub Repository Manager: github-repository-manager.md
       - Where Files Go: use/where-files-go.md
       - Tasks, Decisions, Checkpoints: use/tasks-decisions-checkpoints.md
       - Outputs and Reports: use/outputs-and-reports.md
@@ -42,6 +44,8 @@ nav:
       - Publishing Workflow: publishing-workflow.md
       - CMS Output Review: cms-output-review.md
       - Workspace CMS: workspace-cms.md
+      - Workspace File Manager: workspace-file-manager.md
+      - GitHub Repository Manager: github-repository-manager.md
       - Example Snapshots: example-snapshots.md
       - Reports Overview: reports/index.md
       - Sample Promoted Report: reports/sample-promoted-report.md

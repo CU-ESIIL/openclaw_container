@@ -70,6 +70,7 @@ def charter_title():
 
 config = {
     "projectTitle": configured_title() or charter_title() or default_title,
+    "cmsPort": os.environ.get("SCIENCECLAW_CMS_PORT", "8090"),
 }
 path.write_text(
     "window.SCIENCECLAW_CONFIG = "
@@ -83,6 +84,7 @@ index_path="${control_ui_dir}/index.html"
 if [ -f "${index_path}" ]; then
   python3 - "${index_path}" <<'PY'
 from pathlib import Path
+import re
 import sys
 
 path = Path(sys.argv[1])
@@ -91,7 +93,7 @@ html = html.replace("<title>OpenClaw Control</title>", "<title>ScienceClaw</titl
 
 css = '    <link rel="stylesheet" href="./scienceclaw-brand.css" />'
 config_js = '    <script defer src="./scienceclaw-config.js"></script>'
-js = '    <script defer src="./scienceclaw-brand.js"></script>'
+js = '    <script defer src="./scienceclaw-brand.js?v=20260520"></script>'
 
 if "scienceclaw-brand.css" not in html:
     marker = '</head>'
@@ -102,6 +104,12 @@ if "scienceclaw-config.js" not in html:
         html = html.replace(marker, f"{config_js}\n{marker}")
     else:
         html = html.replace('</head>', f"{config_js}\n</head>")
+html = re.sub(
+    r'    <script defer src="\./scienceclaw-brand\.js(?:\?v=[^"]*)?"></script>',
+    js,
+    html,
+)
+
 if "scienceclaw-brand.js" not in html:
     marker = '</head>'
     html = html.replace(marker, f"{js}\n{marker}")

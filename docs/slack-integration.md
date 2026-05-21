@@ -12,7 +12,7 @@ Set these in `.env`:
 
 ```text
 SLACK_BOT_TOKEN=xoxb-your-token
-SLACK_APP_TOKEN=xapp-1-APPID-INSTALLID-your-token
+SLACK_APP_TOKEN=xapp-your-token
 SLACK_DEFAULT_CHANNEL=#science-working-group
 ```
 
@@ -27,4 +27,3 @@ The checker masks token previews and refuses placeholder or malformed Slack toke
 ## Safe Use
 
 Invite the bot to the intended channel. Enable Socket Mode and the relevant Slack app event subscriptions. If the app is reinstalled, rotate and update tokens. Never paste tokens into chat, docs, screenshots, issues, or prompt logs.
-

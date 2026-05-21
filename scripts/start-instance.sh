@@ -51,6 +51,30 @@ export SCIENCECLAW_CMS_PORT="${cms_port}"
 export OPENCLAW_START_PI_LIAISON=0
 export OPENCLAW_CONFIGURE_SLACK="${OPENCLAW_CONFIGURE_SLACK:-0}"
 
+config_path="${OPENCLAW_STATE_DIR}/openclaw.json"
+if [ -f "${config_path}" ]; then
+  node - "${config_path}" "${gateway_port}" "${OPENCLAW_CONTROL_ORIGINS}" <<'NODE'
+const fs = require("fs");
+const [configPath, port, originsRaw] = process.argv.slice(2);
+let config = {};
+try {
+  config = JSON.parse(fs.readFileSync(configPath, "utf8"));
+} catch (error) {
+  if (error.code !== "ENOENT") throw error;
+}
+
+config.gateway ||= {};
+config.gateway.port = Number(port);
+config.gateway.controlUi ||= {};
+config.gateway.controlUi.allowedOrigins = originsRaw
+  .split(",")
+  .map((value) => value.trim())
+  .filter(Boolean);
+
+fs.writeFileSync(configPath, `${JSON.stringify(config, null, 2)}\n`, { mode: 0o600 });
+NODE
+fi
+
 gateway_container_id="$(
   docker compose "${env_args[@]}" run -d \
     --service-ports \

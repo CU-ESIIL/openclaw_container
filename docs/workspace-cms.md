@@ -1,6 +1,6 @@
 # Workspace CMS
 
-The ScienceClaw workspace CMS is a lightweight, file-backed review layer for moving from private work to public documentation. It does not replace MkDocs, and it does not execute arbitrary commands. Its job is to help humans inspect files, record review status, and promote approved artifacts.
+The ScienceClaw workspace CMS is a lightweight, file-backed review layer for moving from private work to public documentation. It also provides the integrated workspace file manager at `/files` and the GitHub repository manager at `/github`. It does not replace MkDocs, JupyterLab, or the OpenClaw gateway, and it does not execute arbitrary commands. Its job is to help humans inspect files, record review status, manage selected project repositories, and promote approved artifacts.
 
 Start it locally with:
 
@@ -8,7 +8,7 @@ Start it locally with:
 docker compose up workspace-cms
 ```
 
-Then open `http://127.0.0.1:8090`.
+Then open `http://127.0.0.1:8090` for the review home page, `http://127.0.0.1:8090/files?path=/workspace` for the file manager, or `http://127.0.0.1:8090/github` for selected project repositories.
 
 The CMS can browse configured roots:
 
@@ -18,6 +18,10 @@ The CMS can browse configured roots:
 - `/repo/examples` for committed examples.
 - `/repo/storage` for storage templates.
 - `/external_storage/local` for optional large-data mounts.
+
+The file manager can visually browse from `/`, while hiding sensitive paths and restricting writes to configured safe roots. See [Workspace File Manager](workspace-file-manager.md) for the user-facing file workflow.
+
+The GitHub manager only operates on explicitly authorized repositories cloned under `/workspace/repos/`. See [GitHub Repository Manager](github-repository-manager.md) for authentication, registry, branch, and pull-request workflow details.
 
 ## Metadata
 
@@ -52,4 +56,3 @@ Use this metadata to preserve provenance from prompts, agents, notebooks, script
 7. MkDocs builds the public site from `docs/`.
 
 Public pages must not require a private workspace mount, local secrets, or private storage credentials.
-

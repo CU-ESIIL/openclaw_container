@@ -42,6 +42,21 @@ make checkpoint
 
 The demo writes a small reproducible environmental workflow to `workspace/outputs/demo/`, including a CSV table, SVG figure, metadata, and report.
 
+Open the integrated workspace file manager from the ScienceClaw sidebar or at `http://127.0.0.1:8090/files?path=/workspace`. It lets you browse the container from `/`, while write operations are restricted to safe project areas such as `/workspace`, `/workspace/outputs`, `/data/outputs`, and `/tmp`.
+
+Open the GitHub Repository Manager from the same sidebar or at `http://127.0.0.1:8090/github`. It lets you authorize selected project repositories, clone them into `/workspace/repos/`, inspect branch status, and use a branch-and-pull-request workflow without granting agents account-wide GitHub access.
+
+For organization repository access, provide a fine-grained GitHub token through `.env` or a mounted secret file. The intended local-secret path is:
+
+```bash
+mkdir -p secrets
+printf '%s\n' 'github_pat_or_fine_grained_token' > secrets/github_token
+chmod 600 secrets/github_token
+docker compose -f docker-compose.yml -f docker-compose.secrets.yml up -d
+```
+
+At startup the container reads the secret file, exposes it only inside the running process as `GITHUB_TOKEN`/`GH_TOKEN`, and configures GitHub CLI for git operations. Agents and the GitHub manager still operate only on explicitly authorized repositories under `/workspace/repos/`.
+
 To start a second working-group instance while another one is already open:
 
 ```bash
@@ -62,6 +77,8 @@ That command creates a separate `instances/project-two/` workspace and prints li
 | `make doctor` | Run safe local health checks |
 | `make demo` | Run the deterministic environmental demo workflow |
 | `make smoke-test` | Validate structure, demo outputs, and secret hygiene |
+| `make workspace-smoke-test` | Validate the workspace file manager and path restrictions |
+| `make github-smoke-test` | Validate the GitHub repository manager safety checks |
 | `make checkpoint` | Write a local checkpoint summary |
 
 ## Storage Model
@@ -95,6 +112,8 @@ Stable in the current alpha:
 - deterministic demo workflow
 - smoke tests and health checks
 - CMS/output review pattern
+- integrated workspace file manager for browsing, previews, safe editing, and output inspection
+- GitHub repository manager for selected project repositories
 - MkDocs documentation structure
 
 Experimental or deployment-specific:
@@ -116,6 +135,8 @@ Start with:
 - [Storage Model](docs/storage-model.md)
 - [Agent Team](docs/agent-team.md)
 - [CMS and Output Review](docs/cms-output-review.md)
+- [Workspace File Manager](docs/workspace-file-manager.md)
+- [GitHub Repository Manager](docs/github-repository-manager.md)
 - [Security and Credentials](docs/security-and-credentials.md)
 - [Troubleshooting](docs/troubleshooting.md)
 

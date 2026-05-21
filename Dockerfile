@@ -89,10 +89,12 @@ COPY storage /opt/scienceclaw/storage
 COPY branding/control-ui /opt/scienceclaw/branding/control-ui
 COPY docs/assets/brand /opt/scienceclaw/branding/assets
 COPY scripts/install-control-ui-branding.sh /usr/local/bin/scienceclaw-install-control-ui-branding
+COPY scripts/seed_file_manager_demo.py /usr/local/bin/scienceclaw-seed-file-manager-demo
 RUN chmod +x /usr/local/bin/openclaw-container-entrypoint \
     && chmod +x /usr/local/bin/scienceclaw-init-data-layout \
     && chmod +x /usr/local/bin/openclaw-storage \
     && chmod +x /usr/local/bin/scienceclaw-install-control-ui-branding \
+    && chmod +x /usr/local/bin/scienceclaw-seed-file-manager-demo \
     && chmod +x /opt/openclaw/seed-workspace/scripts/init-working-group.sh \
     && chmod +x /opt/openclaw/seed-workspace/scripts/start-pi-liaison.sh \
     && chmod +x /opt/openclaw/seed-workspace/scripts/check-secrets.sh \

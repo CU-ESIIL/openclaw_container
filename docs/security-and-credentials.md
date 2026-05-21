@@ -2,6 +2,8 @@
 
 ScienceClaw keeps secrets out of git and out of images. Credentials should be injected at runtime through local `.env` files, GitHub Secrets, Docker secrets, Kubernetes Secrets, or deployment-specific secret stores.
 
+For reusable local deployments, prefer mounted secret files over literal tokens in `.env`. The optional `docker-compose.secrets.yml` overlay reads `secrets/github_token`, mounts it at `/run/secrets/github_token`, and sets `GITHUB_TOKEN_FILE`/`GH_TOKEN_FILE` for the services that need repository access. The entrypoint reads the secret into the running process and configures GitHub CLI for git operations; it does not copy the token into the image or the repository.
+
 ## Local Setup
 
 ```bash

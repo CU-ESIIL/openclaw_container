@@ -88,9 +88,50 @@ This demo is not intended to make a scientific claim. It proves that the workspa
 
 ## 5. Review Outputs
 
-Open the workspace UI or CMS and inspect `workspace/outputs/demo/`. The CMS/output review layer is where private outputs become reviewed public artifacts. Approved reports can be promoted into `docs/reports/`; small approved figures can move into `docs/assets/`.
+Open the Files link in the ScienceClaw sidebar, or open the file manager directly:
 
-## 6. Validate And Checkpoint
+```text
+http://127.0.0.1:8090/files?path=/workspace
+```
+
+The file manager shows the container filesystem from `/`, but it treats `/workspace` as the normal project area. Browse to `workspace/outputs/demo/` to inspect the demo report, CSV table, and figure outputs. The CMS/output review layer is where private outputs become reviewed public artifacts. Approved reports can be promoted into `docs/reports/`; small approved figures can move into `docs/assets/`.
+
+## 6. Connect Project Repositories
+
+Open the GitHub tab from the ScienceClaw sidebar, or open it directly:
+
+```text
+http://127.0.0.1:8090/github
+```
+
+Use this tab for other repositories that the working group should inspect or contribute to. The current container repository remains infrastructure. Connected repositories are project workspaces and clone into:
+
+```text
+/workspace/repos/
+```
+
+For local GitHub CLI authentication inside the container, run:
+
+```bash
+gh auth login
+gh auth setup-git
+gh auth status
+```
+
+For repeatable appliance-style launches, use a local Docker secret instead of interactive login:
+
+```bash
+mkdir -p secrets
+printf '%s\n' 'github_pat_or_fine_grained_token' > secrets/github_token
+chmod 600 secrets/github_token
+docker compose -f docker-compose.yml -f docker-compose.secrets.yml up -d
+```
+
+The token should be fine-grained and scoped to the organization repositories this working group is allowed to use. On startup, ScienceClaw reads the secret file, configures GitHub CLI for git credential use, and makes the same credential available to the OpenClaw agent runtime and the GitHub manager service.
+
+Add repositories explicitly by `owner/repo`. Use the `read` tier for inspection and the `contribute` tier when the working group may create branches, commit changes, push branches, and open pull requests. Direct pushes to `main` and `master` are blocked by default.
+
+## 7. Validate And Checkpoint
 
 ```bash
 make smoke-test
@@ -111,4 +152,6 @@ make checkpoint
 | `make doctor` | Run safe local health checks |
 | `make demo` | Run the deterministic environmental demo |
 | `make smoke-test` | Run lightweight operational validation |
+| `make workspace-smoke-test` | Validate the workspace file manager |
+| `make github-smoke-test` | Validate the GitHub repository manager |
 | `make checkpoint` | Write a local checkpoint summary |

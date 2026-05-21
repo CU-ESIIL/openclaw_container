@@ -26,6 +26,8 @@ echo
 echo "== Template smoke tests =="
 scripts/test-working-group.sh >/tmp/scienceclaw-smoke-working-group.log 2>&1 && pass "working-group scaffold" || fail "working-group scaffold failed"
 scripts/test-scienceclaw-layout.sh >/tmp/scienceclaw-smoke-layout.log 2>&1 && pass "data layout scaffold" || fail "data layout scaffold failed"
+scripts/smoke_test_workspace.sh >/tmp/scienceclaw-smoke-file-manager.log 2>&1 && pass "workspace file manager" || fail "workspace file manager failed"
+scripts/smoke_test_github_manager.sh >/tmp/scienceclaw-smoke-github-manager.log 2>&1 && pass "GitHub repository manager" || fail "GitHub repository manager failed"
 
 echo
 echo "== Secret hygiene =="

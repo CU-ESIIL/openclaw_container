@@ -1,4 +1,4 @@
-.PHONY: help build up down shell init-working-group doctor checkpoint demo smoke-test test-working-group test-layout test-secrets
+.PHONY: help build up down shell init-working-group doctor checkpoint demo smoke-test test-working-group test-layout test-secrets workspace-smoke-test github-smoke-test
 
 help:
 	@echo "OASIS ScienceClaw commands"
@@ -12,6 +12,8 @@ help:
 	@echo "  make checkpoint          Write a local workspace checkpoint"
 	@echo "  make demo                Run the deterministic environmental demo"
 	@echo "  make smoke-test          Run lightweight operational validation"
+	@echo "  make workspace-smoke-test Validate the workspace file manager"
+	@echo "  make github-smoke-test   Validate the GitHub repository manager"
 	@echo "  make test-working-group  Validate the seeded working-group scaffold"
 	@echo "  make test-layout         Validate the /data layout scaffold"
 	@echo "  make test-secrets        Check secret hygiene helpers"
@@ -42,6 +44,12 @@ demo:
 
 smoke-test:
 	@scripts/smoke_test.sh
+
+workspace-smoke-test:
+	@scripts/smoke_test_workspace.sh
+
+github-smoke-test:
+	@scripts/smoke_test_github_manager.sh
 
 test-working-group:
 	@scripts/test-working-group.sh

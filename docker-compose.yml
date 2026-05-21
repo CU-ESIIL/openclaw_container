@@ -106,6 +106,9 @@ services:
       context: .
       dockerfile: Dockerfile
     working_dir: /data
+    env_file:
+      - path: .env
+        required: false
     environment:
       DATA_ROOT: /data
       OPENCLAW_WORKSPACE: /data/workspace
@@ -114,6 +117,8 @@ services:
       SCIENCECLAW_STORAGE_CONFIG: /repo/storage/storage.yml
       SCIENCECLAW_REPO_ROOT: /repo
       SCIENCECLAW_CMS_ROOTS: /workspace,/data/outputs,/repo/docs,/repo/examples,/repo/storage,/external_storage/local
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+      GH_TOKEN: ${GITHUB_TOKEN:-}
     volumes:
       - ${DATA_DIR:-./data}:/data
       - ${WORKSPACE_DIR:-./workspace}:/data/workspace

@@ -7,6 +7,60 @@ workspace="${OPENCLAW_WORKSPACE:-/workspace}"
 seed_dir="/opt/openclaw/seed-workspace"
 data_root="${DATA_ROOT:-/data}"
 
+load_secret_file_var() {
+  local name="$1"
+  local file_var="${name}_FILE"
+  local file_path="${!file_var:-}"
+  local value
+
+  if [ -n "${!name:-}" ] || [ -z "${file_path}" ]; then
+    return 0
+  fi
+  if [ ! -r "${file_path}" ]; then
+    echo "Secret file for ${name} is not readable: ${file_path}" >&2
+    exit 1
+  fi
+  value="$(head -n 1 "${file_path}" | tr -d '\r\n')"
+  export "${name}=${value}"
+}
+
+for secret_name in \
+  SLACK_BOT_TOKEN \
+  SLACK_APP_TOKEN \
+  OPENAI_API_KEY \
+  VERDE_LLM_API_KEY \
+  AI_VERDE_API_KEY \
+  GITHUB_TOKEN \
+  GH_TOKEN \
+  TAVILY_API_KEY; do
+  load_secret_file_var "${secret_name}"
+done
+
+if [ -z "${GH_TOKEN:-}" ] && [ -n "${GITHUB_TOKEN:-}" ]; then
+  export GH_TOKEN="${GITHUB_TOKEN}"
+fi
+if [ -z "${GITHUB_TOKEN:-}" ] && [ -n "${GH_TOKEN:-}" ]; then
+  export GITHUB_TOKEN="${GH_TOKEN}"
+fi
+
+configure_github_cli() {
+  [ "${SCIENCECLAW_CONFIGURE_GITHUB:-1}" != "0" ] || return 0
+  [ -n "${GH_TOKEN:-}" ] || return 0
+  command -v gh >/dev/null 2>&1 || return 0
+
+  mkdir -p "${HOME:-/root}/.config/gh" || true
+  gh auth setup-git >/tmp/scienceclaw-gh-setup.log 2>&1 || {
+    echo "GitHub CLI git credential setup did not complete. Recent log:" >&2
+    sed -E 's/(gh[pousr]_|github_pat_)[A-Za-z0-9_]+/\1****REDACTED/g' /tmp/scienceclaw-gh-setup.log | tail -n 40 >&2
+    echo "Continuing with environment-backed GH_TOKEN and explicit git credential helper." >&2
+  }
+  git config --global credential.https://github.com.helper '!gh auth git-credential' 2>/dev/null || true
+  git config --global credential.https://gist.github.com.helper '!gh auth git-credential' 2>/dev/null || true
+  git config --global --add safe.directory /workspace 2>/dev/null || true
+  git config --global --add safe.directory /data/workspace 2>/dev/null || true
+  git config --global --add safe.directory '/data/workspace/repos/*' 2>/dev/null || true
+}
+
 if command -v scienceclaw-init-data-layout >/dev/null 2>&1; then
   scienceclaw-init-data-layout --data-root "${data_root}" >/tmp/scienceclaw-data-layout.log 2>&1 || {
     echo "ScienceClaw data layout initialization failed. Recent log:" >&2
@@ -51,6 +105,14 @@ if [ "${OPENCLAW_INIT_WORKING_GROUP:-1}" != "0" ]; then
   fi
 fi
 
+if [ "${SCIENCECLAW_SEED_FILE_MANAGER_DEMO:-1}" != "0" ] && command -v scienceclaw-seed-file-manager-demo >/dev/null 2>&1; then
+  scienceclaw-seed-file-manager-demo --workspace "${workspace}" >/tmp/scienceclaw-file-manager-demo.log 2>&1 || {
+    echo "ScienceClaw file-manager demo seeding failed. Recent log:" >&2
+    tail -n 80 /tmp/scienceclaw-file-manager-demo.log >&2
+    exit 1
+  }
+fi
+
 if [ "${SCIENCECLAW_BRANDING:-1}" != "0" ] && command -v scienceclaw-install-control-ui-branding >/dev/null 2>&1; then
   scienceclaw-install-control-ui-branding >/tmp/scienceclaw-branding.log 2>&1 || {
     echo "ScienceClaw Control UI branding failed. Recent log:" >&2
@@ -66,6 +128,10 @@ const crypto = require("crypto");
 const configPath = process.env.OPENCLAW_CONFIG_PATH || `${process.env.OPENCLAW_CONFIG_DIR || "/root/.openclaw"}/openclaw.json`;
 const workspace = process.env.OPENCLAW_WORKSPACE || "/workspace";
 const defaultModel = process.env.OPENCLAW_MODEL || process.env.OPENCLAW_DEFAULT_MODEL || "codex/gpt-5.5";
+const verdeProviderName = process.env.VERDE_LLM_PROVIDER_NAME || "verde";
+const verdeApiKey = process.env.VERDE_LLM_API_KEY || process.env.AI_VERDE_API_KEY || "";
+const verdeBaseUrl = process.env.VERDE_LLM_BASE_URL || "https://llm-api.cyverse.ai/v1";
+const verdeDefaultModel = process.env.VERDE_LLM_DEFAULT_MODEL || "js2/gpt-oss-120b";
 const gatewayBind = process.env.OPENCLAW_GATEWAY_BIND || "lan";
 const gatewayPort = Number(process.env.OPENCLAW_GATEWAY_PORT || "18789");
 const authMode = process.env.OPENCLAW_GATEWAY_AUTH_MODE || "token";
@@ -89,6 +155,42 @@ config.agents.defaults.models ||= {};
 config.agents.defaults.models[defaultModel] ||= {};
 config.agents.defaults.model ||= {};
 config.agents.defaults.model.primary = defaultModel;
+
+config.models ||= {};
+config.models.providers ||= {};
+if (verdeApiKey) {
+  const configuredVerdeModel = defaultModel.startsWith(`${verdeProviderName}/`)
+    ? defaultModel.slice(verdeProviderName.length + 1)
+    : verdeDefaultModel;
+  config.models.providers[verdeProviderName] ||= {};
+  Object.assign(config.models.providers[verdeProviderName], {
+    baseUrl: verdeBaseUrl,
+    apiKey: verdeApiKey,
+    auth: "api-key",
+    authHeader: true,
+    api: "openai-completions",
+    contextWindow: 131072,
+    contextTokens: 120000,
+    maxTokens: 32768,
+    timeoutSeconds: 180,
+    agentRuntime: { id: "pi" },
+  });
+  const provider = config.models.providers[verdeProviderName];
+  provider.models = Array.isArray(provider.models) ? provider.models : [];
+  if (!provider.models.some((model) => model && model.id === configuredVerdeModel)) {
+    provider.models.push({
+      id: configuredVerdeModel,
+      name: `AI-VERDE ${configuredVerdeModel.split("/").pop()}`,
+      reasoning: false,
+      input: ["text"],
+      contextWindow: 131072,
+      contextTokens: 120000,
+      maxTokens: 32768,
+      cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
+      compat: { supportsUsageInStreaming: true },
+    });
+  }
+}
 
 config.gateway ||= {};
 config.gateway.mode = "local";
@@ -126,6 +228,7 @@ NODE
 
 chmod 700 "${config_dir}" || true
 chmod 700 "${config_dir}/auth-profile-secrets" || true
+configure_github_cli
 
 if [ "${OPENCLAW_CONFIGURE_SLACK:-1}" != "0" ] \
   && [ -n "${SLACK_BOT_TOKEN:-}" ] \
