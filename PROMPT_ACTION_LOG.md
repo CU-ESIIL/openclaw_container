@@ -42,6 +42,7 @@ Reassess gateway 3 after the update banner was hidden but browser chat still fai
 - GitHub repository operations still require a `GITHUB_TOKEN`, `GH_TOKEN`, or interactive `gh auth login` inside the CMS service.
 - The update notice can still appear in CLI status because a newer upstream OpenClaw package exists; local ScienceClaw upgrades remain a pinned-image rebuild workflow.
 - Browser text-entry automation was blocked by the in-app browser clipboard layer, so the browser path was validated by connection/session state plus direct OpenClaw smoke tests rather than an automated typed UI prompt.
+- Follow-up details and next steps are captured in `docs/gateway-3-handoff.md`.
 
 ## 2026-05-22 - Gateway 3 Fresh Diagnosis and Verde Tool Profile Repair
 
