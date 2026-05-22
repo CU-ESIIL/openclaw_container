@@ -25,6 +25,38 @@ Confirm `.env` exists and run `scripts/check-secrets.sh`. If tokens were changed
 
 Hard refresh the browser. If branding files changed, restart the container or rerun the branding installer inside the container. The upstream OpenClaw UI is still the base interface; ScienceClaw branding is a local skin.
 
+If this happened immediately after `openclaw update`, the update likely replaced the patched Control UI assets. Reapply the ScienceClaw branding layer for that instance, then restart the gateway. The [multi-instance runbook](instance-runbook.md) includes the exact recovery commands.
+
+## Agent Dropdown Is Missing
+
+The working-group template should show 11 agents, with `main` named PI Liaison. If the dropdown only shows `main`, the new instance did not load the full agent registry.
+
+Check from the gateway container:
+
+```bash
+docker exec <gateway-container> openclaw agents list
+```
+
+Do not copy an entire OpenClaw state directory from another instance. Preserve the instance's own gateway token, port, allowed origins, sessions, and project workspace. Restore only the agent registry and related defaults. The [multi-instance runbook](instance-runbook.md) has the full validation and repair path.
+
+## Agent Stops Responding With Session-Lock Errors
+
+If logs show:
+
+```text
+session file changed while embedded prompt lock was released
+```
+
+stop sending prompts into that transcript. Inspect tasks and sessions, then archive the failed `agent:main:main` transcript rather than deleting all OpenClaw state.
+
+```bash
+docker exec <gateway-container> openclaw tasks list --json
+docker exec <gateway-container> openclaw sessions --agent main --json
+docker logs --tail 120 <gateway-container>
+```
+
+For smoke tests, use an explicit session id such as `instance-smoke-$(date +%s)`. Do not test against the same browser transcript that is open in the UI.
+
 ## I Restarted And Lost Something
 
 The container filesystem is ephemeral. Check git, mounted workspace folders, named Docker volumes, `/data`, and `/external_storage`. If a file existed only inside the container runtime and was not mounted, it may not persist.
@@ -32,4 +64,3 @@ The container filesystem is ephemeral. Check git, mounted workspace folders, nam
 ## I Think I Broke It
 
 Run `git status`, make a checkpoint, and avoid destructive commands. Most template mistakes are recoverable if secrets were not committed and important work was saved to a durable location.
-

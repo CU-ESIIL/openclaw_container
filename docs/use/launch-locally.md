@@ -65,6 +65,20 @@ Arguments are:
 
 The instance stores its state separately under `instances/project-two/`, including its own `workspace`, `data`, `external_storage`, and OpenClaw state. This lets you keep multiple working groups open without mixing files.
 
+After launching an additional instance, validate it before project work:
+
+```bash
+docker exec <gateway-container> openclaw agents list
+docker exec <gateway-container> openclaw status
+docker exec <gateway-container> openclaw agent \
+  --agent main \
+  --session-id instance-smoke-$(date +%s) \
+  --message 'Reply with exactly: OK' \
+  --timeout 120
+```
+
+The agent list should show the 11-role working group with `main` named PI Liaison. Use a unique smoke-test session id so the CLI does not collide with the browser's active chat transcript. See the [multi-instance runbook](../instance-runbook.md) for recovery steps if the dropdown is missing or the session locks.
+
 !!! tip "Name instances after projects"
     Use memorable names such as `wildfire-synthesis`, `urban-greenspace`, or `workshop-demo`. The title banner inside the UI can be edited after launch.
 

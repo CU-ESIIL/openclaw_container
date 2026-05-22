@@ -139,7 +139,7 @@ const origins = (process.env.OPENCLAW_CONTROL_ORIGINS || "http://127.0.0.1:18789
   .split(",")
   .map((value) => value.trim())
   .filter(Boolean);
-const visibleRepliesMode = process.env.OPENCLAW_VISIBLE_REPLIES_MODE || "message_tool";
+const visibleRepliesMode = process.env.OPENCLAW_VISIBLE_REPLIES_MODE || "automatic";
 
 let config = {};
 try {
@@ -157,6 +157,7 @@ config.agents.defaults.model ||= {};
 config.agents.defaults.model.primary = defaultModel;
 
 config.models ||= {};
+config.models.mode ||= "merge";
 config.models.providers ||= {};
 if (verdeApiKey) {
   const configuredVerdeModel = defaultModel.startsWith(`${verdeProviderName}/`)
@@ -215,9 +216,31 @@ config.plugins.entries.codex ||= {};
 config.plugins.entries.codex.enabled = true;
 
 config.messages ||= {};
-delete config.messages.visibleReplies;
+config.messages.visibleReplies = visibleRepliesMode;
 config.messages.groupChat ||= {};
 config.messages.groupChat.visibleReplies = visibleRepliesMode;
+
+if (defaultModel.startsWith(`${verdeProviderName}/`)) {
+  config.tools ||= {};
+  config.tools.byProvider ||= {};
+  config.tools.byProvider[verdeProviderName] ||= {};
+  config.tools.byProvider[verdeProviderName].profile ||= "minimal";
+  config.tools.byProvider[defaultModel] ||= {};
+  config.tools.byProvider[defaultModel].profile ||= "minimal";
+  config.tools.byProvider[defaultModel].deny ||= [
+    "group:fs",
+    "group:runtime",
+    "group:ui",
+    "group:web",
+    "group:sessions",
+    "group:automation",
+    "group:nodes",
+    "group:media",
+    "write",
+    "edit",
+    "apply_patch",
+  ];
+}
 
 config.meta ||= {};
 config.meta.lastTouchedVersion ||= "container-bootstrap";

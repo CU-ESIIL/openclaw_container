@@ -32,6 +32,8 @@ The script prints a Docker container id. Keep that id for diagnostics. You can a
 docker ps --filter name=openclaw
 ```
 
+For multi-instance local work, keep the service boundaries strict. The OpenClaw Gateway is the only service that owns OpenClaw state and sessions. The workspace CMS and JupyterLab services share `/workspace` for files and outputs, but they use lightweight service entrypoints and must not register Slack channels, rewrite OpenClaw config, or run Gateway startup.
+
 ## Verify Slack
 
 Probe Slack Socket Mode from inside the running container:
@@ -77,7 +79,7 @@ Healthy Codex OAuth status should show the `openai-codex` profile and may show u
 Before testing Slack, run a direct agent reply check:
 
 ```bash
-docker exec <container-id> openclaw agent --session-id slack-ready-check --message 'Reply with exactly: PI Liaison ready' --timeout 120
+docker exec <container-id> openclaw agent --session-id slack-ready-check-$(date +%s) --message 'Reply with exactly: PI Liaison ready' --timeout 120
 ```
 
 Expected output:
@@ -103,6 +105,8 @@ Then test in Slack:
 | Direct messages show "Sending messages to this app has been turned off" | Slack App Home messages are disabled | Enable the App Home Messages tab and reinstall the Slack app |
 | Approval button does not respond or CLI says `scope upgrade pending approval` | The local operator device needs a scope upgrade, or background cron jobs are locking the same session | Run `openclaw devices list`, approve the pending local device with `openclaw devices approve <REQUEST_ID>`, then pause noisy cron jobs with `openclaw cron disable <JOB_ID>` |
 | Agent replies stall while cron jobs keep spawning subagents | A recurring improvement/review loop is overloading the Gateway or sharing a locked session | Run `openclaw cron list`, disable the loop, and check `openclaw tasks list --status running --json` before restarting work |
+| New instance opens but the agent dropdown is missing | The instance has only the default `main` agent registered | Run `openclaw agents list`; restore the 11-agent registry without copying another instance's token, port, sessions, or workspace |
+| Agent fails with `session file changed while embedded prompt lock was released` | Browser, CLI, heartbeat, or a background task touched the same active transcript | Stop using that transcript, inspect `openclaw tasks list --json` and `openclaw sessions --agent main --json`, archive the failed session, then start a fresh browser session |
 
 ## Recover a Stuck Approval Flow
 
@@ -127,6 +131,19 @@ docker exec <container-id> openclaw tasks list --status running --json
 ```
 
 Use recurring jobs conservatively. Continuous-improvement loops should be opt-in and slow enough that one run finishes before the next begins.
+
+## Recover a Multi-Instance Gateway
+
+When running several ScienceClaw gateways at once, treat each instance as a separate appliance. Validate the instance with:
+
+```bash
+docker exec <gateway-container> openclaw --version
+docker exec <gateway-container> openclaw status
+docker exec <gateway-container> openclaw agents list
+docker exec <gateway-container> openclaw sessions --agent main --json
+```
+
+The agent list should show 11 agents. If only `main` appears, repair the agent registry before using the browser. If a session-lock error appears, archive the failed session rather than deleting the instance. See the [multi-instance runbook](instance-runbook.md) before copying state or updating OpenClaw.
 
 ## Scaling Notes
 

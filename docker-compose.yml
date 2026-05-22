@@ -63,24 +63,19 @@ services:
       context: .
       dockerfile: Dockerfile
     working_dir: /data
+    entrypoint:
+      - /usr/bin/tini
+      - --
     environment:
       DATA_ROOT: /data
-      OPENCLAW_CONFIG_DIR: /data/.openclaw
-      OPENCLAW_AUTH_PROFILE_SECRET_DIR: /data/.openclaw/auth-profile-secrets
       OPENCLAW_WORKSPACE: /data/workspace
       EXTERNAL_STORAGE_ROOT: /external_storage
       SCIENCECLAW_STORAGE_CONFIG: /repo/storage/storage.yml
-      OPENCLAW_SEED_WORKSPACE: ${OPENCLAW_SEED_WORKSPACE:-1}
-      OPENCLAW_INIT_WORKING_GROUP: ${OPENCLAW_INIT_WORKING_GROUP:-1}
-      OPENCLAW_START_PI_LIAISON: "0"
-      OPENCLAW_CONFIGURE_SLACK: "0"
       SCIENCECLAW_BRANDING: ${SCIENCECLAW_BRANDING:-1}
       SCIENCECLAW_PROJECT_TITLE: ${SCIENCECLAW_PROJECT_TITLE:-OASIS ScienceClaw Working Group}
       WORKSPACE_UI_PORT: ${WORKSPACE_UI_PORT:-8888}
       JUPYTER_TOKEN: ${WORKSPACE_UI_TOKEN:-scienceclaw}
     volumes:
-      - ${OPENCLAW_STATE_DIR:-~/.openclaw}:/data/.openclaw
-      - ${OPENCLAW_STATE_DIR:-~/.openclaw}:/root/.openclaw
       - ${DATA_DIR:-./data}:/data
       - ${WORKSPACE_DIR:-./workspace}:/data/workspace
       - ${WORKSPACE_DIR:-./workspace}:/workspace
@@ -106,6 +101,10 @@ services:
       context: .
       dockerfile: Dockerfile
     working_dir: /data
+    entrypoint:
+      - /usr/bin/tini
+      - --
+      - /usr/local/bin/scienceclaw-service-entrypoint
     env_file:
       - path: .env
         required: false

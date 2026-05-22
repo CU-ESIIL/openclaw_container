@@ -35,6 +35,7 @@ First alpha baseline for the OpenClaw scientific working group container.
 - Deterministic environmental demo workflow and `make smoke-test` operational validation command.
 - Prompt action log for preserving implementation provenance and known limitations.
 - Smoke tests for working-group scaffold and secret validation.
+- Pinned OpenClaw image build argument and separated service entrypoint so only the Gateway owns OpenClaw startup/state while CMS and Jupyter remain workspace services.
 
 ### Notes
 

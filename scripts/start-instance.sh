@@ -40,7 +40,7 @@ export SCIENCECLAW_CONTAINER_NAME="openclaw-${instance_name}"
 export DATA_DIR="${instance_root}/data"
 export WORKSPACE_DIR="${instance_root}/workspace"
 export EXTERNAL_STORAGE_DIR="${instance_root}/external_storage"
-export OPENCLAW_STATE_DIR="${OPENCLAW_STATE_DIR:-${instance_root}/openclaw}"
+export OPENCLAW_STATE_DIR="${OPENCLAW_STATE_DIR:-/private/tmp/scienceclaw-${instance_name}-openclaw}"
 export OPENCLAW_GATEWAY_PORT="${gateway_port}"
 export OPENCLAW_CONTROL_ORIGINS="http://127.0.0.1:${gateway_port},http://localhost:${gateway_port}"
 export OPENCLAW_DEFAULT_MODEL="${OPENCLAW_DEFAULT_MODEL:-verde/js2/gpt-oss-120b}"
@@ -52,6 +52,7 @@ export OPENCLAW_START_PI_LIAISON=0
 export OPENCLAW_CONFIGURE_SLACK="${OPENCLAW_CONFIGURE_SLACK:-0}"
 
 config_path="${OPENCLAW_STATE_DIR}/openclaw.json"
+mkdir -p "${OPENCLAW_STATE_DIR}"
 if [ -f "${config_path}" ]; then
   node - "${config_path}" "${gateway_port}" "${OPENCLAW_CONTROL_ORIGINS}" <<'NODE'
 const fs = require("fs");
@@ -94,4 +95,12 @@ Workspace CMS:    http://127.0.0.1:${cms_port}
 
 Instance files:
   ${instance_root}
+
+Validate before project work:
+  docker exec ${gateway_container_id} openclaw agents list
+  docker exec ${gateway_container_id} openclaw status
+  docker exec ${gateway_container_id} openclaw agent --agent main --session-id instance-smoke-\$(date +%s) --message 'Reply with exactly: OK' --timeout 120
+
+Expected: 11 agents, main = PI Liaison, and the smoke test replies OK.
+If the dropdown is missing or a session-lock error appears, see docs/instance-runbook.md.
 EOF

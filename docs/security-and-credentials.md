@@ -12,6 +12,36 @@ cp .env.example .env
 
 Edit `.env` locally. Do not commit it.
 
+## GitHub Secrets Deployment Pattern
+
+For scalable launches, store credentials in GitHub Secrets and materialize them only on the runner or deployment host. Do not copy a local `.env` into the repository, image, or workspace.
+
+Recommended secret names:
+
+| GitHub Secret | Runtime variable | Purpose |
+| --- | --- | --- |
+| `SCIENCECLAW_GITHUB_TOKEN` | `GITHUB_TOKEN_FILE` / `GH_TOKEN_FILE` | Fine-grained repository access |
+| `SCIENCECLAW_VERDE_LLM_API_KEY` | `VERDE_LLM_API_KEY_FILE` | AI-VERDE model route |
+| `SCIENCECLAW_OPENAI_API_KEY` | `OPENAI_API_KEY_FILE` | Optional OpenAI API-key route |
+| `SCIENCECLAW_SLACK_BOT_TOKEN` | `SLACK_BOT_TOKEN_FILE` | Slack bot token |
+| `SCIENCECLAW_SLACK_APP_TOKEN` | `SLACK_APP_TOKEN_FILE` | Slack Socket Mode app token |
+| `SCIENCECLAW_TAVILY_API_KEY` | `TAVILY_API_KEY_FILE` | Optional web-search provider |
+
+On a GitHub-hosted runner, self-hosted runner, or Codespaces startup task, write each secret to a runner-local file and point the container at that file:
+
+```bash
+mkdir -p secrets
+printf '%s\n' "${SCIENCECLAW_GITHUB_TOKEN}" > secrets/github_token
+chmod 600 secrets/github_token
+
+SCIENCECLAW_GITHUB_TOKEN_FILE=./secrets/github_token \
+docker compose -f docker-compose.yml -f docker-compose.secrets.yml up -d
+```
+
+For a long-running shared deployment, prefer a self-hosted runner, Kubernetes Secret, or cloud secret manager rather than a GitHub-hosted Actions runner. GitHub-hosted runners are ephemeral and are best for build, smoke-test, or image publication jobs; they are not a durable place to host the live Gateway.
+
+Keep OpenClaw runtime state separate from secrets. Session files, locks, OAuth caches, and gateway tokens should live on local runtime storage for the instance, not in GitHub and not in cloud-synced repository folders. For local multi-instance runs, `scripts/start-instance.sh` uses `/private/tmp/scienceclaw-<instance>-openclaw` by default for this reason.
+
 ## What Requires Human Approval
 
 Human approval is required before publishing, deleting files, pushing to GitHub, installing third-party OpenClaw skills, mounting new host folders, using external APIs with billing implications, modifying credentials, changing durable image dependencies, or making sensitive public claims.

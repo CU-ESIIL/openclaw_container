@@ -344,6 +344,10 @@ button svg,
   display: none !important;
 }
 
+.scienceclaw-hidden-updater {
+  display: none !important;
+}
+
 @media (max-width: 760px) {
   .scienceclaw-brand-plate {
     max-width: 240px;

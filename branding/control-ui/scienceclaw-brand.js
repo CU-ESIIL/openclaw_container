@@ -304,10 +304,34 @@
     });
   }
 
+  function hideUnsupportedUpdateBanners() {
+    var needles = [
+      "Update available:",
+      "managed-service-handoff-unavailable",
+    ];
+    Array.prototype.forEach.call(document.querySelectorAll("button, div, section, aside"), function (el) {
+      if (el.classList.contains("scienceclaw-hidden-updater")) return;
+      var text = (el.textContent || "").replace(/\s+/g, " ").trim();
+      if (!text) return;
+      var matches = needles.some(function (needle) {
+        return text.indexOf(needle) !== -1;
+      });
+      if (!matches) return;
+
+      var rect = el.getBoundingClientRect();
+      if (rect.top > 260 || rect.width < 260 || rect.height < 32 || rect.height > 180) return;
+      if (el.querySelector(".scienceclaw-brand-plate, .scienceclaw-project-banner")) return;
+
+      el.classList.add("scienceclaw-hidden-updater");
+      el.setAttribute("aria-hidden", "true");
+    });
+  }
+
   function applyBranding() {
     updateHead();
     updateAttributes();
     replaceExactText(document.body);
+    hideUnsupportedUpdateBanners();
     installBrandPlate();
     installProjectBanner();
     installWorkspaceLinks();

@@ -93,7 +93,7 @@ html = html.replace("<title>OpenClaw Control</title>", "<title>ScienceClaw</titl
 
 css = '    <link rel="stylesheet" href="./scienceclaw-brand.css" />'
 config_js = '    <script defer src="./scienceclaw-config.js"></script>'
-js = '    <script defer src="./scienceclaw-brand.js?v=20260520"></script>'
+js = '    <script defer src="./scienceclaw-brand.js?v=20260522"></script>'
 
 if "scienceclaw-brand.css" not in html:
     marker = '</head>'

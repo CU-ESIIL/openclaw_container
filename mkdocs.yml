@@ -17,6 +17,7 @@ nav:
       - Computational Calm: concepts/computational-calm.md
   - Launch and Daily Use:
       - Launch Locally: use/launch-locally.md
+      - Multi-Instance Runbook: instance-runbook.md
       - Working Group Cockpit: use/working-group-cockpit.md
       - Workspace File Manager: workspace-file-manager.md
       - GitHub Repository Manager: github-repository-manager.md
@@ -57,6 +58,7 @@ nav:
       - Sample Storage Dashboard: dashboard/sample-storage-dashboard.md
   - Troubleshooting:
       - Start Here: troubleshooting.md
+      - Multi-Instance Runbook: instance-runbook.md
   - Advanced Customization:
       - Setup Guide: setup.md
       - Operations: operations.md

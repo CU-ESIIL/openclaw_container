@@ -57,13 +57,15 @@ docker compose -f docker-compose.yml -f docker-compose.secrets.yml up -d
 
 At startup the container reads the secret file, exposes it only inside the running process as `GITHUB_TOKEN`/`GH_TOKEN`, and configures GitHub CLI for git operations. Agents and the GitHub manager still operate only on explicitly authorized repositories under `/workspace/repos/`.
 
+For scalable launches, keep the same file-based secret contract but source the values from GitHub Secrets, Codespaces secrets, Kubernetes Secrets, or a deployment secret manager. A GitHub runner or deployment host should materialize short-lived secret files, set `GITHUB_TOKEN_FILE` and other provider `_FILE` variables, and start the container; the repository and image should never contain credential values.
+
 To start a second working-group instance while another one is already open:
 
 ```bash
 scripts/start-instance.sh project-two 18790 8889 8091
 ```
 
-That command creates a separate `instances/project-two/` workspace and prints links for the Gateway, Workspace UI, and CMS.
+That command creates a separate `instances/project-two/` workspace and prints links for the Gateway, Workspace UI, and CMS. Validate the new instance before project work: it should show the 11-agent working group, with `main` as the PI Liaison. If the agent dropdown is missing or a session-lock error appears, use the [multi-instance runbook](docs/instance-runbook.md) rather than copying whole OpenClaw state directories between instances.
 
 ## Core Commands
 

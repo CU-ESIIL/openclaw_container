@@ -22,6 +22,7 @@ ENV OPENCLAW_CONFIGURE_SLACK=1
 ENV SCIENCECLAW_BRANDING=1
 ENV SCIENCECLAW_PROJECT_TITLE="OASIS ScienceClaw Working Group"
 ENV NODE_ENV=production
+ARG OPENCLAW_VERSION=2026.5.18
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -65,7 +66,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # OpenClaw's docs recommend Node 24 and support npm when Node is managed separately.
-RUN npm install -g openclaw@latest \
+RUN npm install -g openclaw@${OPENCLAW_VERSION} \
     && npm cache clean --force
 
 COPY requirements-spatiotemporal.txt /tmp/requirements-spatiotemporal.txt
@@ -81,6 +82,7 @@ WORKDIR /data/workspace
 RUN mkdir -p /data/.openclaw/auth-profile-secrets /data/workspace /workspace /external_storage/local
 
 COPY docker/entrypoint.sh /usr/local/bin/openclaw-container-entrypoint
+COPY docker/service-entrypoint.sh /usr/local/bin/scienceclaw-service-entrypoint
 COPY scripts/init-data-layout.sh /usr/local/bin/scienceclaw-init-data-layout
 COPY scripts/openclaw-storage /usr/local/bin/openclaw-storage
 COPY docker/seed-workspace /opt/openclaw/seed-workspace
@@ -91,6 +93,7 @@ COPY docs/assets/brand /opt/scienceclaw/branding/assets
 COPY scripts/install-control-ui-branding.sh /usr/local/bin/scienceclaw-install-control-ui-branding
 COPY scripts/seed_file_manager_demo.py /usr/local/bin/scienceclaw-seed-file-manager-demo
 RUN chmod +x /usr/local/bin/openclaw-container-entrypoint \
+    && chmod +x /usr/local/bin/scienceclaw-service-entrypoint \
     && chmod +x /usr/local/bin/scienceclaw-init-data-layout \
     && chmod +x /usr/local/bin/openclaw-storage \
     && chmod +x /usr/local/bin/scienceclaw-install-control-ui-branding \

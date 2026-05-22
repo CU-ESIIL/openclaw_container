@@ -2,6 +2,127 @@
 
 This log records implementation prompts that change the reusable ScienceClaw/OASIS template. Keep private user data, credentials, and live workspace secrets out of this file.
 
+## 2026-05-22 - Gateway 3 Reproducible Container Rebuild
+
+### Prompt Summary
+
+Reassess gateway 3 after the update banner was hidden but browser chat still failed. The user asked for a robust container shape: branded OpenClaw, file-structure visibility for produced content, and GitHub repository read/write capability.
+
+### Files Changed
+
+- `Dockerfile`
+- `docker-compose.yml`
+- `docker/service-entrypoint.sh`
+- `docs/instance-runbook.md`
+- `docs/operations.md`
+
+### Architectural Decisions
+
+- Pin the reusable image to OpenClaw `2026.5.18`, the current known-good local browser-chat baseline.
+- Keep only the Gateway service responsible for OpenClaw startup, OpenClaw state, Slack registration, branding injection, agent registry, and sessions.
+- Start JupyterLab without the OpenClaw Gateway entrypoint so it cannot mutate Gateway config or sessions.
+- Start the CMS through a small service entrypoint that only loads GitHub secret files, mirrors `GITHUB_TOKEN`/`GH_TOKEN`, configures GitHub CLI credential helpers, and marks workspace repositories as safe directories.
+- Preserve the file manager and GitHub repository manager as CMS features over the shared `/workspace`, not as OpenClaw session writers.
+
+### Tests Run
+
+- `bash -n docker/entrypoint.sh docker/service-entrypoint.sh scripts/start-instance.sh scripts/install-control-ui-branding.sh`
+- `docker compose config --quiet`
+- `docker compose build openclaw-local`
+- Restarted gateway 3 with `OPENCLAW_STATE_DIR=/private/tmp/scienceclaw-project-three-openclaw ./scripts/start-instance.sh project-three 18791 8890 8092`.
+- Verified rebuilt gateway 3 reports `OpenClaw 2026.5.18`.
+- Verified gateway 3 has 11 agents with `openclaw agents list`.
+- Verified direct agent smoke test returned `PINNED_OK`.
+- Verified CMS file API returns the `/workspace` listing.
+- Verified CMS GitHub status endpoint is reachable and reports unauthenticated when no GitHub token is present.
+- Archived the poisoned `agent:main:gateway3-fixed` session and moved the browser to a fresh dashboard session.
+
+### Known Limitations
+
+- GitHub repository operations still require a `GITHUB_TOKEN`, `GH_TOKEN`, or interactive `gh auth login` inside the CMS service.
+- The update notice can still appear in CLI status because a newer upstream OpenClaw package exists; local ScienceClaw upgrades remain a pinned-image rebuild workflow.
+- Browser text-entry automation was blocked by the in-app browser clipboard layer, so the browser path was validated by connection/session state plus direct OpenClaw smoke tests rather than an automated typed UI prompt.
+
+## 2026-05-22 - Gateway 3 Fresh Diagnosis and Verde Tool Profile Repair
+
+### Prompt Summary
+
+Reinspect gateways 1, 2, and 3 after gateway 3 continued failing to reply. Gateway 1 and 2 were running the older image and OpenClaw `2026.5.18`; gateway 3 was on the newer local image, also OpenClaw `2026.5.18`, but direct agent smoke tests failed with `session file changed while embedded prompt lock was released`.
+
+### Files Changed
+
+- `.env.example`
+- `README.md`
+- `docker/entrypoint.sh`
+- `docs/instance-runbook.md`
+- `docs/security-and-credentials.md`
+- `scripts/start-instance.sh`
+
+### Architectural Decisions
+
+- Keep the AI-VERDE/OpenAI-compatible route on a minimal OpenClaw tool profile for the default ScienceClaw gateway path.
+- Preserve automatic visible replies instead of the experimental `message_tool` reply mode for the local working-group template.
+- Set `models.mode` to `merge` during bootstrap so provider additions do not replace working defaults.
+- Keep gateway 3 heartbeat disabled for now; the direct smoke failure was reproduced without relying on heartbeat activity, so heartbeat is not the only root cause.
+- Keep per-instance OpenClaw runtime state on local non-synced storage (`/private/tmp/scienceclaw-<instance>-openclaw`) while leaving the project workspace under `instances/<name>/workspace`.
+- Treat GitHub Secrets as the scalable credential source, materialized into runner-local secret files and passed through provider `_FILE` variables.
+
+### Tests Run
+
+- Compared gateway 1, 2, and 3 with `docker ps`, `openclaw --version`, `openclaw status`, and `openclaw agents list`.
+- Confirmed gateway 2 passed: `openclaw agent --agent main --session-id gateway2-fresh-codex-smoke-20260522a --model verde/js2/gpt-oss-120b --message "Reply with exactly: OK" --timeout 120 --json`.
+- Confirmed gateway 3 failed before repair on fresh explicit sessions, while the session JSONL still contained the assistant reply.
+- Patched gateway 3 runtime config to match gateway 2's `models.mode`, visible reply mode, and minimal Verde tool profile.
+- Confirmed gateway 3 passed after repair: `openclaw agent --agent main --session-id gateway3-fresh-codex-smoke-20260522c --model verde/js2/gpt-oss-120b --message "Reply with exactly: OK" --timeout 120 --json`.
+- Restarted gateway 3 with OpenClaw state mounted from `/private/tmp/scienceclaw-project-three-openclaw`.
+- Confirmed gateway 3 browser chat replied with `G3_UI_OK`.
+
+### Known Limitations
+
+- Gateway 3's currently running container was repaired through its mounted runtime config. Rebuild/recreate from the updated image is still needed to prove the reusable entrypoint fix from a clean start.
+- Heartbeats remain disabled on gateway 3 until a safe heartbeat session strategy is designed and tested.
+- GitHub Secrets are documented as the intended scalable source, but a production deployment workflow still needs a target runtime choice such as self-hosted runner, Codespaces, Kubernetes, or another host.
+
+## 2026-05-22 - Multi-Instance Gateway Recovery Runbook
+
+### Prompt Summary
+
+Document the repeated gateway setup problem observed while spawning additional ScienceClaw instances: missing agent dropdowns, one-agent OpenClaw state, stale or locked `agent:main:main` sessions, confusing update banners, and uncertainty about whether GitHub or the Gateway caused the failure.
+
+### Files Changed
+
+- `docs/instance-runbook.md`
+- `docs/use/launch-locally.md`
+- `docs/troubleshooting.md`
+- `docs/operations.md`
+- `scripts/start-instance.sh`
+- `mkdocs.yml`
+
+### Architectural Decisions
+
+- Treat each spawned ScienceClaw instance as a separate appliance with its own Gateway, OpenClaw state, workspace, data root, external storage, JupyterLab port, and CMS port.
+- Validate a new instance before project work by checking OpenClaw version, status, agent registry, sessions, and a dedicated smoke-test session.
+- Use unique smoke-test session ids. Do not run CLI smoke tests against the browser's active `agent:main:main` transcript.
+- If a session-lock error appears, archive the failed transcript instead of deleting the whole OpenClaw state directory.
+- If an instance only has `main`, restore the agent registry without copying another instance's token, port, allowed origins, sessions, or project workspace.
+- After a live `openclaw update`, reapply the ScienceClaw Control UI branding layer because upstream package updates replace the patched Control UI asset directory.
+
+### Tests Run
+
+- Documentation and script edits only in this action.
+- Earlier operational diagnosis used `openclaw status`, `openclaw agents list`, `openclaw sessions --agent main --json`, `openclaw tasks list --json`, `docker logs`, and direct `openclaw agent` smoke tests.
+
+### Known Limitations
+
+- The root OpenClaw session-lock behavior is upstream/runtime behavior, not fully controlled by this repository.
+- The runbook documents recovery and prevention. It does not add a fully automated repair command.
+- OpenClaw update banners should be interpreted cautiously; version changes must be validated per instance, and ScienceClaw branding may need to be reapplied after live updates.
+
+### Unresolved Issues
+
+- Decide whether `scripts/start-instance.sh` should eventually run the validation checks automatically and fail fast if the 11-agent registry is missing.
+- Consider adding a dedicated `scripts/validate-instance.sh` helper once the OpenClaw CLI behavior stabilizes.
+
 ## 2026-05-20 - Next Phase Stabilization
 
 ### Prompt Summary
@@ -198,3 +319,32 @@ Make the desired deployment experience explicit: a user can pull or build the Sc
 - The current local containers must be rebuilt or recreated to pick up entrypoint changes.
 - Fine-grained GitHub tokens still need the correct repository scopes from GitHub; ScienceClaw cannot grant missing organization permissions.
 - GitHub App installation remains the preferred long-term organization-scale auth model.
+
+## 2026-05-21 - Gateway 3 Session-Lock Recovery
+
+### Prompt Summary
+
+Recover the third local ScienceClaw gateway after repeated OpenClaw browser-chat failures with `session file changed while embedded prompt lock was released`.
+
+### Files Changed
+
+- `docs/instance-runbook.md`
+
+### Architectural Decisions
+
+- Treat OpenClaw `2026.5.18` as the current known-good local baseline because gateway 2 remained stable on that version.
+- Treat OpenClaw `2026.5.20` as unvalidated for the branded multi-instance template after gateway 3 repeatedly failed browser sessions on that version.
+- Preserve runtime work by archiving failed session transcripts instead of deleting the full OpenClaw state directory.
+- Disable the default PI Liaison heartbeat for gateway 3 by setting the `main` agent heartbeat interval to an empty string; the 30-minute default heartbeat was repeatedly touching `agent:main:main` and recreating the lock failure.
+
+### Tests Run
+
+- `docker exec scienceclaw-project-three-openclaw-local-run-add2042ee2e3 openclaw --version`
+- `docker exec scienceclaw-project-three-openclaw-local-run-add2042ee2e3 openclaw status`
+- `docker exec scienceclaw-project-three-openclaw-local-run-add2042ee2e3 openclaw agent --agent main --session-id gateway3-518-smoke-... --model verde/js2/gpt-oss-120b --message "Reply with exactly: OK" --timeout 120 --json`
+- `docker exec scienceclaw-project-three-openclaw-local-run-add2042ee2e3 openclaw agent --agent main --session-id gateway3-final-smoke-... --model verde/js2/gpt-oss-120b --message "Reply with exactly: OK" --timeout 120 --json`
+
+### Known Limitations
+
+- The browser UI still needs a fresh session after recovery; old tabs can hold stale session state.
+- The update banner will still appear because `2026.5.20` exists upstream, but updating the active gateway should wait until a browser-session smoke test validates the newer release.
