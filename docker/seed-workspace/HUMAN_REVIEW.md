@@ -28,6 +28,8 @@ If the package is needed again, propose a durable template change to `requiremen
 
 Approval should include the specific action, target files or services, expected cost or risk, and rollback plan when relevant. Silence is not approval.
 
+Use native approval surfaces when available. For shell or tool execution, the agent should trigger an OpenClaw approval request that the user can approve or deny in the UI. For repository workflows, prefer the ScienceClaw CMS/GitHub manager buttons for clone, branch, commit, push, and pull request actions. Agents should not ask users to type bare `/approve`.
+
 ## Why This Exists
 
 Autonomous agents may have file, shell, network, and tool access. This workspace uses bounded roles and review gates to reduce risk, but it does not guarantee safe autonomy. Human judgment remains part of the workflow.

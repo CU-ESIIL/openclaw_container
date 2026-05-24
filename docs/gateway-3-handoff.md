@@ -1,6 +1,6 @@
 # Gateway 3 Handoff
 
-Last updated: 2026-05-22 15:14 MDT
+Last updated: 2026-05-22 16:55 MDT
 
 This note captures the current state of gateway 3 after the rebuild and the remaining work for the next session.
 
@@ -84,17 +84,60 @@ Observed results:
 - Heartbeats are disabled on gateway 3.
 - CLI status still reports an available upstream update to `2026.5.20`; this is expected and should not be handled through the dashboard.
 
+Follow-up diagnostics after the browser still struggled:
+
+- `openclaw health` reports the Gateway event loop as OK.
+- The Control UI repeatedly receives successful `commands.list` responses, so the slash-command catalog is loading.
+- `openclaw approvals get` works, but this OpenClaw version does not support `openclaw approvals list --json`; there is no pending approval queue visible through `approvals get`.
+- The `/approve` failure shown in the browser is probably a stale or malformed assistant instruction. Bare `/approve` is not enough; approval flows need the pending approval id and a valid decision.
+- Recent browser chat failures are still dominated by `reasoning-only assistant turn detected` and `incomplete terminal response` from `verde/js2/gpt-oss-120b`.
+- Gateway logs also show an intermittent `paired.json` read race during browser reconnects, but reconnects recover and `commands.list` succeeds afterward.
+
+Conclusion: do not do a full OpenClaw state reset as the next step. A gateway restart may clear transient reconnect/device-file races, but it will not fix the core browser-chat issue. The next durable fix should focus on model routing/re-auth for PI Liaison and a clearer non-chat GitHub/CMS workflow for repository actions.
+
+Gateway 1 and gateway 2 comparison:
+
+- Gateway 2 is the better Verde-only reference. It uses OpenClaw `2026.5.18`, default model `verde/js2/gpt-oss-120b`, no OAuth profiles, `groupChat.visibleReplies = message_tool`, no `tools.byProvider` Verde deny block, and the default 30-minute PI Liaison heartbeat.
+- Gateway 1 is not a pure Verde reference because its gateway process started with `agent model: codex/gpt-5.5`, even though many working-group runs used Verde.
+- Gateway 3 was adjusted to match gateway 2's Verde-only profile:
+  - default model remains `verde/js2/gpt-oss-120b`
+  - `messages.visibleReplies` and `messages.groupChat.visibleReplies` are `message_tool`
+  - generated Verde `tools.byProvider` restrictions were removed
+  - the main agent heartbeat override was removed, restoring `Heartbeat interval: 30m (main)`
+- The corrected `docker/entrypoint.sh` was copied into the live gateway 3 container at `/usr/local/bin/openclaw-container-entrypoint`, then gateway 3 was restarted to confirm the settings persist across restart.
+- Final direct smoke test passed:
+
+```bash
+docker exec scienceclaw-project-three-openclaw-local-run-96075a70e8ae openclaw agent --agent main --session-id gateway3-verde-persistent-20260522 --model verde/js2/gpt-oss-120b --message 'Reply with exactly: VERDE_PERSISTENT_OK' --timeout 120 --json
+```
+
+Result payload: `VERDE_PERSISTENT_OK`.
+
+Approval UX follow-up:
+
+- Browser chat is now responding, but bare `/approve` is still not the right workflow.
+- The browser device has `operator.approvals` scope.
+- The native approval queue is reachable with:
+
+```bash
+docker exec scienceclaw-project-three-openclaw-local-run-96075a70e8ae openclaw gateway call exec.approval.list --json --params '{}'
+```
+
+- It returns `[]` unless a real approval request is pending.
+- Gateway 3 was switched to OpenClaw's cautious exec policy so future exec requests outside the allowlist should create native approval requests for the UI instead of relying on chat text:
+
+```bash
+docker exec scienceclaw-project-three-openclaw-local-run-96075a70e8ae openclaw exec-policy preset cautious --json
+```
+
+- The effective policy is now `security=allowlist`, `ask=on-miss`, `askFallback=deny`.
+- Workspace instructions now tell agents to use the OpenClaw approval UI or CMS/GitHub manager buttons and not ask the user to type bare `/approve`.
+
 ## Remaining Work
 
 1. Verify browser chat manually in the fresh session.
-2. Decide whether the PI Liaison should stay on Verde or move to a higher-reliability Codex/OAuth route.
-3. Re-authenticate Codex inside the live gateway if using `codex/gpt-5.5`:
-
-```bash
-docker exec -it scienceclaw-project-three-openclaw-local-run-96075a70e8ae openclaw models auth login --provider openai-codex --set-default
-docker exec scienceclaw-project-three-openclaw-local-run-96075a70e8ae openclaw models status
-```
-
+2. Verify the next real shell or GitHub action presents an approval button in the Control UI or CMS/GitHub manager rather than asking for `/approve`.
+3. Keep PI Liaison and specialist roles on Verde for now. If browser chat still fails, compare browser session transcript/state before changing models.
 4. Authenticate GitHub for the CMS/GitHub manager:
 
 ```bash
@@ -135,5 +178,6 @@ or provide a fine-grained token through `GITHUB_TOKEN`, `GH_TOKEN`, or mounted `
 - Do not reuse `gateway3-fixed`; that session was the bad browser transcript.
 - Do not click the dashboard update button for local Docker gateways.
 - Do not allow CMS or Jupyter services to mount or mutate OpenClaw state.
+- Do not rely on bare `/approve`; approval commands need the exact pending approval id and decision.
 - Do not print tokens, OAuth callback codes, Slack tokens, GitHub tokens, or model API keys in docs or logs.
-- Treat `openclaw@2026.5.18` as the current known-good local baseline until a newer version passes browser chat validation.
+- Treat `openclaw@2026.5.18` plus the gateway 2-style Verde profile as the current known-good local baseline until a newer version passes browser chat validation.

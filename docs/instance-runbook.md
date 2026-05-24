@@ -184,7 +184,9 @@ Also check `openclaw status` for heartbeat state. A default OpenClaw instance ma
 
 After patching, restart the gateway and confirm `openclaw status` reports `disabled (main)`.
 
-If a fresh dedicated CLI smoke test still writes an assistant reply to the session file but exits with the same session-lock error, compare the failing instance's model and tool configuration with a known-good gateway. Gateway 3 reproduced this failure when the Verde route exposed the richer default tool surface. The known-good local profile keeps Verde replies minimal:
+If a fresh dedicated CLI smoke test still writes an assistant reply to the session file but exits with the same session-lock error, compare the failing instance's model and tool configuration with a known-good gateway. Gateway 3 became harder to diagnose after the template forced a special minimal tool-deny profile for Verde and used automatic visible replies. Gateway 1's more stable Verde runs did not include that extra `tools.byProvider` restriction and used `message_tool` visible replies.
+
+The preferred local Verde profile is:
 
 ```json
 {
@@ -192,36 +194,15 @@ If a fresh dedicated CLI smoke test still writes an assistant reply to the sessi
     "mode": "merge"
   },
   "messages": {
-    "visibleReplies": "automatic",
+    "visibleReplies": "message_tool",
     "groupChat": {
-      "visibleReplies": "automatic"
-    }
-  },
-  "tools": {
-    "byProvider": {
-      "verde": {
-        "profile": "minimal"
-      },
-      "verde/js2/gpt-oss-120b": {
-        "profile": "minimal",
-        "deny": [
-          "group:fs",
-          "group:runtime",
-          "group:ui",
-          "group:web",
-          "group:sessions",
-          "group:automation",
-          "group:nodes",
-          "group:media",
-          "write",
-          "edit",
-          "apply_patch"
-        ]
-      }
+      "visibleReplies": "message_tool"
     }
   }
 }
 ```
+
+Only enable the minimal tool-deny profile intentionally with `OPENCLAW_VERDE_MINIMAL_TOOLS=1`, and record why in the project log.
 
 After this repair, rerun the dedicated smoke test with a new session id. A passing direct test should return JSON with `"status": "ok"` and payload text `OK`.
 

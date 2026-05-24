@@ -139,7 +139,8 @@ const origins = (process.env.OPENCLAW_CONTROL_ORIGINS || "http://127.0.0.1:18789
   .split(",")
   .map((value) => value.trim())
   .filter(Boolean);
-const visibleRepliesMode = process.env.OPENCLAW_VISIBLE_REPLIES_MODE || "automatic";
+const visibleRepliesMode = process.env.OPENCLAW_VISIBLE_REPLIES_MODE || "message_tool";
+const verdeMinimalTools = process.env.OPENCLAW_VERDE_MINIMAL_TOOLS === "1";
 
 let config = {};
 try {
@@ -220,7 +221,7 @@ config.messages.visibleReplies = visibleRepliesMode;
 config.messages.groupChat ||= {};
 config.messages.groupChat.visibleReplies = visibleRepliesMode;
 
-if (defaultModel.startsWith(`${verdeProviderName}/`)) {
+if (defaultModel.startsWith(`${verdeProviderName}/`) && verdeMinimalTools) {
   config.tools ||= {};
   config.tools.byProvider ||= {};
   config.tools.byProvider[verdeProviderName] ||= {};
@@ -252,6 +253,14 @@ NODE
 chmod 700 "${config_dir}" || true
 chmod 700 "${config_dir}/auth-profile-secrets" || true
 configure_github_cli
+
+if [ "${OPENCLAW_EXEC_POLICY_PRESET:-cautious}" != "none" ]; then
+  openclaw exec-policy preset "${OPENCLAW_EXEC_POLICY_PRESET:-cautious}" >/tmp/openclaw-exec-policy.log 2>&1 || {
+    echo "OpenClaw exec policy setup failed. Recent log:" >&2
+    tail -n 80 /tmp/openclaw-exec-policy.log >&2
+    exit 1
+  }
+fi
 
 if [ "${OPENCLAW_CONFIGURE_SLACK:-1}" != "0" ] \
   && [ -n "${SLACK_BOT_TOKEN:-}" ] \

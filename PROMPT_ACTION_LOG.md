@@ -349,3 +349,106 @@ Recover the third local ScienceClaw gateway after repeated OpenClaw browser-chat
 
 - The browser UI still needs a fresh session after recovery; old tabs can hold stale session state.
 - The update banner will still appear because `2026.5.20` exists upstream, but updating the active gateway should wait until a browser-session smoke test validates the newer release.
+
+## 2026-05-22 - Gateway 3 Slash Command Triage
+
+### Prompt Summary
+
+Diagnose whether broken browser slash commands require a gateway 3 container reset.
+
+### Files Changed
+
+- `docs/gateway-3-handoff.md`
+- `PROMPT_ACTION_LOG.md`
+
+### Findings
+
+- A full reset is not the right next step.
+- `openclaw health` reports the Gateway event loop as OK.
+- Gateway logs show successful `commands.list` responses from the Control UI, so the slash-command catalog is loading.
+- `openclaw approvals get` is the supported approval inspection command in OpenClaw `2026.5.18`; `openclaw approvals list --json` is not supported.
+- The approval snapshot shows no visible pending approval queue, so the browser message asking for bare `/approve` is likely stale or malformed UX.
+- Browser chat failures are still primarily `verde/js2/gpt-oss-120b` returning reasoning-only/incomplete terminal responses.
+
+### Recommended Next Steps
+
+- Restart the gateway only if the browser reconnect/device state appears wedged; do not wipe `/workspace` or OpenClaw state.
+- Move PI Liaison browser chat to a higher-reliability model route, likely Codex/OAuth after re-authentication inside the live gateway container.
+- Use the CMS GitHub manager for clone/read/write/PR workflows instead of depending on chat-generated shell approval prompts.
+
+## 2026-05-22 - Gateway 3 Verde Profile Reconciliation
+
+### Prompt Summary
+
+Compare gateway 3 against working gateways 1 and 2, then make gateway 3 use the stable Verde-only profile.
+
+### Files Changed
+
+- `.env.example`
+- `docker/entrypoint.sh`
+- `docs/instance-runbook.md`
+- `docs/gateway-3-handoff.md`
+- `PROMPT_ACTION_LOG.md`
+
+### Findings
+
+- Gateway 1 is not a clean Verde-only reference because its Gateway process starts with `codex/gpt-5.5`, even though its working-group agents use Verde.
+- Gateway 2 is the better Verde-only reference: default model `verde/js2/gpt-oss-120b`, no OAuth profiles, `groupChat.visibleReplies = message_tool`, no `tools.byProvider` Verde deny block, and heartbeat active at 30 minutes.
+- Gateway 3 had extra generated Verde tool restrictions and `automatic` visible replies.
+
+### Changes Made
+
+- Changed the container entrypoint default visible-replies mode to `message_tool`.
+- Made the generated Verde minimal tool-deny profile opt-in through `OPENCLAW_VERDE_MINIMAL_TOOLS=1` instead of default.
+- Updated `.env.example` to set `OPENCLAW_VISIBLE_REPLIES_MODE=message_tool` and `OPENCLAW_VERDE_MINIMAL_TOOLS=0`.
+- Applied the same profile to live gateway 3, restored the default 30-minute heartbeat, copied the corrected entrypoint into the live container, and restarted only the gateway container.
+
+### Tests Run
+
+- `docker exec scienceclaw-project-two-openclaw-local-run-a402e0d22742 openclaw health`
+- `docker exec scienceclaw-project-two-openclaw-local-run-a402e0d22742 openclaw models status`
+- `docker exec scienceclaw-project-three-openclaw-local-run-96075a70e8ae openclaw health`
+- `docker exec scienceclaw-project-three-openclaw-local-run-96075a70e8ae openclaw agent --agent main --session-id gateway3-verde-message-tool-20260522 --model verde/js2/gpt-oss-120b --message "Reply with exactly: MESSAGE_TOOL_OK" --timeout 120 --json`
+- `docker exec scienceclaw-project-three-openclaw-local-run-96075a70e8ae openclaw agent --agent main --session-id gateway3-verde-persistent-20260522 --model verde/js2/gpt-oss-120b --message "Reply with exactly: VERDE_PERSISTENT_OK" --timeout 120 --json`
+
+### Result
+
+- Gateway 3 health returned to OK after the final smoke test settled.
+- Final payload was `VERDE_PERSISTENT_OK`.
+
+## 2026-05-22 - Gateway 3 Button Approval UX
+
+### Prompt Summary
+
+Fix the remaining `/approve` problem by making approval flows prefer native UI/CMS buttons instead of asking the user to type command codes.
+
+### Files Changed
+
+- `.env.example`
+- `docker/entrypoint.sh`
+- `docker/seed-workspace/AGENTS.md`
+- `docker/seed-workspace/HUMAN_REVIEW.md`
+- `workspace/AGENTS.md`
+- `docs/gateway-3-handoff.md`
+- `PROMPT_ACTION_LOG.md`
+
+### Findings
+
+- The browser device already has `operator.approvals` scope.
+- `openclaw gateway call exec.approval.list --json --params '{}'` works and returns `[]` when nothing is pending.
+- The previous effective exec policy was `security=full`, `ask=off`, so normal exec actions did not create native pending approval requests or UI approval buttons.
+- Bare `/approve` only makes sense for a specific pending approval id and decision; agents should not ask the user to type it.
+
+### Changes Made
+
+- Applied `openclaw exec-policy preset cautious --json` to live gateway 3.
+- Added `OPENCLAW_EXEC_POLICY_PRESET=cautious` to `.env.example`.
+- Updated the gateway entrypoint to apply `OPENCLAW_EXEC_POLICY_PRESET` at startup unless set to `none`.
+- Updated workspace instructions to tell agents to use the OpenClaw approval UI or ScienceClaw CMS/GitHub manager buttons.
+- Copied the updated `AGENTS.md`, `HUMAN_REVIEW.md`, and entrypoint into the live gateway 3 container.
+
+### Verification
+
+- `openclaw exec-policy show` reports `security=allowlist`, `ask=on-miss`, and host `askFallback=deny`.
+- Native approval queue RPC is reachable.
+- `bash -n docker/entrypoint.sh docker/service-entrypoint.sh scripts/start-instance.sh scripts/install-control-ui-branding.sh` passed.
