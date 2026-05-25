@@ -1,0 +1,607 @@
+---
+title: "popdyn model"
+format:
+  html:
+    theme: default
+    toc: true
+    number-sections: true
+---
+
+```{r}
+# Load necessary libraries
+library(igraph)
+library(deSolve)
+
+# Create a network
+g <- erdos.renyi.game(n = 5, p = 0.5, type = "gnp", directed = FALSE)
+
+# Initial populations at each node
+initial_populations <- c(50, 30, 20, 10, 5)  # Example initial sizes
+
+# Dispersal matrix (rows and columns correspond to nodes)
+dispersal_matrix <- matrix(runif(25, 0.01, 0.05), nrow = 5, ncol = 5)
+diag(dispersal_matrix) <- 0.2  # No dispersal to the same node
+
+# Logistic growth model with dispersal
+logistic_growth_with_dispersal <- function(t, y, parameters) {
+  with(as.list(c(y, parameters)), {
+    dN <- rep(0, length(y))
+    for(i in 1:length(y)) {
+      net_dispersal <- sum(dispersal_matrix[i,] * y) - sum(dispersal_matrix[,i] * y[i])
+      dN[i] <- r * y[i] * (1 - y[i]/K) + net_dispersal
+    }
+    list(dN)
+  })
+}
+
+# Parameters for the model
+parameters <- c(r = 0.1, K = 100)  # Assuming the same for all nodes for simplicity
+
+# Time vector for the simulation
+times <- seq(0, 100, by = 1)
+
+# Solve the ODE system for each node, including dispersal
+out <- ode(y = initial_populations, times = times, func = logistic_growth_with_dispersal, parms = parameters)
+
+# Plot the results
+matplot(out[,-1], type = "l", lty = 1, xlab = "Time", ylab = "Population Size",
+        main = "Population Dynamics with Dispersal")
+legend("topright", legend = paste("Node", 1:5), col = 1:5, lty = 1)
+
+```
+
+```{r}
+# Load necessary libraries
+library(igraph)
+library(deSolve)
+
+# Number of nodes
+n_nodes <- 5
+
+# Create a graph with no edges initially
+g <- make_empty_graph(n = n_nodes)
+
+# Random coordinates for nodes in a 100x100 area
+node_coords <- matrix(runif(n_nodes * 2, 0, 100), ncol = 2)
+
+# Calculate distances between all pairs of nodes
+dist_matrix <- as.matrix(dist(node_coords))
+# Adjust dispersal rates inversely proportional to distance, with a scaling factor
+dispersal_matrix <- 1 / dist_matrix
+diag(dispersal_matrix) <- 0  # Zero out the diagonal to prevent self-dispersal
+
+# Define the logistic growth model with dispersal
+logistic_growth_with_dispersal <- function(t, y, parameters) {
+  dN <- rep(0, length(y))
+  for (i in 1:length(y)) {
+    net_dispersal <- sum(dispersal_matrix[i, ] * y) - y[i] * sum(dispersal_matrix[, i])
+    dN[i] <- parameters$r * y[i] * (1 - y[i] / parameters$K) + net_dispersal
+  }
+  list(dN)
+}
+
+# Initial populations, parameters, and time vector
+initial_populations <- c(50, 30, 20, 10, 5)
+parameters <- list(r = 0.1, K = 100)
+
+# Simulate dynamics
+times <- seq(0, 100, by = 1)
+out <- ode(y = initial_populations, times = times, func = logistic_growth_with_dispersal, parms = parameters)
+
+# Set up plotting area for two plots side by side
+par(mfrow = c(1, 2))
+
+# Plotting the spatial network
+plot(g, layout = node_coords, main = "Spatial Network", xlab = "X coordinate", ylab = "Y coordinate", vertex.size = initial_populations, vertex.label.cex = 0.7)
+
+# Plotting population dynamics
+matplot(out[,-1], type = "l", lty = 1, xlab = "Time", ylab = "Population Size", main = "Population Dynamics", col = 1:n_nodes)
+legend("topright", legend = paste("Node", 1:n_nodes), col = 1:n_nodes, lty = 1)
+
+```
+
+```{r}
+# Load necessary libraries
+library(igraph)
+library(deSolve)
+
+# Define the number of nodes
+n_nodes <- 5
+
+# Create a graph with edges to simulate a network structure
+# For demonstration, we create a random graph; adjust as needed for your specific network
+g <- erdos.renyi.game(n = n_nodes, p = 0.5, type = "gnp", directed = FALSE)
+
+# Random coordinates for nodes in a 100x100 area for plotting purposes
+node_coords <- matrix(runif(n_nodes * 2, 0, 100), ncol = 2)
+V(g)$x <- node_coords[, 1]
+V(g)$y <- node_coords[, 2]
+
+# Use the graph structure to calculate network distances for dispersal
+# Here we calculate the shortest path lengths between all pairs of vertices
+network_dist_matrix <- distances(g)
+# Inverse of network distances for dispersal rates, avoiding division by zero for disconnected components
+network_dist_matrix[network_dist_matrix == Inf] <- 0
+dispersal_matrix <- 1 / network_dist_matrix
+diag(dispersal_matrix) <- 0  # Zero out the diagonal to prevent self-dispersal
+
+# Define the logistic growth model with network-based dispersal
+logistic_growth_with_dispersal <- function(t, y, parameters) {
+  dN <- rep(0, length(y))
+  for (i in 1:length(y)) {
+    net_dispersal <- sum(dispersal_matrix[i, ] * y) - y[i] * sum(dispersal_matrix[, i])
+    dN[i] <- parameters$r * y[i] * (1 - y[i] / parameters$K) + net_dispersal
+  }
+  list(dN)
+}
+
+# Initial populations, parameters, and time vector
+initial_populations <- c(50, 30, 20, 10, 5)
+parameters <- list(r = 0.1, K = 100)
+
+# Simulate dynamics
+times <- seq(0, 100, by = 1)
+# Assuming previous setup for ode call
+out <- ode(y = initial_populations, times = times, func = logistic_growth_with_dispersal, parms = parameters, 
+           rtol = 1e-6, atol = 1e-6)  # Adjusted tolerances
+
+
+# Set up plotting area for two plots side by side
+par(mfrow = c(1, 2))
+
+# Plotting the spatial network with edges
+plot(g, layout = node_coords, main = "Network with Edges", xlab = "X coordinate", ylab = "Y coordinate", 
+     vertex.size = 5, vertex.label.cex = 0.7, edge.arrow.size = 0.5)
+
+# Plotting population dynamics
+matplot(out[,-1], type = "l", lty = 1, xlab = "Time", ylab = "Population Size", main = "Population Dynamics", col = 1:n_nodes)
+legend("topright", legend = paste("Node", 1:n_nodes), col = 1:n_nodes, lty = 1)
+
+```
+
+```{r}
+# Load necessary libraries
+library(igraph)
+library(deSolve)
+
+# Number of nodes
+n_nodes <- 5
+
+# Create a graph with edges to simulate a network structure
+g <- erdos.renyi.game(n = n_nodes, p = 0.5, type = "gnp", directed = FALSE)
+
+# Assign random coordinates for plotting
+node_coords <- matrix(runif(n_nodes * 2, 0, 100), ncol = 2)
+V(g)$x <- node_coords[, 1]
+V(g)$y <- node_coords[, 2]
+
+# Assign node-specific r and K values
+node_r <- runif(n_nodes, 0.05, 0.15)  # Random growth rates between 0.05 and 0.15
+node_K <- runif(n_nodes, 50, 150)     # Random carrying capacities between 50 and 150
+
+# Calculate network distances and adjust dispersal matrix
+network_dist_matrix <- distances(g)
+network_dist_matrix[network_dist_matrix == Inf] <- 0  # Avoid division by zero
+# Introduce variability in dispersal distances
+dispersal_matrix <- exp(-network_dist_matrix / mean(network_dist_matrix))  # Example: exponential decay based on average network distance
+diag(dispersal_matrix) <- 0.8  # Prevent self-dispersal
+
+# Define the logistic growth model with variable r, K, and dispersal
+logistic_growth_with_variable_params <- function(t, y, parameters) {
+  dN <- numeric(length(y))
+  for (i in 1:length(y)) {
+    net_dispersal <- sum(dispersal_matrix[i, ] * y) - y[i] * sum(dispersal_matrix[, i])
+    dN[i] <- parameters$r[i] * y[i] * (1 - y[i] / parameters$K[i]) + net_dispersal
+  }
+  list(dN)
+}
+
+# Initial populations and time vector
+initial_populations <- runif(n_nodes, 10, 50)  # Random initial populations
+parameters <- list(r = node_r, K = node_K)
+
+# Simulate dynamics with variable parameters and dispersal
+times <- seq(0, 100, by = 1)
+out <- ode(y = initial_populations, times = times, func = logistic_growth_with_variable_params, parms = parameters,
+           rtol = 1e-6, atol = 1e-6)  # Using adjusted tolerances
+
+# Set up plotting area
+par(mfrow = c(1, 2))
+
+# Plotting the spatial network with edges
+plot(g, layout = node_coords, main = "Network with Variable Habitat Quality", xlab = "X coordinate", ylab = "Y coordinate", 
+     vertex.size = sqrt(node_K), vertex.label.cex = 0.7, edge.arrow.size = 0.5)
+
+# Plotting population dynamics
+matplot(out[,-1], type = "l", lty = 1, xlab = "Time", ylab = "Population Size", main = "Population Dynamics with Variable r and K", col = 1:n_nodes)
+legend("topright", legend = paste("Node", 1:n_nodes), col = 1:n_nodes, lty = 1)
+
+```
+
+```{r}
+# Load necessary libraries
+library(igraph)
+library(deSolve)
+
+# Number of nodes
+n_nodes <- 150
+
+# Create a graph with edges to simulate a network structure
+g <- erdos.renyi.game(n = n_nodes, p = 0.5, type = "gnp", directed = FALSE)
+
+# Assign random coordinates for plotting
+node_coords <- matrix(runif(n_nodes * 2, 0, 100), ncol = 2)
+V(g)$x <- node_coords[, 1]
+V(g)$y <- node_coords[, 2]
+
+# Assign node-specific r and K values
+node_r <- runif(n_nodes, 0.05, 0.15)  # Random growth rates
+node_K <- runif(n_nodes, 50, 150)     # Random carrying capacities
+
+# Calculate network distances
+network_dist_matrix <- distances(g)
+network_dist_matrix[network_dist_matrix == Inf] <- 0  # Adjust for disconnected components
+
+# Shorten the dispersal distances by adjusting the dispersal matrix
+decay_coefficient <- 2.2 * mean(network_dist_matrix)  # Increase decay rate
+dispersal_matrix <- exp(-network_dist_matrix / decay_coefficient)
+diag(dispersal_matrix) <- 0.8
+
+# Define the logistic growth model with variable r, K, and adjusted dispersal
+logistic_growth_with_variable_params <- function(t, y, parameters) {
+  dN <- numeric(length(y))
+  for (i in 1:length(y)) {
+    net_dispersal <- sum(dispersal_matrix[i, ] * y) - y[i] * sum(dispersal_matrix[, i])
+    dN[i] <- parameters$r[i] * y[i] * (1 - y[i] / parameters$K[i]) + net_dispersal
+  }
+  list(dN)
+}
+
+# Initial populations and time vector
+initial_populations <- runif(n_nodes, 10, 50)  # Random initial populations
+parameters <- list(r = node_r, K = node_K)
+
+# Simulate dynamics with adjusted dispersal distances
+times <- seq(0, 500, by = 1)
+out <- ode(y = initial_populations, times = times, func = logistic_growth_with_variable_params, parms = parameters,
+           rtol = 1e-6, atol = 1e-6)  # Using adjusted tolerances
+
+# Set up plotting area
+par(mfrow = c(1, 2))
+
+# Plotting the spatial network with edges
+plot(g, layout = node_coords, main = "Network with Variable Habitat Quality", xlab = "X coordinate", ylab = "Y coordinate", 
+     vertex.size = sqrt(node_K), vertex.label.cex = 0.7, edge.arrow.size = 0.5)
+
+# Plotting population dynamics with shortened dispersal distances
+matplot(out[,-1], type = "l", lty = 1, xlab = "Time", ylab = "Population Size", main = "Population Dynamics with Shortened Dispersal", col = 1:n_nodes)
+legend("topright", legend = paste("Node", 1:n_nodes), col = 1:n_nodes, lty = 1)
+
+```
+
+
+```{r}
+# Load necessary libraries
+library(igraph)
+library(deSolve)
+
+# Number of nodes
+n_nodes <- 15
+
+# Create a graph with edges to simulate a network structure
+g <- erdos.renyi.game(n = n_nodes, p = 0.5, type = "gnp", directed = FALSE)
+
+# Assign random coordinates for plotting
+node_coords <- matrix(runif(n_nodes * 2, 0, 100), ncol = 2)
+V(g)$x <- node_coords[, 1]
+V(g)$y <- node_coords[, 2]
+
+# Assign node-specific r and K values
+node_r <- runif(n_nodes, 0.05, 0.15)  # Random growth rates
+node_K <- runif(n_nodes, 50, 150)     # Random carrying capacities
+
+# Calculate network distances
+network_dist_matrix <- distances(g)
+network_dist_matrix[network_dist_matrix == Inf] <- 0  # Adjust for disconnected components
+
+# Adjust dispersal matrix for shortened dispersal distances
+decay_coefficient <- 5 * mean(network_dist_matrix)  # Increase decay rate
+dispersal_matrix <- exp(-network_dist_matrix / decay_coefficient)
+diag(dispersal_matrix) <- 0
+
+# Define the logistic growth model with variable r, K, and adjusted dispersal
+logistic_growth_with_variable_params <- function(t, y, parameters) {
+  dN <- numeric(length(y))
+  for (i in 1:length(y)) {
+    net_dispersal <- sum(dispersal_matrix[i, ] * y) - y[i] * sum(dispersal_matrix[, i])
+    dN[i] <- parameters$r[i] * y[i] * (1 - y[i] / parameters$K[i]) + net_dispersal
+  }
+  list(dN)
+}
+
+# Initial populations and time vector
+initial_populations <- runif(n_nodes, 10, 50)  # Random initial populations
+parameters <- list(r = node_r, K = node_K)
+
+# Simulate dynamics with adjusted dispersal distances
+times <- seq(0, 100, by = 1)
+out <- ode(y = initial_populations, times = times, func = logistic_growth_with_variable_params, parms = parameters,
+           rtol = 1e-6, atol = 1e-6)  # Using adjusted tolerances
+
+# Track extinctions and plot results
+# Initialize matrix for extinction times (NA indicates no extinction)
+extinction_times <- matrix(NA, nrow = n_nodes, ncol = 2)
+colnames(extinction_times) <- c("Node", "Time")
+
+for (i in 1:n_nodes) {
+  extinct_idx <- which(out[, i + 1] <= 1e-3)[1]  # Adding 1 because the first column of `out` is time
+  if (length(extinct_idx) > 0) {
+    extinction_times[i, ] <- c(i, out[extinct_idx, 1])
+  }
+}
+
+# Filter out nodes that did not go extinct
+extinct_nodes <- extinction_times[!is.na(extinction_times[, "Time"]), ]
+
+# Adjust plotting area for three figures
+par(mfrow = c(1, 3))
+
+# Plot 1: Spatial network with edges
+plot(g, layout = node_coords, main = "Network with Variable Habitat", xlab = "X", ylab = "Y", 
+     vertex.size = sqrt(node_K), vertex.label.cex = 0.7, edge.arrow.size = 0.5)
+
+# Plot 2: Population dynamics
+matplot(out[,-1], type = "l", lty = 1, xlab = "Time", ylab = "Population", main = "Population Dynamics", col = 1:n_nodes)
+legend("topright", legend = paste("Node", 1:n_nodes), col = 1:n_nodes, lty = 1)
+
+# Plot 3: Extinction times
+if (nrow(extinct_nodes) > 0) {
+  plot(extinct_nodes[, "Node"], extinct_nodes[, "Time"], xlim = c(1, n_nodes), ylim = c(0, max(times)), xlab = "Node", ylab = "Time of Extinction",
+       main = "Extinction Times", pch = 19, col = 'red')
+  abline(h = extinct_nodes[, "Time"], col = "gray", lty = 3)
+} else {
+  plot(1, type = "n", xlim = c(1, n_nodes), ylim = c(0, max(times)), xlab = "Node", ylab = "Time of Extinction",
+       main = "Extinction Times")
+  text(x = mean(1:n_nodes), y = max(times) / 2, labels = "No Extinctions")
+}
+
+```
+
+```{r}
+# Load necessary libraries
+library(igraph)
+library(deSolve)
+
+# Define the number of nodes and create a graph with edges
+n_nodes <- 15
+g <- erdos.renyi.game(n = n_nodes, p = 0.5, type = "gnp", directed = FALSE)
+
+# Assign random coordinates for plotting and node-specific r and K values
+node_coords <- matrix(runif(n_nodes * 2, 0, 100), ncol = 2)
+node_r <- runif(n_nodes, 0.05, 0.15)  # Random growth rates
+node_K <- runif(n_nodes, 50, 150)     # Random carrying capacities
+
+V(g)$x <- node_coords[, 1]
+V(g)$y <- node_coords[, 2]
+
+# Calculate network distances and adjust dispersal matrix for shortened distances
+network_dist_matrix <- distances(g)
+network_dist_matrix[network_dist_matrix == Inf] <- 0
+decay_coefficient <- 12 * mean(network_dist_matrix)
+dispersal_matrix <- exp(-network_dist_matrix / decay_coefficient)
+diag(dispersal_matrix) <- 0
+
+# Add demographic and dispersal stochasticity to the logistic growth function
+logistic_growth_with_stochasticity <- function(t, y, parameters) {
+  dN <- numeric(length(y))
+  for (i in 1:length(y)) {
+    r_stochastic <- rnorm(1, parameters$r[i], sd = 0.01)  # Demographic stochasticity
+    dispersal_stochastic <- dispersal_matrix[i, ] * rnorm(n_nodes, 1, sd = 0.05)  # Dispersal stochasticity
+    net_dispersal <- sum(dispersal_stochastic * y) - y[i] * sum(dispersal_stochastic)
+    dN[i] <- r_stochastic * y[i] * (1 - y[i] / parameters$K[i]) + net_dispersal
+  }
+  list(dN)
+}
+
+# Initial populations and simulation parameters
+initial_populations <- runif(n_nodes, 10, 50)
+parameters <- list(r = node_r, K = node_K)
+
+# Simulate dynamics with stochastic elements
+set.seed(123)  # Ensure reproducibility
+times <- seq(0, 100, by = 1)
+out_stochastic <- ode(y = initial_populations, times = times, func = logistic_growth_with_stochasticity, parms = parameters,
+                      rtol = 1e-6, atol = 1e-6)
+
+# Plotting setup
+par(mfrow = c(1, 3))
+
+# Plot 1: Spatial network with edges
+plot(g, layout = node_coords, main = "Network with Variable Habitat", xlab = "X", ylab = "Y",
+     vertex.size = sqrt(node_K), vertex.label.cex = 0.7, edge.arrow.size = 0.5)
+
+# Plot 2: Stochastic Population Dynamics
+matplot(out_stochastic[,-1], type = "l", lty = 1, xlab = "Time", ylab = "Population", main = "Stochastic Dynamics", col = 1:n_nodes)
+legend("topright", legend = paste("Node", 1:n_nodes), col = 1:n_nodes, lty = 1)
+
+# Plot 3: Extinction times recalculated for the stochastic model
+extinction_times_stochastic <- matrix(NA, nrow = n_nodes, ncol = 2)
+colnames(extinction_times_stochastic) <- c("Node", "Time")
+for (i in 1:n_nodes) {
+  extinct_idx <- which(out_stochastic[, i + 1] <= 1e-3)[1]
+  if (length(extinct_idx) > 0) {
+    extinction_times_stochastic[i, ] <- c(i, out_stochastic[extinct_idx, 1])
+  }
+}
+extinct_nodes_stochastic <- extinction_times_stochastic[!is.na(extinction_times_stochastic[, "Time"]), ]
+
+if (nrow(extinct_nodes_stochastic) > 0) {
+  plot(extinct_nodes_stochastic[, "Node"], extinct_nodes_stochastic[, "Time"], xlim = c(1, n_nodes), ylim = c(0, max(times)), xlab = "Node", ylab = "Time of Extinction",
+       main = "Extinction Times", pch = 19, col = 'red')
+  abline(h = extinct_nodes_stochastic[, "Time"], col = "gray", lty = 3)
+} else {
+  plot(1, type = "n", xlim = c(1, n_nodes), ylim = c(0, max(times)), xlab = "Node", ylab = "Time of Extinction",
+       main = "Extinction Times")
+  text(x = mean(1:n_nodes), y = max(times) / 2, labels = "No Extinctions")
+}
+
+```
+
+
+```{r, cache=TRUE}
+# Load necessary libraries
+library(igraph)
+library(deSolve)
+
+# Define the number of nodes and species
+n_nodes <- 15
+n_species <- 3
+
+# Create a graph with edges to simulate a network structure
+g <- erdos.renyi.game(n = n_nodes, p = 0.5, type = "gnp", directed = FALSE)
+
+# Assign random coordinates for plotting and node-specific r and K values for each species
+node_coords <- matrix(runif(n_nodes * 2, 0, 100), ncol = 2)
+species_r <- matrix(runif(n_nodes * n_species, 0.01, 0.1), nrow = n_nodes, ncol = n_species)
+species_K <- matrix(runif(n_nodes * n_species, 50, 200), nrow = n_nodes, ncol = n_species)
+
+# Assign positions for plotting
+V(g)$x <- node_coords[, 1]
+V(g)$y <- node_coords[, 2]
+
+# Calculate network distances and adjust dispersal matrix for shortened distances
+network_dist_matrix <- distances(g)
+network_dist_matrix[network_dist_matrix == Inf] <- 0
+decay_coefficient <- 2 * mean(network_dist_matrix) # Adjust for shortened dispersal distances
+dispersal_matrix <- exp(-network_dist_matrix / decay_coefficient)
+diag(dispersal_matrix) <- 0
+
+# Define species interactions through a competition matrix
+competition_matrix <- matrix(runif(n_species * n_species, 0, 0.1), nrow = n_species, ncol = n_species)
+diag(competition_matrix) <- 0  # No self-competition
+
+print(is.matrix(competition_matrix))
+print(dim(competition_matrix))
+
+# Update the community dynamics model to include species interactions and stochastic elements
+community_dynamics <- function(t, y, parameters) {
+  # Your existing setup and computations inside the function
+  
+  y_matrix <- matrix(y, nrow = n_nodes, byrow = TRUE)
+  dN_matrix <- matrix(0, nrow = n_nodes, ncol = n_species)
+  
+  for (i in 1:n_nodes) {
+    for (j in 1:n_species) {
+      r_stochastic <- rnorm(1, species_r[i, j], sd = 0.01) # Demographic stochasticity
+      competition_effect <- sum(competition_matrix[j, ] * y_matrix[i, ]) # Competition
+      dN_matrix[i, j] <- r_stochastic * y_matrix[i, j] * (1 - (y_matrix[i, j] + competition_effect) / species_K[i, j]) # Net change
+    }
+  }
+  
+  # Return the derivatives as a list
+  return(list(as.vector(dN_matrix)))
+}
+
+# Initial populations for each species at each node
+initial_populations <- runif(n_nodes * n_species, 10, 50)
+
+# Simulate dynamics with the community model
+set.seed(123)  # For reproducibility
+times <- seq(0, 300, by = 1)
+
+out_community <- ode(
+  y = initial_populations,
+  times = times,
+  func = community_dynamics,
+  parms = list(),
+  rtol = 1e-6,
+  atol = rep(1e-6, n_nodes * n_species),
+  maxsteps = 1e8
+)
+
+
+
+
+#out_community <- ode(y = initial_populations, times = times, func = community_dynamics, parms = list(),
+#                     rtol = 1e-6, atol = rep(1e-6, n_nodes * n_species))
+
+# Summarize and plot total population over time as a demonstration
+total_population <- rowSums(matrix(out_community[,-1], ncol = n_species, byrow = TRUE))
+
+# Plotting the total population over time
+plot(out_community[, 1], total_population, type = 'l', xlab = "Time", ylab = "Total Population", main = "Community Dynamics Summary")
+
+
+```
+
+
+```{r}
+# Load necessary libraries
+library(igraph)
+library(deSolve)
+library(foreach)
+library(doParallel)
+
+# Set up parallel backend
+numCores <- parallel::detectCores() - 1
+registerDoParallel(cores = numCores)
+
+# Define the number of nodes and species
+n_nodes <- 5
+n_species <- 3
+
+# Create a graph, assign coordinates, node-specific parameters, and compute matrices
+g <- erdos.renyi.game(n = n_nodes, p = 0.5, type = "gnp", directed = FALSE)
+node_coords <- matrix(runif(n_nodes * 2, 0, 100), ncol = 2)
+species_r <- matrix(runif(n_nodes * n_species, 0.01, 0.1), nrow = n_nodes, ncol = n_species)
+species_K <- matrix(runif(n_nodes * n_species, 50, 200), nrow = n_nodes, ncol = n_species)
+V(g)$x <- node_coords[, 1]
+V(g)$y <- node_coords[, 2]
+network_dist_matrix <- distances(g)
+network_dist_matrix[network_dist_matrix == Inf] <- 0
+decay_coefficient <- 2 * mean(network_dist_matrix)
+dispersal_matrix <- exp(-network_dist_matrix / decay_coefficient)
+diag(dispersal_matrix) <- 0
+competition_matrix <- matrix(runif(n_species * n_species, 0, 0.1), nrow = n_species, ncol = n_species)
+diag(competition_matrix) <- 0
+
+# Model function with parallel computation
+community_dynamics <- function(t, y, parameters) {
+  y_matrix <- matrix(y, nrow = n_nodes, byrow = TRUE)
+  
+  results <- foreach(i = 1:n_nodes, .combine = 'rbind') %dopar% {
+    rowResults <- numeric(n_species)
+    for (j in 1:n_species) {
+      r_stochastic <- rnorm(1, species_r[i, j], sd = 0.01)
+      competition_effect <- sum(competition_matrix[j, ] * y_matrix[i, ])
+      rowResults[j] <- r_stochastic * y_matrix[i, j] * (1 - (y_matrix[i, j] + competition_effect) / species_K[i, j])
+    }
+    return(rowResults)
+  }
+  
+  dN_matrix <- matrix(unlist(results), nrow = n_nodes, byrow = TRUE)
+  return(list(as.vector(dN_matrix)))
+}
+
+# Initial populations and run simulation
+initial_populations <- runif(n_nodes * n_species, 10, 50)
+set.seed(123)
+times <- seq(0, 300, by = 1)
+
+out_community <- ode(
+  y = initial_populations,
+  times = times,
+  func = community_dynamics,
+  parms = list(),
+  rtol = 1e-6,
+  atol = rep(1e-6, n_nodes * n_species),
+  maxsteps = 1e8
+)
+
+# Summarize and visualize results
+total_population <- rowSums(matrix(out_community[,-1], ncol = n_species, byrow = TRUE))
+plot(out_community[, 1], total_population, type = 'l', xlab = "Time", ylab = "Total Population", main = "Community Dynamics Summary")
+
+```
+
+

@@ -1,0 +1,7 @@
+{
+  "budget_percent": 5,
+  "description": "Synthetic landscape with total corridor length limited to 5% of an unconstrained network. This reflects realistic urban corridor allocations (≈3‑6% of total land).",
+  "patches": 80,
+  "grid_size_km": 100,
+  "average_patch_spacing_km": 3.5
+}

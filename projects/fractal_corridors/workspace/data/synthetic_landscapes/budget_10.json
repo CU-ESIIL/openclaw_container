@@ -1,0 +1,7 @@
+{
+  "budget_percent": 10,
+  "description": "Synthetic landscape with total corridor length limited to 10% of unconstrained network. Habitat patches are sparsely distributed across a Montreal‑sized grid.",
+  "patches": 120,
+  "grid_size_km": 100,
+  "average_patch_spacing_km": 2.5
+}

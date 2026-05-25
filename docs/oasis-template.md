@@ -92,6 +92,8 @@ The interface remains powered by OpenClaw; upstream attribution should be preser
 
 The branded Control UI includes a persistent current-working-group banner below the agent and model controls. The banner makes the active project identity visible when multiple ScienceClaw instances are running side by side. Click the banner title or its Edit control to save a browser-local title, set `SCIENCECLAW_PROJECT_TITLE` in `.env` to force a deployment-specific title, or leave it at the default and let the banner read the project title from `PROJECT_CHARTER.md`.
 
+The sidebar includes **Files** and **GitHub Auth** workspace tools. These show compact CMS-backed summaries directly in the sidebar, so users can inspect the filesystem, configure GitHub credentials, and reach repository actions without relying on slash commands.
+
 ## Checkpoints
 
 The template includes `/workspace/CHECKPOINT.md` to encourage recoverable work. A checkpoint should summarize:

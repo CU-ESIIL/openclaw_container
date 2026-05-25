@@ -1,0 +1,38 @@
+{
+  "design": "dendritic",
+  "budgetFile": "budget_0.1.json",
+  "reticFile": "retic_0_none.json",
+  "gamma": 0,
+  "totalEdges": 12,
+  "totalLengthKm": 12,
+  "finalAbundances": {
+    "ground_beetle": 4.763339504673767,
+    "mouse": 1.8333891319081872,
+    "raccoon": 0.1408115146186215,
+    "bee": 1.4700808427944865
+  },
+  "resilience": {
+    "design": "dendritic",
+    "budgetFile": "budget_0.1.json",
+    "reticFile": "retic_0_none.json",
+    "gamma": 0,
+    "totalEdges": 12,
+    "totalLengthKm": 12,
+    "final": {
+      "ground_beetle": 4.762863078790736,
+      "mouse": 1.8323000527747413,
+      "raccoon": 0.15285850316159885,
+      "bee": 1.469869989821229
+    },
+    "resilienceDrop": {
+      "droppedEdges": 1,
+      "finalAbundances": {
+        "ground_beetle": 4.762863078790736,
+        "mouse": 1.8323000527747413,
+        "raccoon": 0.15285850316159885,
+        "bee": 1.469869989821229
+      }
+    }
+  },
+  "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+}

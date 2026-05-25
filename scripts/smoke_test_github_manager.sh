@@ -72,6 +72,7 @@ except ValueError:
     pass
 masked = cms.mask_secret_text("token ghp_abcdefghijklmnopqrstuvwxyz123456")
 assert "abcdefghijklmnopqrstuvwxyz" not in masked
+assert cms.github_setup_git_credentials()["ok"] is False
 PY
 
 SCIENCECLAW_CMS_PORT="${port}" \
@@ -93,6 +94,12 @@ if curl -sSf "${base_url}/api/github/status" | grep -q '"git_installed"'; then
 else
   fail "GitHub status endpoint failed"
   cat "${tmp_root}/cms.log" >&2 || true
+fi
+
+if curl -sSf "${base_url}/api/github/status" | grep -q '"token_available"'; then
+  pass "GitHub status reports token visibility without printing tokens"
+else
+  fail "GitHub status endpoint did not report token visibility"
 fi
 
 if curl -sSf \

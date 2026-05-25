@@ -227,8 +227,216 @@
     return protocol + "//" + hostname + ":" + getCmsPort() + "/github";
   }
 
+  function getCmsApiUrl(path) {
+    var protocol = window.location.protocol || "http:";
+    var hostname = window.location.hostname || "127.0.0.1";
+    return protocol + "//" + hostname + ":" + getCmsPort() + path;
+  }
+
+  function escapeHtml(value) {
+    return String(value || "").replace(/[&<>"']/g, function (ch) {
+      return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[ch];
+    });
+  }
+
+  function pathParent(path) {
+    var clean = String(path || "/workspace").replace(/\/+$/, "") || "/";
+    if (clean === "/") return "/";
+    var idx = clean.lastIndexOf("/");
+    return idx <= 0 ? "/" : clean.slice(0, idx);
+  }
+
+  function shortPath(path) {
+    var value = String(path || "/workspace");
+    return value.replace(/^\/workspace/, "workspace") || "/";
+  }
+
+  function fileUrl(path) {
+    var protocol = window.location.protocol || "http:";
+    var hostname = window.location.hostname || "127.0.0.1";
+    return protocol + "//" + hostname + ":" + getCmsPort() + "/files?path=" + encodeURIComponent(path || "/workspace");
+  }
+
+  function githubRepoUrl(owner, repo) {
+    return getGithubUrl() + "?repo=" + encodeURIComponent(owner + "/" + repo);
+  }
+
+  function postCms(path, fields) {
+    var body = new URLSearchParams();
+    Object.keys(fields || {}).forEach(function (key) {
+      body.set(key, fields[key]);
+    });
+    return fetch(getCmsApiUrl(path), {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: body.toString(),
+    });
+  }
+
+  function closeWorkspacePanels(wrapper) {
+    Array.prototype.forEach.call(wrapper.querySelectorAll(".scienceclaw-sidebar-panel"), function (panel) {
+      panel.hidden = true;
+    });
+  }
+
+  function toggleWorkspacePanel(wrapper, name) {
+    var panel = wrapper.querySelector('[data-scienceclaw-panel-body="' + name + '"]');
+    if (!panel) return;
+    var opening = panel.hidden;
+    closeWorkspacePanels(wrapper);
+    panel.hidden = !opening;
+    if (opening) loadWorkspacePanel(name, panel);
+  }
+
+  function renderPanelError(panel, message, href) {
+    panel.innerHTML =
+      '<p class="scienceclaw-sidebar-muted">' + escapeHtml(message) + '</p>' +
+      '<a class="scienceclaw-sidebar-link" href="' + href + '" target="_blank" rel="noopener">Open full page</a>';
+  }
+
+  function loadWorkspacePanel(name, panel) {
+    if (name === "files") loadFilesPanel(panel);
+    if (name === "github") loadGithubPanel(panel);
+  }
+
+  function loadFilesPanel(panel) {
+    var currentPath = panel.dataset.scienceclawPath || "/workspace";
+    panel.innerHTML = '<p class="scienceclaw-sidebar-muted">Loading ' + escapeHtml(shortPath(currentPath)) + '...</p>';
+    fetch(getCmsApiUrl("/api/file/list?path=" + encodeURIComponent(currentPath)))
+      .then(function (response) {
+        if (!response.ok) throw new Error("File manager unavailable");
+        return response.json();
+      })
+      .then(function (data) {
+        panel.dataset.scienceclawPath = data.path || currentPath;
+        var entries = (data.entries || []).slice(0, 80);
+        var rows = entries.map(function (entry) {
+          var isFolder = entry.kind === "folder";
+          var icon = isFolder ? "▸" : "·";
+          var label = isFolder ? "dir" : entry.kind;
+          var action = isFolder
+            ? '<button class="scienceclaw-file-row" type="button" data-path="' + escapeHtml(entry.path) + '">'
+            : '<a class="scienceclaw-file-row" href="' + fileUrl(entry.path) + '" target="_blank" rel="noopener">';
+          var close = isFolder ? "</button>" : "</a>";
+          return '<li>' + action +
+            '<span class="scienceclaw-file-row__icon">' + icon + '</span>' +
+            '<span class="scienceclaw-file-row__name">' + escapeHtml(entry.name) + '</span>' +
+            '<small>' + escapeHtml(label) + '</small>' +
+            close + '</li>';
+        }).join("");
+        panel.innerHTML =
+          '<div class="scienceclaw-sidebar-navhead">' +
+          '<strong>' + escapeHtml(shortPath(data.path || currentPath)) + '</strong>' +
+          '<div>' +
+          '<button class="scienceclaw-sidebar-mini" type="button" data-file-action="up">Up</button>' +
+          '<button class="scienceclaw-sidebar-mini" type="button" data-file-action="refresh">Refresh</button>' +
+          '</div>' +
+          '</div>' +
+          '<ul class="scienceclaw-file-list">' + (rows || '<li><span class="scienceclaw-sidebar-muted">No files yet</span></li>') + '</ul>' +
+          '<a class="scienceclaw-sidebar-link" href="' + fileUrl(data.path || currentPath) + '" target="_blank" rel="noopener">Open full file manager</a>';
+        Array.prototype.forEach.call(panel.querySelectorAll(".scienceclaw-file-row[data-path]"), function (button) {
+          button.addEventListener("click", function () {
+            panel.dataset.scienceclawPath = button.getAttribute("data-path") || "/workspace";
+            loadFilesPanel(panel);
+          });
+        });
+        panel.querySelector('[data-file-action="up"]').addEventListener("click", function () {
+          panel.dataset.scienceclawPath = pathParent(panel.dataset.scienceclawPath || "/workspace");
+          loadFilesPanel(panel);
+        });
+        panel.querySelector('[data-file-action="refresh"]').addEventListener("click", function () {
+          loadFilesPanel(panel);
+        });
+      })
+      .catch(function (error) {
+        renderPanelError(panel, "Could not load the file navigator here. " + (error && error.message ? error.message : ""), fileUrl(currentPath));
+      });
+  }
+
+  function loadGithubPanel(panel) {
+    panel.innerHTML = '<p class="scienceclaw-sidebar-muted">Checking GitHub status...</p>';
+    Promise.all([
+      fetch(getCmsApiUrl("/api/github/status")).then(function (response) {
+        if (!response.ok) throw new Error("GitHub status unavailable");
+        return response.json();
+      }),
+      fetch(getCmsApiUrl("/api/github/repos")).then(function (response) {
+        if (!response.ok) throw new Error("GitHub registry unavailable");
+        return response.json();
+      }),
+    ])
+      .then(function (response) {
+        var data = response[0];
+        var registry = response[1];
+        var state = data.authenticated ? "Authenticated" : "Not authenticated";
+        var token = data.token_available ? "token visible" : "no token";
+        var repos = registry.repositories || [];
+        var repoRows = repos.map(function (repo) {
+          var name = repo.owner + "/" + repo.repo;
+          var cloned = repo.cloned ? "cloned" : "not cloned";
+          var branch = repo.current_branch || repo.default_branch || "";
+          var actions = repo.cloned
+            ? '<button type="button" data-gh-action="fetch" data-owner="' + escapeHtml(repo.owner) + '" data-repo="' + escapeHtml(repo.repo) + '">Fetch</button>' +
+              '<button type="button" data-gh-action="pull" data-owner="' + escapeHtml(repo.owner) + '" data-repo="' + escapeHtml(repo.repo) + '">Pull</button>'
+            : '<button type="button" data-gh-action="clone" data-owner="' + escapeHtml(repo.owner) + '" data-repo="' + escapeHtml(repo.repo) + '">Clone</button>';
+          return '<li class="scienceclaw-repo-row">' +
+            '<a href="' + githubRepoUrl(repo.owner, repo.repo) + '" target="_blank" rel="noopener"><strong>' + escapeHtml(name) + '</strong></a>' +
+            '<small>' + escapeHtml(repo.permission_tier || "read") + " · " + escapeHtml(cloned) + " · " + escapeHtml(branch) + '</small>' +
+            '<div class="scienceclaw-repo-actions">' + actions + '</div>' +
+            '</li>';
+        }).join("");
+        panel.innerHTML =
+          '<div class="scienceclaw-sidebar-status">' +
+          '<strong>' + escapeHtml(state) + '</strong>' +
+          '<small>' + escapeHtml(data.auth_method || "none") + " · " + escapeHtml(token) + '</small>' +
+          '</div>' +
+          '<button class="scienceclaw-sidebar-action" type="button" data-gh-action="setup">Configure git credentials</button>' +
+          '<form class="scienceclaw-repo-form">' +
+          '<input name="owner" placeholder="owner" required>' +
+          '<input name="repo" placeholder="repo" required>' +
+          '<select name="permission_tier"><option value="read">read</option><option value="contribute">contribute</option></select>' +
+          '<button type="submit">Add repo</button>' +
+          '</form>' +
+          '<ul class="scienceclaw-repo-list">' + (repoRows || '<li class="scienceclaw-sidebar-muted">No authorized repositories yet.</li>') + '</ul>' +
+          '<a class="scienceclaw-sidebar-link" href="' + getGithubUrl() + '" target="_blank" rel="noopener">Open full GitHub manager</a>';
+        panel.querySelector('[data-gh-action="setup"]').addEventListener("click", function (event) {
+          event.currentTarget.textContent = "Configuring...";
+          postCms("/api/github/setup-git", {})
+            .then(function () { loadGithubPanel(panel); })
+            .catch(function () { renderPanelError(panel, "Git credential setup could not run here.", getGithubUrl()); });
+        });
+        panel.querySelector(".scienceclaw-repo-form").addEventListener("submit", function (event) {
+          event.preventDefault();
+          var form = event.currentTarget;
+          postCms("/api/github/repos", {
+            owner: form.owner.value,
+            repo: form.repo.value,
+            permission_tier: form.permission_tier.value,
+          }).then(function () {
+            form.reset();
+            loadGithubPanel(panel);
+          }).catch(function () {
+            renderPanelError(panel, "Could not add the repository here.", getGithubUrl());
+          });
+        });
+        Array.prototype.forEach.call(panel.querySelectorAll("[data-gh-action][data-owner]"), function (button) {
+          button.addEventListener("click", function () {
+            var action = button.getAttribute("data-gh-action");
+            var owner = button.getAttribute("data-owner");
+            var repo = button.getAttribute("data-repo");
+            button.textContent = action + "...";
+            postCms("/api/github/repos/" + encodeURIComponent(owner) + "/" + encodeURIComponent(repo) + "/" + action, {})
+              .then(function () { loadGithubPanel(panel); })
+              .catch(function () { renderPanelError(panel, "GitHub action failed here. Open the full manager for details.", githubRepoUrl(owner, repo)); });
+          });
+        });
+      })
+      .catch(function (error) {
+        renderPanelError(panel, "Could not load GitHub manager here. " + (error && error.message ? error.message : ""), getGithubUrl());
+      });
+  }
+
   function installWorkspaceLinks() {
-    if (document.querySelector(".scienceclaw-workspace-links")) return;
     var sidebarTargets = Array.prototype.slice.call(document.querySelectorAll("aside, nav, [class*=sidebar]"));
     var host = sidebarTargets.find(function (el) {
       var rect = el.getBoundingClientRect();
@@ -236,18 +444,31 @@
     });
     if (!host) return;
 
-    var wrapper = document.createElement("div");
-    wrapper.className = "scienceclaw-workspace-links";
+    var wrapper = document.querySelector(".scienceclaw-workspace-links");
+    if (!wrapper) {
+      wrapper = document.createElement("div");
+      wrapper.className = "scienceclaw-workspace-links";
+      host.appendChild(wrapper);
+    }
+    if (wrapper.dataset.scienceclawReady) return;
+    wrapper.dataset.scienceclawReady = "1";
     wrapper.innerHTML =
-      '<a class="scienceclaw-files-link" href="' + getFilesUrl() + '" target="_blank" rel="noopener">' +
-      '<span class="scienceclaw-files-link__icon" aria-hidden="true">▣</span>' +
+      '<button class="scienceclaw-sidebar-tool" type="button" data-scienceclaw-panel="files">' +
+      '<span class="scienceclaw-sidebar-tool__icon" aria-hidden="true">▣</span>' +
       '<span><strong>Files</strong><small>Browse workspace and outputs</small></span>' +
-      '</a>' +
-      '<a class="scienceclaw-files-link" href="' + getGithubUrl() + '" target="_blank" rel="noopener">' +
-      '<span class="scienceclaw-files-link__icon" aria-hidden="true">⌁</span>' +
-      '<span><strong>GitHub</strong><small>Authorized project repositories</small></span>' +
-      '</a>';
-    host.appendChild(wrapper);
+      '</button>' +
+      '<section class="scienceclaw-sidebar-panel" data-scienceclaw-panel-body="files" hidden></section>' +
+      '<button class="scienceclaw-sidebar-tool" type="button" data-scienceclaw-panel="github">' +
+      '<span class="scienceclaw-sidebar-tool__icon" aria-hidden="true">⌁</span>' +
+      '<span><strong>GitHub Auth</strong><small>Credentials, repos, branches, PRs</small></span>' +
+      '</button>' +
+      '<section class="scienceclaw-sidebar-panel" data-scienceclaw-panel-body="github" hidden></section>';
+    wrapper.querySelector('[data-scienceclaw-panel="files"]').addEventListener("click", function () {
+      toggleWorkspacePanel(wrapper, "files");
+    });
+    wrapper.querySelector('[data-scienceclaw-panel="github"]').addEventListener("click", function () {
+      toggleWorkspacePanel(wrapper, "github");
+    });
   }
 
   function startProjectTitleEdit(banner) {

@@ -1,0 +1,17 @@
+{
+  "small_mammals": {
+    "average_dispersal_km": 0.5,
+    "max_dispersal_km": 2.0,
+    "source": "Spear et al., 2020; PanTHERIA database (Olson et al., 2009)"
+  },
+  "ground_dwelling_birds": {
+    "average_dispersal_km": 2.0,
+    "max_dispersal_km": 10.0,
+    "source": "Claramunt et al., 2021; BirdLife International species traits"
+  },
+  "pollinating_insects": {
+    "average_dispersal_km": 0.2,
+    "max_dispersal_km": 3.0,
+    "source": "Zurbuchen et al., 2022; Bee trait database (BEEBASE)"
+  }
+}

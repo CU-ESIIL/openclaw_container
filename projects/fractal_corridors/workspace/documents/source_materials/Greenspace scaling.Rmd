@@ -1,0 +1,342 @@
+---
+output:
+  bookdown::pdf_book:
+    keep_tex: yes
+  bookdown::gitbook:
+    lib_dir: "book_assets"
+documentclass: book
+---
+
+# Land_use
+
+```{r, include=TRUE}
+library(tidyverse)
+library(sp)
+library(osmdata)
+library(dodgr)
+#library (osmplotr)
+library (magrittr)
+library(geodist)
+library(spocc)
+library(sf)
+library(ggthemes)
+```
+
+## Land use
+These are the points or polygons where growth happens. There is some suitability for growth that determinines the growth rate in that patch.
+
+1) Provide a bounding box (best), place name (good), or polygon (buggy) to download OSM
+2) Specify land use type with OSM tag codes
+3) Snap species abundance data to chosen nodes. 
+4) Out comes XY coordinates with abundance and suitability assigned. 
+
+### Specify extent 
+```{r}
+bb <- osmdata::getbb ("Montréal canada") # montreal canada
+
+#Montreal place name + more surrounding area. This was as largest as I could download within API limits. 
+my_bbox <-  bb #c(-74.155338,45.344097,  -73.284492, 45.727531)
+```
+
+### Choose land use type
+#### Open Street Map TAGS
+Pull polygons from OVERPASS API.
+These downloads use a "KEY" and "VALUE" system of identifying datasets (see https://wiki.openstreetmap.org/wiki/Tags). 
+
+Find tags here:
+https://taginfo.openstreetmap.org 
+
+#### Downloading complete OSM datasets
+This version dowloads a long-form version of the data in the form of 8-10 individual dataframes
+```{r, eval=FALSE}
+not_restaurants <- opq(bbox = c(-74.155338,45.344097,  -73.284492, 45.727531), timeout = 900) %>% # Greater Montreal
+    add_osm_feature(key = "amenity", value = "!restaurant") %>%
+    osmdata_sc() #This specifies downloading an SC file
+not_restaurants
+```
+
+
+#### Downloading shape files from OSM
+
+```{r}
+poly_areas <- function(sf_object, landuse_type){
+if(length(sf_object$osm_multipolygons) > 0){
+  poly_area <- st_area(sf_object$osm_polygons)
+multi_poly_area <- st_area(sf_object$osm_multipolygons)
+log_area1 <- as.data.frame(as.numeric(log(poly_area)))
+log_area2 <- as.data.frame(as.numeric(log(multi_poly_area)))
+names(log_area1) <- "log_area"
+names(log_area2) <- "log_area"
+log_area <- rbind(log_area1, log_area2) 
+} else {
+  poly_area <- st_area(sf_object$osm_polygons)
+log_area <- as.data.frame(as.numeric(log(poly_area)))
+names(log_area) <- "log_area"
+}
+
+area_df <- cbind(log_area, rep(landuse_type, length(log_area[,1])))
+names(area_df)[2] <- "type"
+area_df <- na.omit(area_df)
+return(area_df)
+}
+```
+
+This version downloads a shapefile of the points, lines, polygons, or multipolygons of interest.
+```{r}
+name <- "montreal"
+land_use <- function(name, pop_size){
+full_name <- paste(name, "canada", sep=" ")
+try(my_bbox <- osmdata::getbb (full_name)) # montreal canada
+
+dat1 <- opq(bbox = my_bbox, timeout = 900) %>%
+    add_osm_feature(key = 'leisure', value = 'park') %>%
+    osmdata_sf ()
+dat2 <- opq(bbox = my_bbox, timeout = 900) %>%
+    add_osm_feature(key = 'leisure', value = 'garden') %>%
+    osmdata_sf ()
+dat3 <- opq(bbox = my_bbox, timeout = 900) %>%
+    add_osm_feature(key = 'leisure', value = 'nature_reserve') %>%
+    osmdata_sf ()
+dat4 <- opq(bbox = my_bbox, timeout = 900) %>%
+    add_osm_feature(key = 'leisure', value = 'dog_park') %>%
+    osmdata_sf ()
+dat5 <- opq(bbox = my_bbox, timeout = 900) %>%
+    add_osm_feature(key = 'leisure', value = 'common') %>%
+    osmdata_sf ()
+dat6 <- opq(bbox = my_bbox, timeout = 900) %>%
+    add_osm_feature(key = 'leisure', value = 'pitch') %>%
+    osmdata_sf ()
+dat7 <- opq(bbox = my_bbox, timeout = 900) %>%
+    add_osm_feature(key = 'leisure', value = 'horse_riding') %>%
+    osmdata_sf ()
+naturals <- opq(bbox = my_bbox, timeout = 900) %>%
+    add_osm_feature(key = 'natural', value = 'wood') %>%
+    osmdata_sf ()
+greens <- c (dat1, dat2, dat3, dat4, dat5, dat6, dat7, naturals)
+
+
+buildings <- opq(bbox = my_bbox, timeout = 900) %>%
+    add_osm_feature(key = 'building') %>%
+    osmdata_sf ()
+
+roads <- opq(bbox = my_bbox, timeout = 900) %>%
+    add_osm_feature(key = 'landuse', value = 'residential') %>%
+    osmdata_sf ()
+
+agriculture <- opq(bbox = my_bbox, timeout = 900) %>%
+    add_osm_feature(key = 'landuse', value = 'farmland') %>%
+    osmdata_sf()
+
+greens_df <- poly_areas(greens, "green space")
+buildings_df <- poly_areas(buildings, "buildings")
+paved_df <- poly_areas(roads, "paved")
+ag_df <- poly_areas(agriculture, "agriculture")
+all_types <- rbind(greens_df, buildings_df, paved_df, ag_df)
+all_types2 <- cbind(all_types, log(pop_size))
+names(all_types2)[3] <- "pop_size"
+return(all_types2)
+}
+
+```
+
+```{r}
+name <- "montreal"
+all_green_space <- function(name, pop_size){
+full_name <- paste(name, "canada", sep=" ")
+try(my_bbox <- osmdata::getbb (full_name)) # montreal canada
+
+dat1 <- opq(bbox = my_bbox, timeout = 900) %>%
+    add_osm_feature(key = 'leisure', value = 'park') %>%
+    osmdata_sf ()
+#dat2 <- opq(bbox = my_bbox, timeout = 900) %>%
+#    add_osm_feature(key = 'leisure', value = 'garden') %>%
+#    osmdata_sf ()
+dat3 <- opq(bbox = my_bbox, timeout = 900) %>%
+    add_osm_feature(key = 'leisure', value = 'nature_reserve') %>%
+    osmdata_sf ()
+dat4 <- opq(bbox = my_bbox, timeout = 900) %>%
+    add_osm_feature(key = 'leisure', value = 'dog_park') %>%
+    osmdata_sf ()
+dat5 <- opq(bbox = my_bbox, timeout = 900) %>%
+    add_osm_feature(key = 'leisure', value = 'common') %>%
+    osmdata_sf ()
+dat6 <- opq(bbox = my_bbox, timeout = 900) %>%
+    add_osm_feature(key = 'leisure', value = 'pitch') %>%
+    osmdata_sf ()
+#dat7 <- opq(bbox = my_bbox, timeout = 900) %>%
+#    add_osm_feature(key = 'leisure', value = 'horse_riding') %>%
+#    osmdata_sf ()
+naturals <- opq(bbox = my_bbox, timeout = 900) %>%
+    add_osm_feature(key = 'natural', value = 'wood') %>%
+    osmdata_sf ()
+greens <- c (dat1, dat2, dat4, dat5, dat6, naturals)
+
+greens_df <- poly_areas(greens, "green space")
+if(nrow(greens_df) > 0){
+all_types <- rbind(greens_df) #, buildings_df, paved_df, ag_df
+all_types2 <- cbind(all_types, log(pop_size))
+names(all_types2)[3] <- "pop_size"
+return(all_types2)
+}
+}
+
+```
+
+```{r}
+name <- "Moffet"
+pop_size  <- 187
+all_agriculture <- function(name, pop_size){
+full_name <- paste(name, "canada", sep=" ")
+try(my_bbox <- osmdata::getbb (full_name)) # montreal canada
+
+
+agriculture <- opq(bbox = my_bbox, timeout = 900) %>%
+    add_osm_feature(key = 'landuse', value = 'farmland') %>%
+    osmdata_sf()
+#gardens <- opq(bbox = my_bbox, timeout = 900) %>%
+    #add_osm_feature(key = 'leisure', value = 'garden') %>%
+    #osmdata_sf ()
+#ag <- c(agriculture, gardens)
+
+#ag_df <- poly_areas(ag, "green space")
+#buildings_df <- poly_areas(buildings, "buildings")
+#paved_df <- poly_areas(roads, "paved")
+
+ag_df <- poly_areas(agriculture, "agriculture")
+if(nrow(ag_df) > 0){
+all_types <- rbind(ag_df) #, buildings_df, paved_df, ag_df
+all_types2 <- cbind(all_types, log(pop_size))
+names(all_types2)[3] <- "pop_size"
+return(all_types2)
+} 
+}
+
+```
+
+```{r}
+library(cancensus)
+city_list <- list_census_regions("CA16") %>%
+filter(level == "CSD") %>% 
+select(c(name, pop))
+plot(log(city_list$pop), xlab="rank", ylab="size = log(city population)")
+plot(city_list$pop, type="l", xlab="rank", ylab="size = city population")
+city_list[2000,]
+```
+
+```{r}
+full_name <- paste(city_list[2000,1], "canada", sep=" ")
+
+try(my_bbox <- osmdata::getbb (full_name) ) # montreal canada)
+
+```
+
+
+
+```{r}
+length.out <- 1000
+
+#all_types <- all_green_space(city_list[1,1],city_list[1,2])
+#sample(length(city_list$pop), length.out)
+for(i in 4467:5000){
+try(all_types <- rbind(all_types, all_green_space(city_list[i,1],city_list[i,2])))
+print(c(i,length(levels(as.factor(all_types[,3])))))
+}
+length(all_types[,1])
+
+```
+
+```{r}
+all_types[which(is.infinite(all_types[,1]) == TRUE),] <- NA
+all_types[which(is.nan(all_types[,1]) == TRUE),] <- NA
+all_types[which(all_types[,1] < 0),] <- NA
+all_types[which(is.infinite(all_types[,3]) == TRUE),] <- 0
+all_types[which(is.nan(all_types[,3]) == TRUE),] <- NA
+all_types_o <- na.omit(all_types) 
+
+base_10 <- all_types_o
+base_10[,3] <- log10(exp(all_types_o[,3]))
+base_10[,1] <- log10(exp(all_types_o[,1]))
+ 
+```
+
+
+```{r}
+city <- base_10[which(base_10[,2]== "green space"),] #there is a filter here. may need to adjust or remove
+city[which(is.infinite(city[,3]) == TRUE),] <- 0
+plot(y=city$log_area , x=city$pop_size, ylim=c(0,10),  col=adjustcolor("cornflowerblue", alpha=0.009))
+abline(lm(log_area~pop_size, data=city))
+text(x=10, y=25,label=round(lm(log_area~pop_size, data=city)$coef[2], digits = 2), adj=0, col=adjustcolor("cornflowerblue", alpha=1))
+
+
+ggplot(data=base_10, aes(y = log_area, x=pop_size)) + geom_point(fill="red", alpha=0.005) + xlim(0,8) + theme_tufte()
+```
+
+```{r}
+sums <- all_types_o %>%   
+  group_by(pop_size) %>%
+  summarise(count = sum(exp(log_area)))
+
+
+ggplot(data=sums, aes(y=log(count), x=pop_size)) + geom_point( alpha=0.4) + xlim(0,22) + theme_tufte()
+
+means <- all_types_o %>%   
+  group_by(pop_size) %>%
+  summarise(count = mean(exp(log_area)))
+
+
+ggplot(data=means, aes(y=log10(count), x=pop_size)) + geom_point( alpha=0.4) + xlim(0,22) + theme_tufte()
+
+```
+
+
+```{r}
+save(all_types_o, file="green_space_scaling.Rdata")
+```
+
+
+```{r}
+#all_types_o_front <- all_types_o
+load("/Users/Ty/Desktop/GitHub/OSM_SUS/all_types_o.Rdata")
+all_types <- all_types_o
+```
+
+
+```{r}
+all_types_o %>% filter(pop_size < 11 & pop_size > 10) %>% ggplot( aes(log_area)) + geom_density(fill="red")
+
+ggplot(data=all_types_o, aes(log_area)) + geom_density(fill="red", alpha=0.4) + xlim(0,22) + theme_tufte()
+
+```
+
+
+
+plot shapefile
+```{r}
+
+sp::plot(greens$osm_polygons[1], border="green", fill="green")
+sp::plot(agriculture$osm_polygons[1], border="red", fill="red")
+```
+
+
+
+
+### Format data for passing to metapopulation model
+Need the polygones as XY coordinates or node IDs
+
+
+
+
+
+
+
+
+
+```{r}
+sidewalk <- opq(bbox = "montreal canada", timeout = 900) %>% 
+  add_osm_feature(key = "sidewalk") %>% 
+  osmdata_sf()
+```
+```{r}
+sp::plot(sidewalk$osm_polygons)
+```
+

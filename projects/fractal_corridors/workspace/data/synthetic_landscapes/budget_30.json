@@ -1,0 +1,7 @@
+{
+  "budget_percent": 30,
+  "description": "Synthetic landscape with total corridor length limited to 30% of an unconstrained network. Represents the high‑water‑mark preservation goal (UN 30% target).",
+  "patches": 800,
+  "grid_size_km": 100,
+  "average_patch_spacing_km": 0.5
+}

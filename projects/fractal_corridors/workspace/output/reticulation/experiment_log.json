@@ -1,0 +1,3042 @@
+[
+  {
+    "design": "shortest",
+    "budgetFile": "budget_0.1.json",
+    "reticFile": "retic_0_none.json",
+    "gamma": 0,
+    "totalEdges": 12,
+    "totalLengthKm": 12,
+    "finalAbundances": {
+      "ground_beetle": 4.450563515323306,
+      "mouse": 1.7098262786050147,
+      "raccoon": 0.11934698963479129,
+      "bee": 1.4657609508235572
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_0.1.json",
+      "reticFile": "retic_0_none.json",
+      "gamma": 0,
+      "totalEdges": 12,
+      "totalLengthKm": 12,
+      "final": {
+        "ground_beetle": 5.093214198715545,
+        "mouse": 1.6803102769632414,
+        "raccoon": 0.11971440192738284,
+        "bee": 1.4662678992789355
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 5.093214198715545,
+          "mouse": 1.6803102769632414,
+          "raccoon": 0.11971440192738284,
+          "bee": 1.4662678992789355
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_0.1.json",
+    "reticFile": "retic_0_none.json",
+    "gamma": 0.1,
+    "totalEdges": 12,
+    "totalLengthKm": 12,
+    "finalAbundances": {
+      "ground_beetle": 1.354565431836694e-7,
+      "mouse": 2.700861430890587e-9,
+      "raccoon": 7.32962328161608e-12,
+      "bee": 8.061778605266017e-7
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_0.1.json",
+      "reticFile": "retic_0_none.json",
+      "gamma": 0.1,
+      "totalEdges": 12,
+      "totalLengthKm": 12,
+      "final": {
+        "ground_beetle": 1.354565431836694e-7,
+        "mouse": 2.700861430890587e-9,
+        "raccoon": 7.32962328161608e-12,
+        "bee": 8.061778605266017e-7
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 1.354565431836694e-7,
+          "mouse": 2.700861430890587e-9,
+          "raccoon": 7.32962328161608e-12,
+          "bee": 8.061778605266017e-7
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_0.1.json",
+    "reticFile": "retic_1_backbone.json",
+    "gamma": 0,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 4.450563515323306,
+      "mouse": 1.7098262786050147,
+      "raccoon": 0.11934698963479129,
+      "bee": 1.4657609508235572
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_0.1.json",
+      "reticFile": "retic_1_backbone.json",
+      "gamma": 0,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 5.093214198715545,
+        "mouse": 1.6803102769632414,
+        "raccoon": 0.11971440192738284,
+        "bee": 1.4662678992789355
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 5.093214198715545,
+          "mouse": 1.6803102769632414,
+          "raccoon": 0.11971440192738284,
+          "bee": 1.4662678992789355
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_0.1.json",
+    "reticFile": "retic_1_backbone.json",
+    "gamma": 0.1,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 1.8168829731841734e-8,
+      "mouse": 3.599473185380516e-10,
+      "raccoon": 9.69943250244935e-13,
+      "bee": 1.091195960459633e-7
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_0.1.json",
+      "reticFile": "retic_1_backbone.json",
+      "gamma": 0.1,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 1.8141271027895214e-8,
+        "mouse": 3.599483854800268e-10,
+        "raccoon": 9.699432478399482e-13,
+        "bee": 1.0911959591477471e-7
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 1.8141271027895214e-8,
+          "mouse": 3.599483854800268e-10,
+          "raccoon": 9.699432478399482e-13,
+          "bee": 1.0911959591477471e-7
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_0.1.json",
+    "reticFile": "retic_2_random.json",
+    "gamma": 0,
+    "totalEdges": 14,
+    "totalLengthKm": 14,
+    "finalAbundances": {
+      "ground_beetle": 4.450563515323306,
+      "mouse": 1.7098262786050147,
+      "raccoon": 0.11934698963479129,
+      "bee": 1.4657609508235572
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_0.1.json",
+      "reticFile": "retic_2_random.json",
+      "gamma": 0,
+      "totalEdges": 14,
+      "totalLengthKm": 14,
+      "final": {
+        "ground_beetle": 4.446712987620193,
+        "mouse": 1.7020042127130268,
+        "raccoon": 0.15487285221429067,
+        "bee": 1.4651411406022241
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 4.446712987620193,
+          "mouse": 1.7020042127130268,
+          "raccoon": 0.15487285221429067,
+          "bee": 1.4651411406022241
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_0.1.json",
+    "reticFile": "retic_2_random.json",
+    "gamma": 0.1,
+    "totalEdges": 14,
+    "totalLengthKm": 14,
+    "finalAbundances": {
+      "ground_beetle": 2.42852684296205e-9,
+      "mouse": 4.7839819092332955e-11,
+      "raccoon": 1.2807725624659015e-13,
+      "bee": 1.469310688457537e-8
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_0.1.json",
+      "reticFile": "retic_2_random.json",
+      "gamma": 0.1,
+      "totalEdges": 14,
+      "totalLengthKm": 14,
+      "final": {
+        "ground_beetle": 2.428525478305704e-9,
+        "mouse": 4.7839750848110574e-11,
+        "raccoon": 1.2842486245373845e-13,
+        "bee": 1.4693102807892796e-8
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 2.428525478305704e-9,
+          "mouse": 4.7839750848110574e-11,
+          "raccoon": 1.2842486245373845e-13,
+          "bee": 1.4693102807892796e-8
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_0.1.json",
+    "reticFile": "retic_1_critical.json",
+    "gamma": 0,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 4.450563515323306,
+      "mouse": 1.7098262786050147,
+      "raccoon": 0.11934698963479129,
+      "bee": 1.4657609508235572
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_0.1.json",
+      "reticFile": "retic_1_critical.json",
+      "gamma": 0,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 4.474472383385308,
+        "mouse": 1.7087934367222177,
+        "raccoon": 0.11936025409646296,
+        "bee": 1.4657784277646952
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 4.474472383385308,
+          "mouse": 1.7087934367222177,
+          "raccoon": 0.11936025409646296,
+          "bee": 1.4657784277646952
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_0.1.json",
+    "reticFile": "retic_1_critical.json",
+    "gamma": 0.1,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 1.8168829731841734e-8,
+      "mouse": 3.599473185380516e-10,
+      "raccoon": 9.69943250244935e-13,
+      "bee": 1.091195960459633e-7
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_0.1.json",
+      "reticFile": "retic_1_critical.json",
+      "gamma": 0.1,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 1.8168829731841734e-8,
+        "mouse": 3.599473185380516e-10,
+        "raccoon": 9.69943250244935e-13,
+        "bee": 1.091195960459633e-7
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 1.8168829731841734e-8,
+          "mouse": 3.599473185380516e-10,
+          "raccoon": 9.69943250244935e-13,
+          "bee": 1.091195960459633e-7
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_5.json",
+    "reticFile": "retic_0_none.json",
+    "gamma": 0,
+    "totalEdges": 12,
+    "totalLengthKm": 12,
+    "finalAbundances": {
+      "ground_beetle": 12.36527007964723,
+      "mouse": 2.4478358598402774e-13,
+      "raccoon": 43.53148829486119,
+      "bee": 22.446423262385316
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_5.json",
+      "reticFile": "retic_0_none.json",
+      "gamma": 0,
+      "totalEdges": 12,
+      "totalLengthKm": 12,
+      "final": {
+        "ground_beetle": 0.2943778134285503,
+        "mouse": 1.4559225346668917e-20,
+        "raccoon": 98.88623224278315,
+        "bee": 74.98988788927636
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 0.2943778134285503,
+          "mouse": 1.4559225346668917e-20,
+          "raccoon": 98.88623224278315,
+          "bee": 74.98988788927636
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_5.json",
+    "reticFile": "retic_0_none.json",
+    "gamma": 0.1,
+    "totalEdges": 12,
+    "totalLengthKm": 12,
+    "finalAbundances": {
+      "ground_beetle": 0.000005186403496721953,
+      "mouse": 1.0599161758676569e-7,
+      "raccoon": 3.455179911709609e-10,
+      "bee": 0.000037227125295157504
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_5.json",
+      "reticFile": "retic_0_none.json",
+      "gamma": 0.1,
+      "totalEdges": 12,
+      "totalLengthKm": 12,
+      "final": {
+        "ground_beetle": 0.000007221015591138502,
+        "mouse": 1.0164194474393075e-7,
+        "raccoon": 3.461309078288065e-10,
+        "bee": 0.0000372583416856246
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 0.000007221015591138502,
+          "mouse": 1.0164194474393075e-7,
+          "raccoon": 3.461309078288065e-10,
+          "bee": 0.0000372583416856246
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_5.json",
+    "reticFile": "retic_1_backbone.json",
+    "gamma": 0,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 12.36527007964723,
+      "mouse": 2.4478358598402774e-13,
+      "raccoon": 43.53148829486119,
+      "bee": 22.446423262385316
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_5.json",
+      "reticFile": "retic_1_backbone.json",
+      "gamma": 0,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 3.432116363109227e-14,
+        "mouse": 102.59563294637039,
+        "raccoon": 6.411618187788216e-7,
+        "bee": 3.3070663799958284
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 3.432116363109227e-14,
+          "mouse": 102.59563294637039,
+          "raccoon": 6.411618187788216e-7,
+          "bee": 3.3070663799958284
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_5.json",
+    "reticFile": "retic_1_backbone.json",
+    "gamma": 0.1,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 7.086618613716232e-7,
+      "mouse": 1.4440399862790813e-8,
+      "raccoon": 4.578661248172751e-11,
+      "bee": 0.000005070295451306434
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_5.json",
+      "reticFile": "retic_1_backbone.json",
+      "gamma": 0.1,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 7.078455474854262e-7,
+        "mouse": 1.4385214396643106e-8,
+        "raccoon": 5.230942222725892e-11,
+        "bee": 0.000005066897696111603
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 7.078455474854262e-7,
+          "mouse": 1.4385214396643106e-8,
+          "raccoon": 5.230942222725892e-11,
+          "bee": 0.000005066897696111603
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_5.json",
+    "reticFile": "retic_2_random.json",
+    "gamma": 0,
+    "totalEdges": 14,
+    "totalLengthKm": 14,
+    "finalAbundances": {
+      "ground_beetle": 12.36527007964723,
+      "mouse": 2.4478358598402774e-13,
+      "raccoon": 43.53148829486119,
+      "bee": 22.446423262385316
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_5.json",
+      "reticFile": "retic_2_random.json",
+      "gamma": 0,
+      "totalEdges": 14,
+      "totalLengthKm": 14,
+      "final": {
+        "ground_beetle": 0.2943778134285503,
+        "mouse": 1.4559225346668917e-20,
+        "raccoon": 98.88623224278315,
+        "bee": 74.98988788927636
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 0.2943778134285503,
+          "mouse": 1.4559225346668917e-20,
+          "raccoon": 98.88623224278315,
+          "bee": 74.98988788927636
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_5.json",
+    "reticFile": "retic_2_random.json",
+    "gamma": 0.1,
+    "totalEdges": 14,
+    "totalLengthKm": 14,
+    "finalAbundances": {
+      "ground_beetle": 9.629926884734913e-8,
+      "mouse": 1.9546175639627852e-9,
+      "raccoon": 6.057916519143506e-12,
+      "bee": 6.863956600252731e-7
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_5.json",
+      "reticFile": "retic_2_random.json",
+      "gamma": 0.1,
+      "totalEdges": 14,
+      "totalLengthKm": 14,
+      "final": {
+        "ground_beetle": 9.634030356907125e-8,
+        "mouse": 1.9572834330908876e-9,
+        "raccoon": 5.672224090154062e-12,
+        "bee": 6.865624510885278e-7
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 9.634030356907125e-8,
+          "mouse": 1.9572834330908876e-9,
+          "raccoon": 5.672224090154062e-12,
+          "bee": 6.865624510885278e-7
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_5.json",
+    "reticFile": "retic_1_critical.json",
+    "gamma": 0,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 12.36527007964723,
+      "mouse": 2.4478358598402774e-13,
+      "raccoon": 43.53148829486119,
+      "bee": 22.446423262385316
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_5.json",
+      "reticFile": "retic_1_critical.json",
+      "gamma": 0,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 0.2943778134285503,
+        "mouse": 1.4559225346668917e-20,
+        "raccoon": 98.88623224278315,
+        "bee": 74.98988788927636
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 0.2943778134285503,
+          "mouse": 1.4559225346668917e-20,
+          "raccoon": 98.88623224278315,
+          "bee": 74.98988788927636
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_5.json",
+    "reticFile": "retic_1_critical.json",
+    "gamma": 0.1,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 7.086618613716232e-7,
+      "mouse": 1.4440399862790813e-8,
+      "raccoon": 4.578661248172751e-11,
+      "bee": 0.000005070295451306434
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_5.json",
+      "reticFile": "retic_1_critical.json",
+      "gamma": 0.1,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 9.595260851002783e-7,
+        "mouse": 1.3960536151573286e-8,
+        "raccoon": 4.5847221677957256e-11,
+        "bee": 0.00000507349391095086
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 9.595260851002783e-7,
+          "mouse": 1.3960536151573286e-8,
+          "raccoon": 4.5847221677957256e-11,
+          "bee": 0.00000507349391095086
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_10.json",
+    "reticFile": "retic_0_none.json",
+    "gamma": 0,
+    "totalEdges": 12,
+    "totalLengthKm": 12,
+    "finalAbundances": {
+      "ground_beetle": 0.008392590150647312,
+      "mouse": 5.071966167742042e-22,
+      "raccoon": 54.77688301735193,
+      "bee": 6.924035879981618
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_10.json",
+      "reticFile": "retic_0_none.json",
+      "gamma": 0,
+      "totalEdges": 12,
+      "totalLengthKm": 12,
+      "final": {
+        "ground_beetle": 0.0035415826295149768,
+        "mouse": 6.6253903576260346e-21,
+        "raccoon": 53.87557483303107,
+        "bee": 7.532319097282474
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 0.0035415826295149768,
+          "mouse": 6.6253903576260346e-21,
+          "raccoon": 53.87557483303107,
+          "bee": 7.532319097282474
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_10.json",
+    "reticFile": "retic_0_none.json",
+    "gamma": 0.1,
+    "totalEdges": 12,
+    "totalLengthKm": 12,
+    "finalAbundances": {
+      "ground_beetle": 0.000008359343881497043,
+      "mouse": 1.7434487417824894e-7,
+      "raccoon": 6.642859712821032e-10,
+      "bee": 0.00006960465400632341
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_10.json",
+      "reticFile": "retic_0_none.json",
+      "gamma": 0.1,
+      "totalEdges": 12,
+      "totalLengthKm": 12,
+      "final": {
+        "ground_beetle": 0.000008329680961491526,
+        "mouse": 1.7142181410890287e-7,
+        "raccoon": 8.644388240889806e-10,
+        "bee": 0.00006942280937268717
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 0.000008329680961491526,
+          "mouse": 1.7142181410890287e-7,
+          "raccoon": 8.644388240889806e-10,
+          "bee": 0.00006942280937268717
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_10.json",
+    "reticFile": "retic_1_backbone.json",
+    "gamma": 0,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 0.008392590150647312,
+      "mouse": 5.071966167742042e-22,
+      "raccoon": 54.77688301735193,
+      "bee": 6.924035879981618
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_10.json",
+      "reticFile": "retic_1_backbone.json",
+      "gamma": 0,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 1.152598900288847e-32,
+        "mouse": 196.9399106844683,
+        "raccoon": 1.3023303457450844e-14,
+        "bee": 0.0051747599020977725
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 1.152598900288847e-32,
+          "mouse": 196.9399106844683,
+          "raccoon": 1.3023303457450844e-14,
+          "bee": 0.0051747599020977725
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_10.json",
+    "reticFile": "retic_1_backbone.json",
+    "gamma": 0.1,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 0.000001154669573109619,
+      "mouse": 2.4095342724364297e-8,
+      "raccoon": 8.790890184530322e-11,
+      "bee": 0.000009521499445132483
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_10.json",
+      "reticFile": "retic_1_backbone.json",
+      "gamma": 0.1,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 0.0000011569258169088991,
+        "mouse": 2.410263175442812e-8,
+        "raccoon": 8.808718485150255e-11,
+        "bee": 0.000009737853918888321
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 0.0000011569258169088991,
+          "mouse": 2.410263175442812e-8,
+          "raccoon": 8.808718485150255e-11,
+          "bee": 0.000009737853918888321
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_10.json",
+    "reticFile": "retic_2_random.json",
+    "gamma": 0,
+    "totalEdges": 14,
+    "totalLengthKm": 14,
+    "finalAbundances": {
+      "ground_beetle": 0.008392590150647312,
+      "mouse": 5.071966167742042e-22,
+      "raccoon": 54.77688301735193,
+      "bee": 6.924035879981618
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_10.json",
+      "reticFile": "retic_2_random.json",
+      "gamma": 0,
+      "totalEdges": 14,
+      "totalLengthKm": 14,
+      "final": {
+        "ground_beetle": 1.1718427579349572e-24,
+        "mouse": 1.0490340194623927e-93,
+        "raccoon": 367.423649023478,
+        "bee": 149.98282745037807
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 1.1718427579349572e-24,
+          "mouse": 1.0490340194623927e-93,
+          "raccoon": 367.423649023478,
+          "bee": 149.98282745037807
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_10.json",
+    "reticFile": "retic_2_random.json",
+    "gamma": 0.1,
+    "totalEdges": 14,
+    "totalLengthKm": 14,
+    "finalAbundances": {
+      "ground_beetle": 1.5854168203220467e-7,
+      "mouse": 3.301801569805364e-9,
+      "raccoon": 1.1627957406576423e-11,
+      "bee": 0.0000012939924156396587
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_10.json",
+      "reticFile": "retic_2_random.json",
+      "gamma": 0.1,
+      "totalEdges": 14,
+      "totalLengthKm": 14,
+      "final": {
+        "ground_beetle": 1.5967703760351472e-7,
+        "mouse": 3.1901341260517474e-9,
+        "raccoon": 1.1664734656392755e-11,
+        "bee": 0.0000012959019559094046
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 1.5967703760351472e-7,
+          "mouse": 3.1901341260517474e-9,
+          "raccoon": 1.1664734656392755e-11,
+          "bee": 0.0000012959019559094046
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_10.json",
+    "reticFile": "retic_1_critical.json",
+    "gamma": 0,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 0.008392590150647312,
+      "mouse": 5.071966167742042e-22,
+      "raccoon": 54.77688301735193,
+      "bee": 6.924035879981618
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_10.json",
+      "reticFile": "retic_1_critical.json",
+      "gamma": 0,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 0.0035415826295149768,
+        "mouse": 6.6253903576260346e-21,
+        "raccoon": 53.87557483303107,
+        "bee": 7.532319097282474
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 0.0035415826295149768,
+          "mouse": 6.6253903576260346e-21,
+          "raccoon": 53.87557483303107,
+          "bee": 7.532319097282474
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_10.json",
+    "reticFile": "retic_1_critical.json",
+    "gamma": 0.1,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 0.000001154669573109619,
+      "mouse": 2.4095342724364297e-8,
+      "raccoon": 8.790890184530322e-11,
+      "bee": 0.000009521499445132483
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_10.json",
+      "reticFile": "retic_1_critical.json",
+      "gamma": 0.1,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 0.000001150943298966106,
+        "mouse": 2.375290105781436e-8,
+        "raccoon": 1.1201378145491027e-10,
+        "bee": 0.00000949984523752846
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 0.000001150943298966106,
+          "mouse": 2.375290105781436e-8,
+          "raccoon": 1.1201378145491027e-10,
+          "bee": 0.00000949984523752846
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_25.json",
+    "reticFile": "retic_0_none.json",
+    "gamma": 0,
+    "totalEdges": 12,
+    "totalLengthKm": 12,
+    "finalAbundances": {
+      "ground_beetle": 2.4233367147447533e-10,
+      "mouse": 1.7817731392422437e-39,
+      "raccoon": 91.36405000124233,
+      "bee": 0.013760415220554737
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_25.json",
+      "reticFile": "retic_0_none.json",
+      "gamma": 0,
+      "totalEdges": 12,
+      "totalLengthKm": 12,
+      "final": {
+        "ground_beetle": 2.041224792493185e-10,
+        "mouse": 4.682995261320053e-38,
+        "raccoon": 88.53647285781109,
+        "bee": 0.023409471725218015
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 2.041224792493185e-10,
+          "mouse": 4.682995261320053e-38,
+          "raccoon": 88.53647285781109,
+          "bee": 0.023409471725218015
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_25.json",
+    "reticFile": "retic_0_none.json",
+    "gamma": 0.1,
+    "totalEdges": 12,
+    "totalLengthKm": 12,
+    "finalAbundances": {
+      "ground_beetle": 0.000013213860568721048,
+      "mouse": 2.8437854996528e-7,
+      "raccoon": 1.574563541956861e-9,
+      "bee": 0.00014902794857532423
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_25.json",
+      "reticFile": "retic_0_none.json",
+      "gamma": 0.1,
+      "totalEdges": 12,
+      "totalLengthKm": 12,
+      "final": {
+        "ground_beetle": 0.000008878316953982254,
+        "mouse": 3.1222552267422043e-7,
+        "raccoon": 1.5518275533708905e-9,
+        "bee": 0.00014807455509640335
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 0.000008878316953982254,
+          "mouse": 3.1222552267422043e-7,
+          "raccoon": 1.5518275533708905e-9,
+          "bee": 0.00014807455509640335
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_25.json",
+    "reticFile": "retic_1_backbone.json",
+    "gamma": 0,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 2.4233367147447533e-10,
+      "mouse": 1.7817731392422437e-39,
+      "raccoon": 91.36405000124233,
+      "bee": 0.013760415220554737
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_25.json",
+      "reticFile": "retic_1_backbone.json",
+      "gamma": 0,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 4.7985675851047465e-84,
+        "mouse": 484.6597058979801,
+        "raccoon": 3.6220834743448565e-35,
+        "bee": 1.54256151619389e-12
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 4.7985675851047465e-84,
+          "mouse": 484.6597058979801,
+          "raccoon": 3.6220834743448565e-35,
+          "bee": 1.54256151619389e-12
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_25.json",
+    "reticFile": "retic_1_backbone.json",
+    "gamma": 0.1,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 0.00000184772229151886,
+      "mouse": 4.0269068787278733e-8,
+      "raccoon": 2.0628763053025147e-10,
+      "bee": 0.000020547097135590917
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_25.json",
+      "reticFile": "retic_1_backbone.json",
+      "gamma": 0.1,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 0.0000056358889118797985,
+        "mouse": 2.2922290284631586e-8,
+        "raccoon": 2.2092179415579646e-10,
+        "bee": 0.00002118489461275425
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 0.0000056358889118797985,
+          "mouse": 2.2922290284631586e-8,
+          "raccoon": 2.2092179415579646e-10,
+          "bee": 0.00002118489461275425
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_25.json",
+    "reticFile": "retic_2_random.json",
+    "gamma": 0,
+    "totalEdges": 14,
+    "totalLengthKm": 14,
+    "finalAbundances": {
+      "ground_beetle": 2.4233367147447533e-10,
+      "mouse": 1.7817731392422437e-39,
+      "raccoon": 91.36405000124233,
+      "bee": 0.013760415220554737
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_25.json",
+      "reticFile": "retic_2_random.json",
+      "gamma": 0,
+      "totalEdges": 14,
+      "totalLengthKm": 14,
+      "final": {
+        "ground_beetle": 2.053520708341644e-10,
+        "mouse": 7.680834722233489e-41,
+        "raccoon": 90.74049649999156,
+        "bee": 0.012867997720729623
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 2.053520708341644e-10,
+          "mouse": 7.680834722233489e-41,
+          "raccoon": 90.74049649999156,
+          "bee": 0.012867997720729623
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_25.json",
+    "reticFile": "retic_2_random.json",
+    "gamma": 0.1,
+    "totalEdges": 14,
+    "totalLengthKm": 14,
+    "finalAbundances": {
+      "ground_beetle": 2.572052826585347e-7,
+      "mouse": 5.637189336755536e-9,
+      "raccoon": 2.7117536124204958e-11,
+      "bee": 0.000002812610237012418
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_25.json",
+      "reticFile": "retic_2_random.json",
+      "gamma": 0.1,
+      "totalEdges": 14,
+      "totalLengthKm": 14,
+      "final": {
+        "ground_beetle": 1.890499261951258e-7,
+        "mouse": 6.021953011627057e-9,
+        "raccoon": 2.6870505220801205e-11,
+        "bee": 0.000002800956204852822
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 1.890499261951258e-7,
+          "mouse": 6.021953011627057e-9,
+          "raccoon": 2.6870505220801205e-11,
+          "bee": 0.000002800956204852822
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_25.json",
+    "reticFile": "retic_1_critical.json",
+    "gamma": 0,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 2.4233367147447533e-10,
+      "mouse": 1.7817731392422437e-39,
+      "raccoon": 91.36405000124233,
+      "bee": 0.013760415220554737
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_25.json",
+      "reticFile": "retic_1_critical.json",
+      "gamma": 0,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 1253.102987159267,
+        "mouse": 1.2737296966571223e-121,
+        "raccoon": 90.87015215081328,
+        "bee": 0.01276153342094974
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 1253.102987159267,
+          "mouse": 1.2737296966571223e-121,
+          "raccoon": 90.87015215081328,
+          "bee": 0.01276153342094974
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_25.json",
+    "reticFile": "retic_1_critical.json",
+    "gamma": 0.1,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 0.00000184772229151886,
+      "mouse": 4.0269068787278733e-8,
+      "raccoon": 2.0628763053025147e-10,
+      "bee": 0.000020547097135590917
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_25.json",
+      "reticFile": "retic_1_critical.json",
+      "gamma": 0.1,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 0.0000018669663426718097,
+        "mouse": 4.0289595288809805e-8,
+        "raccoon": 2.085391110372876e-10,
+        "bee": 0.000021667512115502492
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 0.0000018669663426718097,
+          "mouse": 4.0289595288809805e-8,
+          "raccoon": 2.085391110372876e-10,
+          "bee": 0.000021667512115502492
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_30.json",
+    "reticFile": "retic_0_none.json",
+    "gamma": 0,
+    "totalEdges": 12,
+    "totalLengthKm": 12,
+    "finalAbundances": {
+      "ground_beetle": 1.6380482662047676e-12,
+      "mouse": 8.519602423724218e-45,
+      "raccoon": 106.042616580457,
+      "bee": 0.0016015484526251671
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_30.json",
+      "reticFile": "retic_0_none.json",
+      "gamma": 0,
+      "totalEdges": 12,
+      "totalLengthKm": 12,
+      "final": {
+        "ground_beetle": 7.81229073334312e-14,
+        "mouse": 1.738417182187752e-48,
+        "raccoon": 105.00930896463377,
+        "bee": 0.0005511752262037853
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 7.81229073334312e-14,
+          "mouse": 1.738417182187752e-48,
+          "raccoon": 105.00930896463377,
+          "bee": 0.0005511752262037853
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_30.json",
+    "reticFile": "retic_0_none.json",
+    "gamma": 0.1,
+    "totalEdges": 12,
+    "totalLengthKm": 12,
+    "finalAbundances": {
+      "ground_beetle": 0.000014150281076233206,
+      "mouse": 3.049513395345488e-7,
+      "raccoon": 1.8799593008169244e-9,
+      "bee": 0.00017151402533284465
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_30.json",
+      "reticFile": "retic_0_none.json",
+      "gamma": 0.1,
+      "totalEdges": 12,
+      "totalLengthKm": 12,
+      "final": {
+        "ground_beetle": 0.00005437636799296916,
+        "mouse": 1.2231641302992656e-7,
+        "raccoon": 2.123056559458383e-9,
+        "bee": 0.00018070719388598236
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 0.00005437636799296916,
+          "mouse": 1.2231641302992656e-7,
+          "raccoon": 2.123056559458383e-9,
+          "bee": 0.00018070719388598236
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_30.json",
+    "reticFile": "retic_1_backbone.json",
+    "gamma": 0,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 1.6380482662047676e-12,
+      "mouse": 8.519602423724218e-45,
+      "raccoon": 106.042616580457,
+      "bee": 0.0016015484526251671
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_30.json",
+      "reticFile": "retic_1_backbone.json",
+      "gamma": 0,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 2.43460342286306e-106,
+        "mouse": 582.1549155927707,
+        "raccoon": 4.175669892482517e-44,
+        "bee": 1.4853451822829896e-16
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 2.43460342286306e-106,
+          "mouse": 582.1549155927707,
+          "raccoon": 4.175669892482517e-44,
+          "bee": 1.4853451822829896e-16
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_30.json",
+    "reticFile": "retic_1_backbone.json",
+    "gamma": 0.1,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 0.0000019802811552453412,
+      "mouse": 4.342389347402056e-8,
+      "raccoon": 2.4528652023432005e-10,
+      "bee": 0.000023688643814205613
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_30.json",
+      "reticFile": "retic_1_backbone.json",
+      "gamma": 0.1,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 0.0000021156829735338,
+        "mouse": 4.34655952030946e-8,
+        "raccoon": 2.629196279066824e-10,
+        "bee": 0.00003077946944562053
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 0.0000021156829735338,
+          "mouse": 4.34655952030946e-8,
+          "raccoon": 2.629196279066824e-10,
+          "bee": 0.00003077946944562053
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_30.json",
+    "reticFile": "retic_2_random.json",
+    "gamma": 0,
+    "totalEdges": 14,
+    "totalLengthKm": 14,
+    "finalAbundances": {
+      "ground_beetle": 1.6380482662047676e-12,
+      "mouse": 8.519602423724218e-45,
+      "raccoon": 106.042616580457,
+      "bee": 0.0016015484526251671
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_30.json",
+      "reticFile": "retic_2_random.json",
+      "gamma": 0,
+      "totalEdges": 14,
+      "totalLengthKm": 14,
+      "final": {
+        "ground_beetle": 2.43460342286306e-106,
+        "mouse": 582.1549155927707,
+        "raccoon": 4.175669892482517e-44,
+        "bee": 1.4853451822829896e-16
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 2.43460342286306e-106,
+          "mouse": 582.1549155927707,
+          "raccoon": 4.175669892482517e-44,
+          "bee": 1.4853451822829896e-16
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_30.json",
+    "reticFile": "retic_2_random.json",
+    "gamma": 0.1,
+    "totalEdges": 14,
+    "totalLengthKm": 14,
+    "finalAbundances": {
+      "ground_beetle": 2.761121866645332e-7,
+      "mouse": 6.108581524178308e-9,
+      "raccoon": 3.215269437175057e-11,
+      "bee": 0.0000032479384084559683
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_30.json",
+      "reticFile": "retic_2_random.json",
+      "gamma": 0.1,
+      "totalEdges": 14,
+      "totalLengthKm": 14,
+      "final": {
+        "ground_beetle": 9.071239751098064e-7,
+        "mouse": 3.2299767815671993e-9,
+        "raccoon": 3.487516714278654e-11,
+        "bee": 0.000003367619891694025
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 9.071239751098064e-7,
+          "mouse": 3.2299767815671993e-9,
+          "raccoon": 3.487516714278654e-11,
+          "bee": 0.000003367619891694025
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_30.json",
+    "reticFile": "retic_1_critical.json",
+    "gamma": 0,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 1.6380482662047676e-12,
+      "mouse": 8.519602423724218e-45,
+      "raccoon": 106.042616580457,
+      "bee": 0.0016015484526251671
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_30.json",
+      "reticFile": "retic_1_critical.json",
+      "gamma": 0,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 1502.1496210679536,
+        "mouse": 1.1985941726365258e-143,
+        "raccoon": 105.56461929081708,
+        "bee": 0.0014258443027529348
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 1502.1496210679536,
+          "mouse": 1.1985941726365258e-143,
+          "raccoon": 105.56461929081708,
+          "bee": 0.0014258443027529348
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "shortest",
+    "budgetFile": "budget_30.json",
+    "reticFile": "retic_1_critical.json",
+    "gamma": 0.1,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 0.0000019802811552453412,
+      "mouse": 4.342389347402056e-8,
+      "raccoon": 2.4528652023432005e-10,
+      "bee": 0.000023688643814205613
+    },
+    "resilience": {
+      "design": "shortest",
+      "budgetFile": "budget_30.json",
+      "reticFile": "retic_1_critical.json",
+      "gamma": 0.1,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 0.0000011336897192297536,
+        "mouse": 8.845551468970066e-8,
+        "raccoon": 1.9010360394502623e-10,
+        "bee": 0.00002122209570625186
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 0.0000011336897192297536,
+          "mouse": 8.845551468970066e-8,
+          "raccoon": 1.9010360394502623e-10,
+          "bee": 0.00002122209570625186
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_shortest_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_0.1.json",
+    "reticFile": "retic_0_none.json",
+    "gamma": 0,
+    "totalEdges": 12,
+    "totalLengthKm": 12,
+    "finalAbundances": {
+      "ground_beetle": 4.763339504673767,
+      "mouse": 1.8333891319081872,
+      "raccoon": 0.1408115146186215,
+      "bee": 1.4700808427944865
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_0.1.json",
+      "reticFile": "retic_0_none.json",
+      "gamma": 0,
+      "totalEdges": 12,
+      "totalLengthKm": 12,
+      "final": {
+        "ground_beetle": 4.762863078790736,
+        "mouse": 1.8323000527747413,
+        "raccoon": 0.15285850316159885,
+        "bee": 1.469869989821229
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 4.762863078790736,
+          "mouse": 1.8323000527747413,
+          "raccoon": 0.15285850316159885,
+          "bee": 1.469869989821229
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_0.1.json",
+    "reticFile": "retic_0_none.json",
+    "gamma": 0.1,
+    "totalEdges": 12,
+    "totalLengthKm": 12,
+    "finalAbundances": {
+      "ground_beetle": 1.3601162097666863e-7,
+      "mouse": 2.7092766143793956e-9,
+      "raccoon": 7.345206944331443e-12,
+      "bee": 8.064476159478982e-7
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_0.1.json",
+      "reticFile": "retic_0_none.json",
+      "gamma": 0.1,
+      "totalEdges": 12,
+      "totalLengthKm": 12,
+      "final": {
+        "ground_beetle": 1.3601161130779886e-7,
+        "mouse": 2.7092759612231612e-9,
+        "raccoon": 7.352477084894358e-12,
+        "bee": 8.064475317071337e-7
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 1.3601161130779886e-7,
+          "mouse": 2.7092759612231612e-9,
+          "raccoon": 7.352477084894358e-12,
+          "bee": 8.064475317071337e-7
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_0.1.json",
+    "reticFile": "retic_1_backbone.json",
+    "gamma": 0,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 4.763339504673767,
+      "mouse": 1.8333891319081872,
+      "raccoon": 0.1408115146186215,
+      "bee": 1.4700808427944865
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_0.1.json",
+      "reticFile": "retic_1_backbone.json",
+      "gamma": 0,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 4.739698816186954,
+        "mouse": 1.9567838837405074,
+        "raccoon": 0.1400975319990462,
+        "bee": 1.4682543271571193
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 4.739698816186954,
+          "mouse": 1.9567838837405074,
+          "raccoon": 0.1400975319990462,
+          "bee": 1.4682543271571193
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_0.1.json",
+    "reticFile": "retic_1_backbone.json",
+    "gamma": 0.1,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 1.8236392659722084e-8,
+      "mouse": 3.6095302010508796e-10,
+      "raccoon": 9.718119175852497e-13,
+      "bee": 1.0915290285281249e-7
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_0.1.json",
+      "reticFile": "retic_1_backbone.json",
+      "gamma": 0.1,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 1.829812696252389e-8,
+        "mouse": 3.6095159757510165e-10,
+        "raccoon": 9.718119186088277e-13,
+        "bee": 1.0915290300134231e-7
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 1.829812696252389e-8,
+          "mouse": 3.6095159757510165e-10,
+          "raccoon": 9.718119186088277e-13,
+          "bee": 1.0915290300134231e-7
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_0.1.json",
+    "reticFile": "retic_2_random.json",
+    "gamma": 0,
+    "totalEdges": 14,
+    "totalLengthKm": 14,
+    "finalAbundances": {
+      "ground_beetle": 4.763339504673767,
+      "mouse": 1.8333891319081872,
+      "raccoon": 0.1408115146186215,
+      "bee": 1.4700808427944865
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_0.1.json",
+      "reticFile": "retic_2_random.json",
+      "gamma": 0,
+      "totalEdges": 14,
+      "totalLengthKm": 14,
+      "final": {
+        "ground_beetle": 4.739698816186954,
+        "mouse": 1.9567838837405074,
+        "raccoon": 0.1400975319990462,
+        "bee": 1.4682543271571193
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 4.739698816186954,
+          "mouse": 1.9567838837405074,
+          "raccoon": 0.1400975319990462,
+          "bee": 1.4682543271571193
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_0.1.json",
+    "reticFile": "retic_2_random.json",
+    "gamma": 0.1,
+    "totalEdges": 14,
+    "totalLengthKm": 14,
+    "finalAbundances": {
+      "ground_beetle": 2.4367930580900795e-9,
+      "mouse": 4.7961039678703315e-11,
+      "raccoon": 1.2830282148444267e-13,
+      "bee": 1.4697227300905136e-8
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_0.1.json",
+      "reticFile": "retic_2_random.json",
+      "gamma": 0.1,
+      "totalEdges": 14,
+      "totalLengthKm": 14,
+      "final": {
+        "ground_beetle": 2.436793987393389e-9,
+        "mouse": 4.7947183013839244e-11,
+        "raccoon": 1.283028342981315e-13,
+        "bee": 1.469722919532315e-8
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 2.436793987393389e-9,
+          "mouse": 4.7947183013839244e-11,
+          "raccoon": 1.283028342981315e-13,
+          "bee": 1.469722919532315e-8
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_0.1.json",
+    "reticFile": "retic_1_critical.json",
+    "gamma": 0,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 4.763339504673767,
+      "mouse": 1.8333891319081872,
+      "raccoon": 0.1408115146186215,
+      "bee": 1.4700808427944865
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_0.1.json",
+      "reticFile": "retic_1_critical.json",
+      "gamma": 0,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 4.739698816186954,
+        "mouse": 1.9567838837405074,
+        "raccoon": 0.1400975319990462,
+        "bee": 1.4682543271571193
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 4.739698816186954,
+          "mouse": 1.9567838837405074,
+          "raccoon": 0.1400975319990462,
+          "bee": 1.4682543271571193
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_0.1.json",
+    "reticFile": "retic_1_critical.json",
+    "gamma": 0.1,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 1.8236392659722084e-8,
+      "mouse": 3.6095302010508796e-10,
+      "raccoon": 9.718119175852497e-13,
+      "bee": 1.0915290285281249e-7
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_0.1.json",
+      "reticFile": "retic_1_critical.json",
+      "gamma": 0.1,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 1.829812696252389e-8,
+        "mouse": 3.6095159757510165e-10,
+        "raccoon": 9.718119186088277e-13,
+        "bee": 1.0915290300134231e-7
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 1.829812696252389e-8,
+          "mouse": 3.6095159757510165e-10,
+          "raccoon": 9.718119186088277e-13,
+          "bee": 1.0915290300134231e-7
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_5.json",
+    "reticFile": "retic_0_none.json",
+    "gamma": 0,
+    "totalEdges": 12,
+    "totalLengthKm": 12,
+    "finalAbundances": {
+      "ground_beetle": 223.01449687807033,
+      "mouse": 5.25673208920101e-8,
+      "raccoon": 44.52035508260976,
+      "bee": 26.72463909238115
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_5.json",
+      "reticFile": "retic_0_none.json",
+      "gamma": 0,
+      "totalEdges": 12,
+      "totalLengthKm": 12,
+      "final": {
+        "ground_beetle": 223.01449687807033,
+        "mouse": 5.25673208920101e-8,
+        "raccoon": 44.52035508260976,
+        "bee": 26.72463909238115
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 223.01449687807033,
+          "mouse": 5.25673208920101e-8,
+          "raccoon": 44.52035508260976,
+          "bee": 26.72463909238115
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_5.json",
+    "reticFile": "retic_0_none.json",
+    "gamma": 0.1,
+    "totalEdges": 12,
+    "totalLengthKm": 12,
+    "finalAbundances": {
+      "ground_beetle": 0.000006166131285733152,
+      "mouse": 1.201915182820224e-7,
+      "raccoon": 3.7855287796136696e-10,
+      "bee": 0.000037633818565579384
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_5.json",
+      "reticFile": "retic_0_none.json",
+      "gamma": 0.1,
+      "totalEdges": 12,
+      "totalLengthKm": 12,
+      "final": {
+        "ground_beetle": 0.000006165216917462999,
+        "mouse": 1.2012044876154499e-7,
+        "raccoon": 3.9662527889241836e-10,
+        "bee": 0.00003762455973547004
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 0.000006165216917462999,
+          "mouse": 1.2012044876154499e-7,
+          "raccoon": 3.9662527889241836e-10,
+          "bee": 0.00003762455973547004
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_5.json",
+    "reticFile": "retic_1_backbone.json",
+    "gamma": 0,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 223.01449687807033,
+      "mouse": 5.25673208920101e-8,
+      "raccoon": 44.52035508260976,
+      "bee": 26.72463909238115
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_5.json",
+      "reticFile": "retic_1_backbone.json",
+      "gamma": 0,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 220.7963043348932,
+        "mouse": 1.5075095048297926e-9,
+        "raccoon": 44.10488858688063,
+        "bee": 26.49781387166611
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 220.7963043348932,
+          "mouse": 1.5075095048297926e-9,
+          "raccoon": 44.10488858688063,
+          "bee": 26.49781387166611
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_5.json",
+    "reticFile": "retic_1_backbone.json",
+    "gamma": 0.1,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 8.311106732271909e-7,
+      "mouse": 1.620209680356408e-8,
+      "raccoon": 4.979354650210498e-11,
+      "bee": 0.000005123011095437663
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_5.json",
+      "reticFile": "retic_1_backbone.json",
+      "gamma": 0.1,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 8.310057127625445e-7,
+        "mouse": 1.6194067119638157e-8,
+        "raccoon": 5.194711521344015e-11,
+        "bee": 0.000005121943624494864
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 8.310057127625445e-7,
+          "mouse": 1.6194067119638157e-8,
+          "raccoon": 5.194711521344015e-11,
+          "bee": 0.000005121943624494864
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_5.json",
+    "reticFile": "retic_2_random.json",
+    "gamma": 0,
+    "totalEdges": 14,
+    "totalLengthKm": 14,
+    "finalAbundances": {
+      "ground_beetle": 223.01449687807033,
+      "mouse": 5.25673208920101e-8,
+      "raccoon": 44.52035508260976,
+      "bee": 26.72463909238115
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_5.json",
+      "reticFile": "retic_2_random.json",
+      "gamma": 0,
+      "totalEdges": 14,
+      "totalLengthKm": 14,
+      "final": {
+        "ground_beetle": 226.2248100635167,
+        "mouse": 0.0017757922914643112,
+        "raccoon": 44.94856495702776,
+        "bee": 27.111154090792464
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 226.2248100635167,
+          "mouse": 0.0017757922914643112,
+          "raccoon": 44.94856495702776,
+          "bee": 27.111154090792464
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_5.json",
+    "reticFile": "retic_2_random.json",
+    "gamma": 0.1,
+    "totalEdges": 14,
+    "totalLengthKm": 14,
+    "finalAbundances": {
+      "ground_beetle": 1.1163015230327817e-7,
+      "mouse": 2.1736023352762967e-9,
+      "raccoon": 6.546582323000983e-12,
+      "bee": 6.931831806754775e-7
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_5.json",
+      "reticFile": "retic_2_random.json",
+      "gamma": 0.1,
+      "totalEdges": 14,
+      "totalLengthKm": 14,
+      "final": {
+        "ground_beetle": 1.1184340591462589e-7,
+        "mouse": 2.1743660342893415e-9,
+        "raccoon": 6.558081569240758e-12,
+        "bee": 7.284250233296413e-7
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 1.1184340591462589e-7,
+          "mouse": 2.1743660342893415e-9,
+          "raccoon": 6.558081569240758e-12,
+          "bee": 7.284250233296413e-7
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_5.json",
+    "reticFile": "retic_1_critical.json",
+    "gamma": 0,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 223.01449687807033,
+      "mouse": 5.25673208920101e-8,
+      "raccoon": 44.52035508260976,
+      "bee": 26.72463909238115
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_5.json",
+      "reticFile": "retic_1_critical.json",
+      "gamma": 0,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 78.79586281148906,
+        "mouse": 0.05381776481331479,
+        "raccoon": 45.00806394929677,
+        "bee": 29.194472066307537
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 78.79586281148906,
+          "mouse": 0.05381776481331479,
+          "raccoon": 45.00806394929677,
+          "bee": 29.194472066307537
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_5.json",
+    "reticFile": "retic_1_critical.json",
+    "gamma": 0.1,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 8.311106732271909e-7,
+      "mouse": 1.620209680356408e-8,
+      "raccoon": 4.979354650210498e-11,
+      "bee": 0.000005123011095437663
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_5.json",
+      "reticFile": "retic_1_critical.json",
+      "gamma": 0.1,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 8.311106732271909e-7,
+        "mouse": 1.620209680356408e-8,
+        "raccoon": 4.979354650210498e-11,
+        "bee": 0.000005123011095437663
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 8.311106732271909e-7,
+          "mouse": 1.620209680356408e-8,
+          "raccoon": 4.979354650210498e-11,
+          "bee": 0.000005123011095437663
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_10.json",
+    "reticFile": "retic_0_none.json",
+    "gamma": 0,
+    "totalEdges": 12,
+    "totalLengthKm": 12,
+    "finalAbundances": {
+      "ground_beetle": 183.7663027153282,
+      "mouse": 1.0916032518561224e-14,
+      "raccoon": 59.28586632883613,
+      "bee": 10.674253680544272
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_10.json",
+      "reticFile": "retic_0_none.json",
+      "gamma": 0,
+      "totalEdges": 12,
+      "totalLengthKm": 12,
+      "final": {
+        "ground_beetle": 185.13944844849883,
+        "mouse": 1.1011091551174838e-17,
+        "raccoon": 58.361700471814345,
+        "bee": 10.76684719344833
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 185.13944844849883,
+          "mouse": 1.1011091551174838e-17,
+          "raccoon": 58.361700471814345,
+          "bee": 10.76684719344833
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_10.json",
+    "reticFile": "retic_0_none.json",
+    "gamma": 0.1,
+    "totalEdges": 12,
+    "totalLengthKm": 12,
+    "finalAbundances": {
+      "ground_beetle": 0.000011291060795710857,
+      "mouse": 2.150459704535797e-7,
+      "raccoon": 7.799699514022492e-10,
+      "bee": 0.00007056711632052381
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_10.json",
+      "reticFile": "retic_0_none.json",
+      "gamma": 0.1,
+      "totalEdges": 12,
+      "totalLengthKm": 12,
+      "final": {
+        "ground_beetle": 0.000011285491311430915,
+        "mouse": 2.1454503696307637e-7,
+        "raccoon": 8.518916255141704e-10,
+        "bee": 0.00007050134052007308
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 0.000011285491311430915,
+          "mouse": 2.1454503696307637e-7,
+          "raccoon": 8.518916255141704e-10,
+          "bee": 0.00007050134052007308
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_10.json",
+    "reticFile": "retic_1_backbone.json",
+    "gamma": 0,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 183.7663027153282,
+      "mouse": 1.0916032518561224e-14,
+      "raccoon": 59.28586632883613,
+      "bee": 10.674253680544272
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_10.json",
+      "reticFile": "retic_1_backbone.json",
+      "gamma": 0,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 183.7663027153282,
+        "mouse": 1.0916032518561224e-14,
+        "raccoon": 59.28586632883613,
+        "bee": 10.674253680544272
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 183.7663027153282,
+          "mouse": 1.0916032518561224e-14,
+          "raccoon": 59.28586632883613,
+          "bee": 10.674253680544272
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_10.json",
+    "reticFile": "retic_1_backbone.json",
+    "gamma": 0.1,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 0.0000015275158428758334,
+      "mouse": 2.9285026032513957e-8,
+      "raccoon": 1.020338569222758e-10,
+      "bee": 0.000009653238416850763
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_10.json",
+      "reticFile": "retic_1_backbone.json",
+      "gamma": 0.1,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 0.0000015283312848958096,
+        "mouse": 2.9355814713588368e-8,
+        "raccoon": 8.960392447399196e-11,
+        "bee": 0.00000966272663750367
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 0.0000015283312848958096,
+          "mouse": 2.9355814713588368e-8,
+          "raccoon": 8.960392447399196e-11,
+          "bee": 0.00000966272663750367
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_10.json",
+    "reticFile": "retic_2_random.json",
+    "gamma": 0,
+    "totalEdges": 14,
+    "totalLengthKm": 14,
+    "finalAbundances": {
+      "ground_beetle": 183.7663027153282,
+      "mouse": 1.0916032518561224e-14,
+      "raccoon": 59.28586632883613,
+      "bee": 10.674253680544272
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_10.json",
+      "reticFile": "retic_2_random.json",
+      "gamma": 0,
+      "totalEdges": 14,
+      "totalLengthKm": 14,
+      "final": {
+        "ground_beetle": 185.13944844849883,
+        "mouse": 1.1011091551174838e-17,
+        "raccoon": 58.361700471814345,
+        "bee": 10.76684719344833
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 185.13944844849883,
+          "mouse": 1.1011091551174838e-17,
+          "raccoon": 58.361700471814345,
+          "bee": 10.76684719344833
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_10.json",
+    "reticFile": "retic_2_random.json",
+    "gamma": 0.1,
+    "totalEdges": 14,
+    "totalLengthKm": 14,
+    "finalAbundances": {
+      "ground_beetle": 2.0597026316573784e-7,
+      "mouse": 3.961928766237866e-9,
+      "raccoon": 1.3361610911294473e-11,
+      "bee": 0.0000013117104570751837
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_10.json",
+      "reticFile": "retic_2_random.json",
+      "gamma": 0.1,
+      "totalEdges": 14,
+      "totalLengthKm": 14,
+      "final": {
+        "ground_beetle": 2.0095517190832682e-7,
+        "mouse": 4.7142171481199e-9,
+        "raccoon": 1.3272121855321558e-11,
+        "bee": 0.000001301056894885007
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 2.0095517190832682e-7,
+          "mouse": 4.7142171481199e-9,
+          "raccoon": 1.3272121855321558e-11,
+          "bee": 0.000001301056894885007
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_10.json",
+    "reticFile": "retic_1_critical.json",
+    "gamma": 0,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 183.7663027153282,
+      "mouse": 1.0916032518561224e-14,
+      "raccoon": 59.28586632883613,
+      "bee": 10.674253680544272
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_10.json",
+      "reticFile": "retic_1_critical.json",
+      "gamma": 0,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 5.5623841085790975,
+        "mouse": 1.9375307136017682e-36,
+        "raccoon": 333.66332117555936,
+        "bee": 149.98067746261083
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 5.5623841085790975,
+          "mouse": 1.9375307136017682e-36,
+          "raccoon": 333.66332117555936,
+          "bee": 149.98067746261083
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_10.json",
+    "reticFile": "retic_1_critical.json",
+    "gamma": 0.1,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 0.0000015275158428758334,
+      "mouse": 2.9285026032513957e-8,
+      "raccoon": 1.020338569222758e-10,
+      "bee": 0.000009653238416850763
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_10.json",
+      "reticFile": "retic_1_critical.json",
+      "gamma": 0.1,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 0.0000015283312848958096,
+        "mouse": 2.9355814713588368e-8,
+        "raccoon": 8.960392447399196e-11,
+        "bee": 0.00000966272663750367
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 0.0000015283312848958096,
+          "mouse": 2.9355814713588368e-8,
+          "raccoon": 8.960392447399196e-11,
+          "bee": 0.00000966272663750367
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_25.json",
+    "reticFile": "retic_0_none.json",
+    "gamma": 0,
+    "totalEdges": 12,
+    "totalLengthKm": 12,
+    "finalAbundances": {
+      "ground_beetle": 18.305514425747866,
+      "mouse": 5.45315977053529e-20,
+      "raccoon": 92.28879031664361,
+      "bee": 0.07376123664543591
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_25.json",
+      "reticFile": "retic_0_none.json",
+      "gamma": 0,
+      "totalEdges": 12,
+      "totalLengthKm": 12,
+      "final": {
+        "ground_beetle": 0.8908865081201683,
+        "mouse": 8.347431912386081e-12,
+        "raccoon": 93.90997079465447,
+        "bee": 0.1490620770541328
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 0.8908865081201683,
+          "mouse": 8.347431912386081e-12,
+          "raccoon": 93.90997079465447,
+          "bee": 0.1490620770541328
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_25.json",
+    "reticFile": "retic_0_none.json",
+    "gamma": 0.1,
+    "totalEdges": 12,
+    "totalLengthKm": 12,
+    "finalAbundances": {
+      "ground_beetle": 0.000022813337016006797,
+      "mouse": 4.022823646577742e-7,
+      "raccoon": 2.1186204776365245e-9,
+      "bee": 0.0001492828036398938
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_25.json",
+      "reticFile": "retic_0_none.json",
+      "gamma": 0.1,
+      "totalEdges": 12,
+      "totalLengthKm": 12,
+      "final": {
+        "ground_beetle": 0.000023366307733143583,
+        "mouse": 3.7018039084143394e-7,
+        "raccoon": 2.1336373092849527e-9,
+        "bee": 0.00015041378655771906
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 0.000023366307733143583,
+          "mouse": 3.7018039084143394e-7,
+          "raccoon": 2.1336373092849527e-9,
+          "bee": 0.00015041378655771906
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_25.json",
+    "reticFile": "retic_1_backbone.json",
+    "gamma": 0,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 18.305514425747866,
+      "mouse": 5.45315977053529e-20,
+      "raccoon": 92.28879031664361,
+      "bee": 0.07376123664543591
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_25.json",
+      "reticFile": "retic_1_backbone.json",
+      "gamma": 0,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 0.8908865081201683,
+        "mouse": 8.347431912386081e-12,
+        "raccoon": 93.90997079465447,
+        "bee": 0.1490620770541328
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 0.8908865081201683,
+          "mouse": 8.347431912386081e-12,
+          "raccoon": 93.90997079465447,
+          "bee": 0.1490620770541328
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_25.json",
+    "reticFile": "retic_1_backbone.json",
+    "gamma": 0.1,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 0.0000031014615886542515,
+      "mouse": 5.6123698377457426e-8,
+      "raccoon": 2.7325515316464997e-10,
+      "bee": 0.00002064607752469887
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_25.json",
+      "reticFile": "retic_1_backbone.json",
+      "gamma": 0.1,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 0.0000032495140140071187,
+        "mouse": 5.6294745246828845e-8,
+        "raccoon": 2.853590811734732e-10,
+        "bee": 0.000025837972683980717
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 0.0000032495140140071187,
+          "mouse": 5.6294745246828845e-8,
+          "raccoon": 2.853590811734732e-10,
+          "bee": 0.000025837972683980717
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_25.json",
+    "reticFile": "retic_2_random.json",
+    "gamma": 0,
+    "totalEdges": 14,
+    "totalLengthKm": 14,
+    "finalAbundances": {
+      "ground_beetle": 18.305514425747866,
+      "mouse": 5.45315977053529e-20,
+      "raccoon": 92.28879031664361,
+      "bee": 0.07376123664543591
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_25.json",
+      "reticFile": "retic_2_random.json",
+      "gamma": 0,
+      "totalEdges": 14,
+      "totalLengthKm": 14,
+      "final": {
+        "ground_beetle": 18.20524538324748,
+        "mouse": 4.646415276207577e-18,
+        "raccoon": 90.93241163009229,
+        "bee": 0.09312367354168
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 18.20524538324748,
+          "mouse": 4.646415276207577e-18,
+          "raccoon": 90.93241163009229,
+          "bee": 0.09312367354168
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_25.json",
+    "reticFile": "retic_2_random.json",
+    "gamma": 0.1,
+    "totalEdges": 14,
+    "totalLengthKm": 14,
+    "finalAbundances": {
+      "ground_beetle": 4.2089383279376843e-7,
+      "mouse": 7.747441664999154e-9,
+      "raccoon": 3.541000367672846e-11,
+      "bee": 0.0000028328607195468618
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_25.json",
+      "reticFile": "retic_2_random.json",
+      "gamma": 0.1,
+      "totalEdges": 14,
+      "totalLengthKm": 14,
+      "final": {
+        "ground_beetle": 4.246066900234606e-7,
+        "mouse": 7.75275162496692e-9,
+        "raccoon": 3.570000063881373e-11,
+        "bee": 0.000002983022845642607
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 4.246066900234606e-7,
+          "mouse": 7.75275162496692e-9,
+          "raccoon": 3.570000063881373e-11,
+          "bee": 0.000002983022845642607
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_25.json",
+    "reticFile": "retic_1_critical.json",
+    "gamma": 0,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 18.305514425747866,
+      "mouse": 5.45315977053529e-20,
+      "raccoon": 92.28879031664361,
+      "bee": 0.07376123664543591
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_25.json",
+      "reticFile": "retic_1_critical.json",
+      "gamma": 0,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 6497.80780913982,
+        "mouse": 1.7224802972643543e-176,
+        "raccoon": 22.474307352061395,
+        "bee": 266.23761445225716
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 6497.80780913982,
+          "mouse": 1.7224802972643543e-176,
+          "raccoon": 22.474307352061395,
+          "bee": 266.23761445225716
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_25.json",
+    "reticFile": "retic_1_critical.json",
+    "gamma": 0.1,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 0.0000031014615886542515,
+      "mouse": 5.6123698377457426e-8,
+      "raccoon": 2.7325515316464997e-10,
+      "bee": 0.00002064607752469887
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_25.json",
+      "reticFile": "retic_1_critical.json",
+      "gamma": 0.1,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 0.0000030965879649849757,
+        "mouse": 5.546059073866252e-8,
+        "raccoon": 3.2568334496042423e-10,
+        "bee": 0.00002055586391643072
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 0.0000030965879649849757,
+          "mouse": 5.546059073866252e-8,
+          "raccoon": 3.2568334496042423e-10,
+          "bee": 0.00002055586391643072
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_30.json",
+    "reticFile": "retic_0_none.json",
+    "gamma": 0,
+    "totalEdges": 12,
+    "totalLengthKm": 12,
+    "finalAbundances": {
+      "ground_beetle": 6.4381373620351106,
+      "mouse": 3.461922744977745e-21,
+      "raccoon": 106.37854124960015,
+      "bee": 0.012790953590785815
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_30.json",
+      "reticFile": "retic_0_none.json",
+      "gamma": 0,
+      "totalEdges": 12,
+      "totalLengthKm": 12,
+      "final": {
+        "ground_beetle": 6.274062484875735,
+        "mouse": 3.7648929744353267e-19,
+        "raccoon": 104.59875949773898,
+        "bee": 0.017122505130022316
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 6.274062484875735,
+          "mouse": 3.7648929744353267e-19,
+          "raccoon": 104.59875949773898,
+          "bee": 0.017122505130022316
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_30.json",
+    "reticFile": "retic_0_none.json",
+    "gamma": 0.1,
+    "totalEdges": 12,
+    "totalLengthKm": 12,
+    "finalAbundances": {
+      "ground_beetle": 0.000025833528771000664,
+      "mouse": 4.4278857097698465e-7,
+      "raccoon": 2.608831902626032e-9,
+      "bee": 0.00017057899408243148
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_30.json",
+      "reticFile": "retic_0_none.json",
+      "gamma": 0.1,
+      "totalEdges": 12,
+      "totalLengthKm": 12,
+      "final": {
+        "ground_beetle": 0.000023822258794914775,
+        "mouse": 5.32299261264522e-7,
+        "raccoon": 2.5461633072731014e-9,
+        "bee": 0.0001663291094074477
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 0.000023822258794914775,
+          "mouse": 5.32299261264522e-7,
+          "raccoon": 2.5461633072731014e-9,
+          "bee": 0.0001663291094074477
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_30.json",
+    "reticFile": "retic_1_backbone.json",
+    "gamma": 0,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 6.4381373620351106,
+      "mouse": 3.461922744977745e-21,
+      "raccoon": 106.37854124960015,
+      "bee": 0.012790953590785815
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_30.json",
+      "reticFile": "retic_1_backbone.json",
+      "gamma": 0,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 6.219532502525265,
+        "mouse": 1.9595346192723548e-22,
+        "raccoon": 106.07005489117859,
+        "bee": 0.010921301550421238
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 6.219532502525265,
+          "mouse": 1.9595346192723548e-22,
+          "raccoon": 106.07005489117859,
+          "bee": 0.010921301550421238
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_30.json",
+    "reticFile": "retic_1_backbone.json",
+    "gamma": 0.1,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 0.000003513146665990608,
+      "mouse": 6.219885246396386e-8,
+      "raccoon": 3.35100417103299e-10,
+      "bee": 0.000023658091666197635
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_30.json",
+      "reticFile": "retic_1_backbone.json",
+      "gamma": 0.1,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 0.0000036089516445197284,
+        "mouse": 5.707592312019293e-8,
+        "raccoon": 3.377647625725346e-10,
+        "bee": 0.000023859845735012763
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 0.0000036089516445197284,
+          "mouse": 5.707592312019293e-8,
+          "raccoon": 3.377647625725346e-10,
+          "bee": 0.000023859845735012763
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_30.json",
+    "reticFile": "retic_2_random.json",
+    "gamma": 0,
+    "totalEdges": 14,
+    "totalLengthKm": 14,
+    "finalAbundances": {
+      "ground_beetle": 6.4381373620351106,
+      "mouse": 3.461922744977745e-21,
+      "raccoon": 106.37854124960015,
+      "bee": 0.012790953590785815
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_30.json",
+      "reticFile": "retic_2_random.json",
+      "gamma": 0,
+      "totalEdges": 14,
+      "totalLengthKm": 14,
+      "final": {
+        "ground_beetle": 1.9505689860299823e-30,
+        "mouse": 541.6700758225525,
+        "raccoon": 7.69956946388173e-7,
+        "bee": 2.2915341214385534e-7
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 1.9505689860299823e-30,
+          "mouse": 541.6700758225525,
+          "raccoon": 7.69956946388173e-7,
+          "bee": 2.2915341214385534e-7
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_30.json",
+    "reticFile": "retic_2_random.json",
+    "gamma": 0.1,
+    "totalEdges": 14,
+    "totalLengthKm": 14,
+    "finalAbundances": {
+      "ground_beetle": 4.772215272746601e-7,
+      "mouse": 8.635072580665372e-9,
+      "raccoon": 4.3289880463521844e-11,
+      "bee": 0.000003254436449389416
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_30.json",
+      "reticFile": "retic_2_random.json",
+      "gamma": 0.1,
+      "totalEdges": 14,
+      "totalLengthKm": 14,
+      "final": {
+        "ground_beetle": 4.831395466298151e-7,
+        "mouse": 8.64097502795269e-9,
+        "raccoon": 4.378841422492895e-11,
+        "bee": 0.0000034639965842183707
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 4.831395466298151e-7,
+          "mouse": 8.64097502795269e-9,
+          "raccoon": 4.378841422492895e-11,
+          "bee": 0.0000034639965842183707
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_30.json",
+    "reticFile": "retic_1_critical.json",
+    "gamma": 0,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 6.4381373620351106,
+      "mouse": 3.461922744977745e-21,
+      "raccoon": 106.37854124960015,
+      "bee": 0.012790953590785815
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_30.json",
+      "reticFile": "retic_1_critical.json",
+      "gamma": 0,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 6.219532502525265,
+        "mouse": 1.9595346192723548e-22,
+        "raccoon": 106.07005489117859,
+        "bee": 0.010921301550421238
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 6.219532502525265,
+          "mouse": 1.9595346192723548e-22,
+          "raccoon": 106.07005489117859,
+          "bee": 0.010921301550421238
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  },
+  {
+    "design": "dendritic",
+    "budgetFile": "budget_30.json",
+    "reticFile": "retic_1_critical.json",
+    "gamma": 0.1,
+    "totalEdges": 13,
+    "totalLengthKm": 13,
+    "finalAbundances": {
+      "ground_beetle": 0.000003513146665990608,
+      "mouse": 6.219885246396386e-8,
+      "raccoon": 3.35100417103299e-10,
+      "bee": 0.000023658091666197635
+    },
+    "resilience": {
+      "design": "dendritic",
+      "budgetFile": "budget_30.json",
+      "reticFile": "retic_1_critical.json",
+      "gamma": 0.1,
+      "totalEdges": 13,
+      "totalLengthKm": 13,
+      "final": {
+        "ground_beetle": 0.0000028404887003734554,
+        "mouse": 1.0087545207174869e-7,
+        "raccoon": 3.148476473511414e-10,
+        "bee": 0.000022122103324184264
+      },
+      "resilienceDrop": {
+        "droppedEdges": 1,
+        "finalAbundances": {
+          "ground_beetle": 0.0000028404887003734554,
+          "mouse": 1.0087545207174869e-7,
+          "raccoon": 3.148476473511414e-10,
+          "bee": 0.000022122103324184264
+        }
+      }
+    },
+    "parquetPath": "/workspace/output/community_dendritic_full.parquet"
+  }
+]

@@ -2,6 +2,53 @@
 
 This log records implementation prompts that change the reusable ScienceClaw/OASIS template. Keep private user data, credentials, and live workspace secrets out of this file.
 
+## 2026-05-24 - Sidebar Workspace Tools And GitHub Secrets Runtime Path
+
+### Prompt Summary
+
+Assess the repo/container state, then make the basics more robust: browser-visible file access, GitHub authentication without hand-maintained local `.env` credentials, and button-based repository actions instead of fragile slash approval commands.
+
+### Files Changed
+
+- `.github/workflows/scienceclaw-runtime.yml`
+- `branding/control-ui/scienceclaw-brand.css`
+- `branding/control-ui/scienceclaw-brand.js`
+- `cms/scienceclaw_cms.py`
+- `docker-compose.yml`
+- `docs/github-repository-manager.md`
+- `docs/instance-runbook.md`
+- `docs/oasis-template.md`
+- `docs/quick-start.md`
+- `docs/security-and-credentials.md`
+- `docs/workspace-file-manager.md`
+- `scripts/install-control-ui-branding.sh`
+- `scripts/smoke_test_github_manager.sh`
+- `scripts/start-instance.sh`
+
+### Architectural Decisions
+
+- Keep Files and GitHub Auth as CMS-backed workspace tools, but expose compact live summaries directly inside the OpenClaw sidebar so the user does not have to leave chat.
+- Treat the CMS GitHub manager as the preferred human-button path for clone, branch, commit, push, and PR actions.
+- Add a CMS **Configure git credentials** button that reruns GitHub CLI credential setup without printing tokens.
+- Make spawned instances apply the Docker secrets overlay when a GitHub token file is available.
+- Add a manual GitHub Actions workflow for self-hosted runner launches that materializes GitHub Secrets only on the runner and smoke-tests the runtime.
+
+### Tests Run
+
+- `bash -n scripts/start-instance.sh scripts/install-control-ui-branding.sh scripts/smoke_test_github_manager.sh docker/entrypoint.sh docker/service-entrypoint.sh`
+- `python3 -m py_compile cms/scienceclaw_cms.py`
+- `docker compose config --quiet`
+- `SCIENCECLAW_GITHUB_TOKEN_FILE=/tmp/nonexistent docker compose --project-name scienceclaw-check -f docker-compose.yml -f docker-compose.secrets.yml config --quiet`
+- `git diff --check`
+- `node --check branding/control-ui/scienceclaw-brand.js`
+- `scripts/smoke_test_github_manager.sh` with local port access enabled after the sandbox blocked temporary server binding.
+- Reapplied updated CMS and Control UI branding assets into live gateway 3, verified the CMS GitHub status endpoint, and verified the sidebar opens the GitHub Auth embedded panel.
+
+### Known Limitations
+
+- The sidebar panels show compact file and GitHub summaries. The direct CMS URLs remain available for full-page workflows.
+- GitHub-hosted Actions runners are ephemeral; durable gateways should use a self-hosted runner, Codespaces-like host, Kubernetes, or another long-running host.
+
 ## 2026-05-22 - Gateway 3 Reproducible Container Rebuild
 
 ### Prompt Summary

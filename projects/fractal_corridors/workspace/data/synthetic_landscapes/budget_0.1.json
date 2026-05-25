@@ -1,0 +1,7 @@
+{
+  "budget_percent": 0.1,
+  "description": "Synthetic landscape with total corridor length limited to 0.1% of an unconstrained network. Represents an extreme minimal corridor allocation.",
+  "patches": 10,
+  "grid_size_km": 100,
+  "average_patch_spacing_km": 10
+}

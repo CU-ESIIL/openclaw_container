@@ -2,7 +2,7 @@
 
 The ScienceClaw workspace file manager is the everyday file surface for the container. It is meant to make the system feel like a visible scientific workspace instead of an invisible agent runtime. Users can see where project files live, what agents created, where outputs were written, and which artifacts are ready for review.
 
-Open it from the ScienceClaw sidebar with **Files**, or directly at:
+Open it from the ScienceClaw sidebar with **Files**. The branded Control UI shows a compact live workspace listing directly in the sidebar, with the full file manager available for deeper inspection. It is also available directly at:
 
 ```text
 http://127.0.0.1:8090/files?path=/workspace

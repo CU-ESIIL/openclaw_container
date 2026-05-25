@@ -88,7 +88,7 @@ This demo is not intended to make a scientific claim. It proves that the workspa
 
 ## 5. Review Outputs
 
-Open the Files link in the ScienceClaw sidebar, or open the file manager directly:
+Click **Files** in the ScienceClaw sidebar to see a compact workspace listing. You can also open it directly:
 
 ```text
 http://127.0.0.1:8090/files?path=/workspace
@@ -98,7 +98,7 @@ The file manager shows the container filesystem from `/`, but it treats `/worksp
 
 ## 6. Connect Project Repositories
 
-Open the GitHub tab from the ScienceClaw sidebar, or open it directly:
+Click **GitHub Auth** in the ScienceClaw sidebar to see credential status and setup actions. You can also open it directly:
 
 ```text
 http://127.0.0.1:8090/github

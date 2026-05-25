@@ -32,9 +32,18 @@ fi
 
 project_name="scienceclaw-${instance_name}"
 
-env_args=(
+compose_args=(
   --project-name "${project_name}"
 )
+
+secret_file="${SCIENCECLAW_GITHUB_TOKEN_FILE:-${repo_root}/secrets/github_token}"
+if [ "${SCIENCECLAW_USE_SECRETS_OVERLAY:-0}" = "1" ] || [ -f "${secret_file}" ]; then
+  export SCIENCECLAW_GITHUB_TOKEN_FILE="${secret_file}"
+  compose_args+=(
+    -f docker-compose.yml
+    -f docker-compose.secrets.yml
+  )
+fi
 
 export SCIENCECLAW_CONTAINER_NAME="openclaw-${instance_name}"
 export DATA_DIR="${instance_root}/data"
@@ -77,13 +86,13 @@ NODE
 fi
 
 gateway_container_id="$(
-  docker compose "${env_args[@]}" run -d \
+  docker compose "${compose_args[@]}" run -d \
     --service-ports \
     openclaw-local \
     openclaw gateway run --force
 )"
 
-docker compose "${env_args[@]}" up -d workspace-ui workspace-cms
+docker compose "${compose_args[@]}" up -d workspace-ui workspace-cms
 
 cat <<EOF
 ScienceClaw instance '${instance_name}' started.
@@ -92,6 +101,7 @@ Gateway container: ${gateway_container_id}
 Gateway:          http://127.0.0.1:${gateway_port}
 Workspace UI:     http://127.0.0.1:${workspace_ui_port}/lab?token=${workspace_ui_token}
 Workspace CMS:    http://127.0.0.1:${cms_port}
+GitHub manager:   http://127.0.0.1:${cms_port}/github
 
 Instance files:
   ${instance_root}

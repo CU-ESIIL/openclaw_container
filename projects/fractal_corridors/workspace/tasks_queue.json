@@ -1,0 +1,30 @@
+[
+  {
+    "name": "manuscript_update",
+    "command": "Update the manuscript to incorporate the final Parquet simulation results, refresh Figure 4, and add Data‑Availability statement."
+  },
+  {
+    "name": "sensitivity_analysis",
+    "command": "Run the full factorial sensitivity and robustness analysis using scripts/sensitivity_parquet.py and generate summary figure."
+  },
+  {
+    "name": "ecological_calibration",
+    "command": "Gather empirical species‑specific dispersal parameters and validate the OSM‑derived habitat‑quality layer; update data/derived files and document in a calibration report."
+  },
+  {
+    "name": "skeptic_review",
+    "command": "Conduct a Skeptic review: null‑model simulations, power analysis, and robustness to hub/edge failures; summarize in a review document."
+  },
+  {
+    "name": "internal_joint_review",
+    "command": "Notify the Quantitative Modeler, Domain Scientist, and Deputy Integrator, collect their comments on the manuscript and analysis, and synthesize a consolidated feedback document."
+  },
+  {
+    "name": "broader_impact",
+    "command": "Draft a concise broader‑impact paragraph summarizing societal relevance and outreach plan, and add it to the impact checklist."
+  },
+  {
+    "name": "public_repo_release",
+    "command": "Create a public GitHub repository, push code, notebook, CI workflow, data‑availability statement, and update the manuscript with the repo URL."
+  }
+]

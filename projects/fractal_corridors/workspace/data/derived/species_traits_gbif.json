@@ -1,0 +1,502 @@
+[
+  {
+    "species": "Anas platyrhynchos",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Zenaida macroura",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Setophaga palmarum",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Thryothorus ludovicianus",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Phalacrocorax auritus",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Melanerpes carolinus",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Egretta thula",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Mimus polyglottos",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Anhinga anhinga",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Eudocimus albus",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Branta canadensis",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Poeltonia elegantula",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Chiomara asychis",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Limenitis fessonia",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Siproeta stelenes",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Anaea aidea",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Memphis forreri",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Achalarus albociliatus",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Ganyra josephina",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Heliopetes macaira",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Copaeodes minima",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Atlides halesus",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Hylephila phyleus",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Strymon melinus",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Mellana eulogius",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Strymon bazochii",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Heliconius charithonia",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Achlyodes thraso",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Doxocopa laure",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Turesis lucas",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Dione vanillae",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Thecla bebrycia",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Nastra julia",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Curvie emesia",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Autochton potrillo",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Synapte malitiosa",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Phoebis sennae",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Pyrisitia proterpia",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Ministrymon clytie",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Biblis hyperia",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Anthanassa tulcis",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Chlorostrymon simaethis",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Strymon albata",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Thecla marius",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Calycopis isobeon",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Ocaria ocrisia",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Doxocopa pavon",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Hamadryas guatemalena",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Phyciodes picta",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Arteurotia tractipennis",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Eurema mexicana",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Abaeis nicippe",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Leptotes marina",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Nathalis iole",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Danaus plexippus",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Calephelis nemesis",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Danaus gilippus",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Battus philenor",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Vanessa cardui",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Zerene cesonia",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Nymphalis californica",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Euphagus cyanocephalus",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Arenaria interpres",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Pelecanus occidentalis",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Juniperus ashei",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Hydroprogne caspia",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Phyllotopsis nidulans",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Trifolium repens",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Quiscalus mexicanus",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Cardamine californica",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Batrachoseps attenuatus",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Ensatina eschscholtzii",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Branta bernicla",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Oncorhynchus mykiss",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Oxyura jamaicensis",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Cardinalis cardinalis",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Cygnus buccinator",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Murgantia histrionica",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Urticina grebelnyi",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Porcellio scaber",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Doryteuthis opalescens",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Junco hyemalis",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Encelia farinosa",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Cynomys ludovicianus",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Gleditsia triacanthos",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Libytheana carinenta",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Betula alleghaniensis",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Sialia mexicana",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Aythya collaris",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Sciurus carolinensis",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Senegalia greggii",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Lophodytes cucullatus",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Podiceps auritus",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Hoplitimyia mutabilis",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Anthopleura sola",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Selaginella bigelovii",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Encelia californica",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Morella cerifera",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Enneacanthus gloriosus",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  },
+  {
+    "species": "Pheucticus ludovicianus",
+    "meanDispersalMeters": null,
+    "kernelShape": null
+  }
+]

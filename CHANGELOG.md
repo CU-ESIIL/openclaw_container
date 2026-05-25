@@ -36,6 +36,8 @@ First alpha baseline for the OpenClaw scientific working group container.
 - Prompt action log for preserving implementation provenance and known limitations.
 - Smoke tests for working-group scaffold and secret validation.
 - Pinned OpenClaw image build argument and separated service entrypoint so only the Gateway owns OpenClaw startup/state while CMS and Jupyter remain workspace services.
+- Embedded Control UI sidebar tools for Files and GitHub Auth, backed by the workspace CMS instead of separate navigation-only links.
+- GitHub credential setup button in the CMS, spawned-instance Docker secrets overlay support, and a manual GitHub Actions runtime workflow for self-hosted runner launches from GitHub Secrets.
 
 ### Notes
 

@@ -1,0 +1,19 @@
+{
+  "workflow": "demo_environmental_workflow",
+  "created_at": "2026-05-20T18:35:46.873217+00:00",
+  "workspace": "workspace",
+  "output_dir": "workspace/outputs/demo",
+  "inputs": "synthetic toy gradients; no network access; no external data",
+  "records": 100,
+  "outputs": [
+    "demo_habitat_suitability.csv",
+    "figures/demo_habitat_suitability.svg",
+    "report.md",
+    "metadata.json"
+  ],
+  "review_status": "draft",
+  "limitations": [
+    "Toy operational demo only.",
+    "No scientific inference should be made from these synthetic values."
+  ]
+}

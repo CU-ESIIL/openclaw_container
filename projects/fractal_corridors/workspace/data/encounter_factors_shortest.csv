@@ -1,0 +1,13 @@
+i,j,factor
+ground_beetle,mouse,1.0
+ground_beetle,raccoon,1.0
+ground_beetle,bee,1.0
+mouse,ground_beetle,1.0
+mouse,raccoon,1.0
+mouse,bee,1.0
+raccoon,ground_beetle,1.0
+raccoon,mouse,1.0
+raccoon,bee,1.0
+bee,ground_beetle,1.0
+bee,mouse,1.0
+bee,raccoon,1.0

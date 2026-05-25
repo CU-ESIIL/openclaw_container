@@ -2,7 +2,7 @@
 
 The ScienceClaw GitHub Repository Manager gives a running OpenClaw container controlled access to selected project repositories. It is not a manager for this container repository. The container repository defines the appliance; connected GitHub repositories are the scientific projects, manuscripts, data libraries, or collaboration spaces that the appliance is allowed to inspect or contribute to.
 
-Open the manager from the ScienceClaw sidebar with **GitHub**, or directly at:
+Open the manager from the ScienceClaw sidebar with **GitHub Auth**. The branded Control UI shows GitHub auth status and credential setup directly in the sidebar, with the full manager available for clone, branch, commit, push, and PR actions. It is also available directly at:
 
 ```text
 http://127.0.0.1:8090/github
@@ -64,6 +64,19 @@ docker compose -f docker-compose.yml -f docker-compose.secrets.yml up -d
 ```
 
 The overlay mounts the token at `/run/secrets/github_token` and sets `GITHUB_TOKEN_FILE` and `GH_TOKEN_FILE` for both the OpenClaw gateway service and the workspace CMS. The entrypoint reads the first line of the secret file, exports it in-process, and configures GitHub CLI for git credential use.
+
+Spawned instances use the same overlay automatically when `secrets/github_token` exists, when `SCIENCECLAW_GITHUB_TOKEN_FILE` points at a token file, or when `SCIENCECLAW_USE_SECRETS_OVERLAY=1` is set:
+
+```bash
+SCIENCECLAW_GITHUB_TOKEN_FILE=./secrets/github_token \
+scripts/start-instance.sh project-three 18791 8890 8092
+```
+
+In the GitHub manager, click **Configure git credentials** after adding or rotating a token. The button reruns the GitHub CLI credential setup inside the CMS process and reports sanitized status output. It is a browser approval/action path and does not require `/approve`.
+
+### GitHub Actions / Self-Hosted Runner
+
+For a GitHub-managed launch, add the repository secrets listed in `docs/security-and-credentials.md`, then run the manual **ScienceClaw runtime from secrets** workflow. Use a self-hosted runner for a durable Gateway. The workflow materializes the secrets only on the runner, starts ScienceClaw with the same instance helper, and smoke-tests OpenClaw plus the CMS GitHub status endpoint.
 
 ### Future GitHub App Path
 

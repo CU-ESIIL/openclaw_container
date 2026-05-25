@@ -1,0 +1,182 @@
+[
+  {
+    "replicate": 1,
+    "final_population": 32615.71996424117,
+    "dispersalKernel": 0.07,
+    "disturbanceIntensity": 0.1
+  },
+  {
+    "replicate": 2,
+    "final_population": 33839.524240659026,
+    "dispersalKernel": 0.07,
+    "disturbanceIntensity": 0.1
+  },
+  {
+    "replicate": 3,
+    "final_population": 29804.807791474766,
+    "dispersalKernel": 0.07,
+    "disturbanceIntensity": 0.1
+  },
+  {
+    "replicate": 4,
+    "final_population": 26961.09078164782,
+    "dispersalKernel": 0.07,
+    "disturbanceIntensity": 0.1
+  },
+  {
+    "replicate": 5,
+    "final_population": 33657.17347674909,
+    "dispersalKernel": 0.07,
+    "disturbanceIntensity": 0.1
+  },
+  {
+    "replicate": 6,
+    "final_population": 30293.947227152243,
+    "dispersalKernel": 0.07,
+    "disturbanceIntensity": 0.1
+  },
+  {
+    "replicate": 7,
+    "final_population": 31037.353859795036,
+    "dispersalKernel": 0.07,
+    "disturbanceIntensity": 0.1
+  },
+  {
+    "replicate": 8,
+    "final_population": 31102.375302803426,
+    "dispersalKernel": 0.07,
+    "disturbanceIntensity": 0.1
+  },
+  {
+    "replicate": 9,
+    "final_population": 32286.933622900706,
+    "dispersalKernel": 0.07,
+    "disturbanceIntensity": 0.1
+  },
+  {
+    "replicate": 10,
+    "final_population": 28229.152632800306,
+    "dispersalKernel": 0.07,
+    "disturbanceIntensity": 0.1
+  },
+  {
+    "replicate": 11,
+    "final_population": 32588.95053083242,
+    "dispersalKernel": 0.07,
+    "disturbanceIntensity": 0.1
+  },
+  {
+    "replicate": 12,
+    "final_population": 29984.521034445967,
+    "dispersalKernel": 0.07,
+    "disturbanceIntensity": 0.1
+  },
+  {
+    "replicate": 13,
+    "final_population": 34341.8320348772,
+    "dispersalKernel": 0.07,
+    "disturbanceIntensity": 0.1
+  },
+  {
+    "replicate": 14,
+    "final_population": 26134.166732518526,
+    "dispersalKernel": 0.07,
+    "disturbanceIntensity": 0.1
+  },
+  {
+    "replicate": 15,
+    "final_population": 29819.270445771635,
+    "dispersalKernel": 0.07,
+    "disturbanceIntensity": 0.1
+  },
+  {
+    "replicate": 16,
+    "final_population": 29003.08062813953,
+    "dispersalKernel": 0.07,
+    "disturbanceIntensity": 0.1
+  },
+  {
+    "replicate": 17,
+    "final_population": 28502.729787090255,
+    "dispersalKernel": 0.07,
+    "disturbanceIntensity": 0.1
+  },
+  {
+    "replicate": 18,
+    "final_population": 29192.261063492555,
+    "dispersalKernel": 0.07,
+    "disturbanceIntensity": 0.1
+  },
+  {
+    "replicate": 19,
+    "final_population": 28128.009801485277,
+    "dispersalKernel": 0.07,
+    "disturbanceIntensity": 0.1
+  },
+  {
+    "replicate": 20,
+    "final_population": 33811.74984802662,
+    "dispersalKernel": 0.07,
+    "disturbanceIntensity": 0.1
+  },
+  {
+    "replicate": 21,
+    "final_population": 30721.84374193713,
+    "dispersalKernel": 0.07,
+    "disturbanceIntensity": 0.1
+  },
+  {
+    "replicate": 22,
+    "final_population": 25798.813843735057,
+    "dispersalKernel": 0.07,
+    "disturbanceIntensity": 0.1
+  },
+  {
+    "replicate": 23,
+    "final_population": 32656.485217541445,
+    "dispersalKernel": 0.07,
+    "disturbanceIntensity": 0.1
+  },
+  {
+    "replicate": 24,
+    "final_population": 31451.639951355395,
+    "dispersalKernel": 0.07,
+    "disturbanceIntensity": 0.1
+  },
+  {
+    "replicate": 25,
+    "final_population": 32451.6962771897,
+    "dispersalKernel": 0.07,
+    "disturbanceIntensity": 0.1
+  },
+  {
+    "replicate": 26,
+    "final_population": 29526.18928843622,
+    "dispersalKernel": 0.07,
+    "disturbanceIntensity": 0.1
+  },
+  {
+    "replicate": 27,
+    "final_population": 34299.34903947962,
+    "dispersalKernel": 0.07,
+    "disturbanceIntensity": 0.1
+  },
+  {
+    "replicate": 28,
+    "final_population": 31752.674313824813,
+    "dispersalKernel": 0.07,
+    "disturbanceIntensity": 0.1
+  },
+  {
+    "replicate": 29,
+    "final_population": 29027.560197724644,
+    "dispersalKernel": 0.07,
+    "disturbanceIntensity": 0.1
+  },
+  {
+    "replicate": 30,
+    "final_population": 29265.394911915566,
+    "dispersalKernel": 0.07,
+    "disturbanceIntensity": 0.1
+  }
+]

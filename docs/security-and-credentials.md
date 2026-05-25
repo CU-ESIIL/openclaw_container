@@ -40,6 +40,14 @@ docker compose -f docker-compose.yml -f docker-compose.secrets.yml up -d
 
 For a long-running shared deployment, prefer a self-hosted runner, Kubernetes Secret, or cloud secret manager rather than a GitHub-hosted Actions runner. GitHub-hosted runners are ephemeral and are best for build, smoke-test, or image publication jobs; they are not a durable place to host the live Gateway.
 
+The repository includes a manual workflow for this pattern:
+
+```text
+.github/workflows/scienceclaw-runtime.yml
+```
+
+Run **ScienceClaw runtime from secrets** from the GitHub Actions tab. For a durable instance, use a self-hosted runner label. The workflow writes a runner-local `.env` plus a Docker secret file from GitHub Secrets, starts an instance with `scripts/start-instance.sh`, runs gateway and CMS smoke checks, and prints local runtime links in the job summary. The generated files remain on the runner and are not committed to git.
+
 Keep OpenClaw runtime state separate from secrets. Session files, locks, OAuth caches, and gateway tokens should live on local runtime storage for the instance, not in GitHub and not in cloud-synced repository folders. For local multi-instance runs, `scripts/start-instance.sh` uses `/private/tmp/scienceclaw-<instance>-openclaw` by default for this reason.
 
 ## What Requires Human Approval

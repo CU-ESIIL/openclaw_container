@@ -1,0 +1,5 @@
+[
+  {"id": 0, "dispersalRate": 0.01, "kernel": 0.10, "nicheWidth": 0.10},
+  {"id": 1, "dispersalRate": 0.04, "kernel": 0.20, "nicheWidth": 0.15},
+  {"id": 2, "dispersalRate": 0.08, "kernel": 0.30, "nicheWidth": 0.20}
+]

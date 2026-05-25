@@ -32,10 +32,27 @@ services:
       OPENCLAW_START_PI_LIAISON: ${OPENCLAW_START_PI_LIAISON:-1}
       OPENCLAW_CONFIGURE_SLACK: ${OPENCLAW_CONFIGURE_SLACK:-1}
       SLACK_BOT_TOKEN: ${SLACK_BOT_TOKEN:-}
+      SLACK_BOT_TOKEN_FILE: ${SLACK_BOT_TOKEN_FILE:-}
       SLACK_APP_TOKEN: ${SLACK_APP_TOKEN:-}
+      SLACK_APP_TOKEN_FILE: ${SLACK_APP_TOKEN_FILE:-}
       SLACK_DEFAULT_CHANNEL: ${SLACK_DEFAULT_CHANNEL:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_API_KEY_FILE: ${OPENAI_API_KEY_FILE:-}
+      VERDE_LLM_BASE_URL: ${VERDE_LLM_BASE_URL:-}
+      VERDE_LLM_API_KEY: ${VERDE_LLM_API_KEY:-}
+      VERDE_LLM_API_KEY_FILE: ${VERDE_LLM_API_KEY_FILE:-}
+      AI_VERDE_API_KEY: ${AI_VERDE_API_KEY:-}
+      AI_VERDE_API_KEY_FILE: ${AI_VERDE_API_KEY_FILE:-}
+      VERDE_LLM_DEFAULT_MODEL: ${VERDE_LLM_DEFAULT_MODEL:-}
+      VERDE_LLM_PROVIDER_NAME: ${VERDE_LLM_PROVIDER_NAME:-}
       WORKSPACE_UI_PORT: ${WORKSPACE_UI_PORT:-8888}
       OPENCLAW_DISABLE_BONJOUR: "1"
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+      GITHUB_TOKEN_FILE: ${GITHUB_TOKEN_FILE:-}
+      GH_TOKEN: ${GH_TOKEN:-}
+      GH_TOKEN_FILE: ${GH_TOKEN_FILE:-}
+      TAVILY_API_KEY: ${TAVILY_API_KEY:-}
+      TAVILY_API_KEY_FILE: ${TAVILY_API_KEY_FILE:-}
     volumes:
       - ${OPENCLAW_STATE_DIR:-~/.openclaw}:/data/.openclaw
       - ${OPENCLAW_STATE_DIR:-~/.openclaw}:/root/.openclaw
@@ -43,6 +60,7 @@ services:
       - ${WORKSPACE_DIR:-./workspace}:/data/workspace
       - ${WORKSPACE_DIR:-./workspace}:/workspace
       - ${EXTERNAL_STORAGE_DIR:-./external_storage}:/external_storage/local
+      - ${SCIENCECLAW_RUNTIME_SECRETS_DIR:-./secrets}:/run/scienceclaw-secrets:ro
       - ./storage:/repo/storage:ro
     ports:
       - "127.0.0.1:${OPENCLAW_GATEWAY_PORT:-18789}:${OPENCLAW_GATEWAY_PORT:-18789}"
@@ -123,6 +141,7 @@ services:
       - ${WORKSPACE_DIR:-./workspace}:/data/workspace
       - ${WORKSPACE_DIR:-./workspace}:/workspace
       - ${EXTERNAL_STORAGE_DIR:-./external_storage}:/external_storage/local
+      - ${SCIENCECLAW_RUNTIME_SECRETS_DIR:-./secrets}:/run/scienceclaw-secrets:ro
       - ./docs:/repo/docs
       - ./examples:/repo/examples:ro
       - ./storage:/repo/storage:ro

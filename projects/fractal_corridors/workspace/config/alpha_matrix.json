@@ -1,0 +1,22 @@
+{
+  "ground_beetle": {
+    "mouse": -0.035,
+    "raccoon": -0.02,
+    "bee": 0.0075
+  },
+  "mouse": {
+    "ground_beetle": -0.0075,
+    "raccoon": -0.05,
+    "bee": 0.002
+  },
+  "raccoon": {
+    "ground_beetle": 0.0,
+    "mouse": -0.015,
+    "bee": 0.0075
+  },
+  "bee": {
+    "ground_beetle": 0.0,
+    "mouse": -0.0075,
+    "raccoon": -0.01
+  }
+}

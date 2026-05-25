@@ -664,6 +664,50 @@ def command_summary(command: dict[str, Any]) -> str:
     return text[:4000]
 
 
+def github_token_available() -> bool:
+    return bool(os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN"))
+
+
+def github_setup_git_credentials() -> dict[str, Any]:
+    if not gh_available():
+        return {"ok": False, "returncode": 127, "stdout": "", "stderr": "GitHub CLI is not installed."}
+    if not github_token_available():
+        return {
+            "ok": False,
+            "returncode": 2,
+            "stdout": "",
+            "stderr": "No GH_TOKEN or GITHUB_TOKEN is available to the CMS process. Add a GitHub secret/token and recreate the CMS service.",
+        }
+    setup = run_safe_command(["gh", "auth", "setup-git"], timeout=30)
+    git_config = run_safe_command(
+        ["git", "config", "--global", "credential.https://github.com.helper", "!gh auth git-credential"],
+        timeout=15,
+    )
+    gist_config = run_safe_command(
+        ["git", "config", "--global", "credential.https://gist.github.com.helper", "!gh auth git-credential"],
+        timeout=15,
+    )
+    ok = setup["ok"] or (git_config["ok"] and gist_config["ok"])
+    return {
+        "ok": ok,
+        "returncode": 0 if ok else setup.get("returncode", 1),
+        "stdout": "\n".join(
+            part for part in [
+                command_summary(setup),
+                "Configured git credential helpers for github.com and gist.github.com."
+                if git_config["ok"] and gist_config["ok"] else "",
+            ] if part
+        ),
+        "stderr": "\n".join(
+            part for part in [
+                "" if setup["ok"] else command_summary(setup),
+                "" if git_config["ok"] else command_summary(git_config),
+                "" if gist_config["ok"] else command_summary(gist_config),
+            ] if part
+        ),
+    }
+
+
 def git_repo_status(repo: dict[str, Any]) -> dict[str, Any]:
     path = safe_repo_local_path(repo["owner"], repo["repo"], repo["local_path"])
     status: dict[str, Any] = {
@@ -729,6 +773,16 @@ def require_not_protected_branch(path: Path) -> str:
 
 class Handler(BaseHTTPRequestHandler):
     server_version = "ScienceClawCMS/0.1"
+
+    def end_headers(self) -> None:
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type")
+        super().end_headers()
+
+    def do_OPTIONS(self) -> None:  # noqa: N802
+        self.send_response(204)
+        self.end_headers()
 
     def do_GET(self) -> None:  # noqa: N802
         try:
@@ -1062,9 +1116,10 @@ window.addEventListener('beforeunload', (event) => {{
             "authenticated": False,
             "username": "",
             "auth_method": "none",
+            "token_available": github_token_available(),
             "summary": "",
         }
-        if os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN"):
+        if status["token_available"]:
             status["auth_method"] = "environment token"
         if not gh_available():
             status["summary"] = "GitHub CLI is not installed."
@@ -1125,7 +1180,11 @@ window.addEventListener('beforeunload', (event) => {{
 <p><strong>{state}</strong></p>
 {username}
 <p><strong>Auth method:</strong> {html.escape(auth.get("auth_method", "none"))}</p>
+<p><strong>Token visible to CMS:</strong> {"yes" if auth.get("token_available") else "no"}</p>
 <pre>{summary}</pre>
+<form method="post" action="/api/github/setup-git">
+<button type="submit">Configure git credentials</button>
+</form>
 <p class="muted">GitHub commands run from the <code>workspace-cms</code> service. Authenticate there with <code>gh auth login</code>, then <code>gh auth setup-git</code>, or provide a fine-grained <code>GITHUB_TOKEN</code> in local secrets and recreate the CMS service. Tokens are never stored in the repository registry.</p>
 </section>"""
 
@@ -1481,6 +1540,21 @@ Visibility <select name="visibility">{visibility_options}</select>
 
     def handle_github_post(self, route: str) -> None:
         fields = self.parse_post_fields()
+        if route == "/api/github/setup-git":
+            result = github_setup_git_credentials()
+            if not result["ok"]:
+                raise ValueError(command_summary(result) or "GitHub credential setup failed")
+            status = self.github_auth_status()
+            message = "\n".join(
+                part for part in [
+                    command_summary(result),
+                    "Current GitHub status:",
+                    status.get("summary", ""),
+                ] if part
+            )
+            self.github_result("GitHub credentials configured", message)
+            return
+
         if route == "/api/github/repos":
             repo = upsert_authorized_repo({
                 "owner": self.field_text(fields, "owner"),

@@ -1,0 +1,6 @@
+{
+  "extraEdges": [
+    { "from": "patchC", "to": "patchD", "factor": 0.8 },
+    { "from": "patchE", "to": "patchF", "factor": 0.8 }
+  ]
+}

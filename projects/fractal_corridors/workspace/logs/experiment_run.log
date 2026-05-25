@@ -1,0 +1,5 @@
+2026-05-19 21:46:00,723 INFO Wrote experiment grid with 3 kernels to /workspace/data/experiment_grid.json
+2026-05-19 21:46:00,760 INFO Simulation completed for kernel 0.1
+2026-05-19 21:46:00,806 INFO Simulation completed for kernel 0.2
+2026-05-19 21:46:00,829 INFO Simulation completed for kernel 0.3
+2026-05-19 21:46:00,853 INFO Written results parquet with 3 rows to /workspace/analysis/urban_wildlife_corridors/experiment_results.parquet

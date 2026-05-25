@@ -1,0 +1,39 @@
+# data/manifest.yaml – provenance of all raw inputs
+sources:
+  - name: Sentinel-2 Level-2A (synthetic placeholder)
+    description: |
+      Placeholder rasters created with GDAL command‑line utilities because the GDAL‑Python
+      bindings are currently incompatible with the installed NumPy version.
+      Real Sentinel‑2 Level‑2A tiles (bands B04 & B08) will be downloaded once the
+      raster workflow is functional.
+    url: https://sentinel.esa.int/web/sentinel/missions/sentinel-2
+    doi: 10.5270/S2A-2L1A
+    access_date: 2026-05-19
+    license: CC-BY-4.0
+    files:
+      - data/London_NDVI.tif
+      - data/Paris_NDVI.tif
+      - data/NewYork_NDVI.tif
+
+  - name: OpenStreetMap extracts (highways & green-space)
+    description: |
+      Overpass API extracts for the three study cities. Used to rasterise road density
+      and generate habitat patches.
+    url: https://overpass-api.de/api/interpreter
+    doi: N/A
+    access_date: 2026-05-19
+    license: ODbL
+    files:
+      - data/London_osm.geojson
+      - data/Paris_osm.geojson
+      - data/NewYork_osm.geojson
+
+  - name: Species traits (GBIF)
+    description: |
+      Trait table derived from GBIF occurrence data, stored in JSON.
+    url: https://doi.org/10.15468/dl.4f4vws
+    doi: 10.15468/dl.4f4vws
+    access_date: 2026-05-19
+    license: CC-0
+    files:
+      - data/derived/species_traits.json

@@ -1,0 +1,38 @@
+{
+  "design": "shortest",
+  "budgetFile": "budget_0.1.json",
+  "reticFile": "retic_2_random.json",
+  "gamma": 0.1,
+  "totalEdges": 14,
+  "totalLengthKm": 14,
+  "finalAbundances": {
+    "ground_beetle": 2.42852684296205e-9,
+    "mouse": 4.7839819092332955e-11,
+    "raccoon": 1.2807725624659015e-13,
+    "bee": 1.469310688457537e-8
+  },
+  "resilience": {
+    "design": "shortest",
+    "budgetFile": "budget_0.1.json",
+    "reticFile": "retic_2_random.json",
+    "gamma": 0.1,
+    "totalEdges": 14,
+    "totalLengthKm": 14,
+    "final": {
+      "ground_beetle": 2.428525478305704e-9,
+      "mouse": 4.7839750848110574e-11,
+      "raccoon": 1.2842486245373845e-13,
+      "bee": 1.4693102807892796e-8
+    },
+    "resilienceDrop": {
+      "droppedEdges": 1,
+      "finalAbundances": {
+        "ground_beetle": 2.428525478305704e-9,
+        "mouse": 4.7839750848110574e-11,
+        "raccoon": 1.2842486245373845e-13,
+        "bee": 1.4693102807892796e-8
+      }
+    }
+  },
+  "parquetPath": "/workspace/output/community_shortest_full.parquet"
+}

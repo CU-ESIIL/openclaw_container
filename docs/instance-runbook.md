@@ -40,6 +40,8 @@ instances/<instance-name>/
 
 These folders are intentionally ignored by git. They are runtime state, not template source.
 
+If `secrets/github_token` exists, or `SCIENCECLAW_GITHUB_TOKEN_FILE` points at a token file, the helper also applies the Docker secrets overlay so the Gateway and CMS receive GitHub credentials. This keeps spawned instances aligned with the base compose setup instead of requiring a hand-edited `.env` for each gateway.
+
 ## Immediate Validation
 
 After the helper prints URLs, run these checks before sending prompts to the agent.

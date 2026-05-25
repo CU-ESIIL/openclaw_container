@@ -1,0 +1,4 @@
+{
+  "default_multiplier": 1.0,
+  "description": "Placeholder edge\u2011effect layer; real implementation will incorporate road width, traffic volume, and lighting."
+}
