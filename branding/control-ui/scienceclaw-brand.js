@@ -261,6 +261,10 @@
     return getGithubUrl() + "?repo=" + encodeURIComponent(owner + "/" + repo);
   }
 
+  function agentPath(path) {
+    return String(path || "").replace(/^\/data\/workspace/, "/workspace") || "/workspace/repos";
+  }
+
   function postCms(path, fields) {
     var body = new URLSearchParams();
     Object.keys(fields || {}).forEach(function (key) {
@@ -375,25 +379,36 @@
           var name = repo.owner + "/" + repo.repo;
           var cloned = repo.cloned ? "cloned" : "not cloned";
           var branch = repo.current_branch || repo.default_branch || "";
+          var safeBranch = branch && ["main", "master"].indexOf(branch) === -1;
+          var contribute = repo.permission_tier === "contribute";
           var actions = repo.cloned
             ? '<button type="button" data-gh-action="fetch" data-owner="' + escapeHtml(repo.owner) + '" data-repo="' + escapeHtml(repo.repo) + '">Fetch</button>' +
-              '<button type="button" data-gh-action="pull" data-owner="' + escapeHtml(repo.owner) + '" data-repo="' + escapeHtml(repo.repo) + '">Pull</button>'
+              '<button type="button" data-gh-action="pull" data-owner="' + escapeHtml(repo.owner) + '" data-repo="' + escapeHtml(repo.repo) + '">Pull latest</button>' +
+              (contribute && safeBranch ? '<button type="button" data-gh-action="push" data-owner="' + escapeHtml(repo.owner) + '" data-repo="' + escapeHtml(repo.repo) + '">Push branch</button>' : '')
             : '<button type="button" data-gh-action="clone" data-owner="' + escapeHtml(repo.owner) + '" data-repo="' + escapeHtml(repo.repo) + '">Clone</button>';
           return '<li class="scienceclaw-repo-row">' +
             '<a href="' + githubRepoUrl(repo.owner, repo.repo) + '" target="_blank" rel="noopener"><strong>' + escapeHtml(name) + '</strong></a>' +
             '<small>' + escapeHtml(repo.permission_tier || "read") + " · " + escapeHtml(cloned) + " · " + escapeHtml(branch) + '</small>' +
+            '<code>' + escapeHtml(agentPath(repo.local_path)) + '</code>' +
             '<div class="scienceclaw-repo-actions">' + actions + '</div>' +
             '</li>';
         }).join("");
         panel.innerHTML =
+          '<div class="scienceclaw-shared-state">' +
+          '<strong>Shared with agents</strong>' +
+          '<code>/workspace/.openclaw-github/authorized-repos.yaml</code>' +
+          '<code>/workspace/repos/</code>' +
+          '</div>' +
           '<div class="scienceclaw-sidebar-status">' +
           '<strong>' + escapeHtml(state) + '</strong>' +
           '<small>' + escapeHtml(data.auth_method || "none") + " · " + escapeHtml(token) + '</small>' +
           '</div>' +
           '<button class="scienceclaw-sidebar-action" type="button" data-gh-action="setup">Configure git credentials</button>' +
           '<form class="scienceclaw-repo-form">' +
+          '<label>Add repo agents can see</label>' +
           '<input name="owner" placeholder="owner" required>' +
           '<input name="repo" placeholder="repo" required>' +
+          '<input name="url" placeholder="optional github.com URL">' +
           '<select name="permission_tier"><option value="read">read</option><option value="contribute">contribute</option></select>' +
           '<button type="submit">Add repo</button>' +
           '</form>' +
@@ -411,6 +426,7 @@
           postCms("/api/github/repos", {
             owner: form.owner.value,
             repo: form.repo.value,
+            url: form.url.value,
             permission_tier: form.permission_tier.value,
           }).then(function () {
             form.reset();

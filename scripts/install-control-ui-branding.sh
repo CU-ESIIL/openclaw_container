@@ -93,7 +93,7 @@ html = html.replace("<title>OpenClaw Control</title>", "<title>ScienceClaw</titl
 
 css = '    <link rel="stylesheet" href="./scienceclaw-brand.css" />'
 config_js = '    <script defer src="./scienceclaw-config.js"></script>'
-js = '    <script defer src="./scienceclaw-brand.js?v=20260524c"></script>'
+js = '    <script defer src="./scienceclaw-brand.js?v=20260524d"></script>'
 
 if "scienceclaw-brand.css" not in html:
     marker = '</head>'
@@ -152,5 +152,39 @@ else:
 path.write_text(json.dumps(data, indent=2) + "\n")
 PY
 fi
+
+python3 - "${control_ui_dir}" <<'PY'
+from pathlib import Path
+import os
+import re
+import sys
+
+control_ui_dir = Path(sys.argv[1])
+cms_port = os.environ.get("SCIENCECLAW_CMS_PORT", "8090")
+cms_origins = [
+    f"http://127.0.0.1:{cms_port}",
+    f"http://localhost:{cms_port}",
+]
+
+for path in control_ui_dir.parent.glob("control-ui-*.js"):
+    text = path.read_text()
+    original = text
+
+    def widen_connect_src(match: re.Match[str]) -> str:
+        directive = match.group(1)
+        for origin in cms_origins:
+            if origin not in directive:
+                directive += f" {origin}"
+        return f'"{directive}"'
+
+    text = re.sub(
+        r'"(connect-src [^"]*)"',
+        widen_connect_src,
+        text,
+        count=1,
+    )
+    if text != original:
+        path.write_text(text)
+PY
 
 echo "Installed OASIS ScienceClaw Control UI branding into ${control_ui_dir}"

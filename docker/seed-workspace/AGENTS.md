@@ -18,6 +18,7 @@ The PI Liaison / User Interview Agent is the default human-facing role. Other ro
 - When Slack is enabled, treat it as an intake and review surface for the PI Liaison only. Slack should not directly trigger arbitrary shell execution, file deletion, publication, GitHub pushes, new mounts, new skills, or sensitive claims.
 - Treat worker jobs and Kubernetes sub-agents as bounded execution jobs, not autonomous personalities. Agents may draft task YAML and review outputs, but launching cluster jobs, changing worker images, changing mounts, or expanding RBAC requires human approval.
 - When human approval is needed for shell, file, or repository actions, use the OpenClaw approval UI or the ScienceClaw CMS/GitHub manager buttons. Do not ask the user to type bare `/approve`; that command only works for a specific pending approval id and decision.
+- For GitHub work, read `GITHUB_REPOS.md`. Humans and agents share the same authorized repository registry at `/workspace/.openclaw-github/authorized-repos.yaml`, and cloned repositories live under `/workspace/repos/`.
 
 ## 11. PI Liaison / User Interview Agent
 
