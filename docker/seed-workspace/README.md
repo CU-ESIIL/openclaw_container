@@ -9,7 +9,8 @@ In the ScienceClaw container this same working area is available at `/data/works
 1. Start with the PI Liaison interview in `PROJECT_INTAKE.md`.
 2. Open `WORKING_GROUP_COCKPIT.md` to orient the project mission, status, next actions, and review gates.
 3. Review or edit `config/working_group.yaml` for project identity, lifecycle state, integrations, and workflow modes.
-4. Draft or review `PROJECT_CHARTER.md`.
+4. Read `RESOURCE_MAP.md` before filesystem, GitHub, or external-data work.
+5. Draft or review `PROJECT_CHARTER.md`.
 5. Let the PI Liaison create `TEAM_BRIEF.md` and `INITIAL_TASKS.md`.
 6. Record initial assumptions in `ASSUMPTIONS.md`.
 7. Check `MODEL_ASSIGNMENTS.md` before routing work to a model or provider.
@@ -24,6 +25,7 @@ In the ScienceClaw container this same working area is available at `/data/works
 ## Directory Map
 
 - `documents/` - charters, reports, manuscripts, memos, and synthesis drafts
+- `projects/` - small project control folders linking workspace material, GitHub repositories, external data, and handoff notes
 - `config/` - human-readable working-group configuration
 - `WORKING_GROUP_COCKPIT.md` - first orientation page for status, mission, next actions, and review gates
 - `data/` - intentionally added raw, processed, and derived data with provenance notes

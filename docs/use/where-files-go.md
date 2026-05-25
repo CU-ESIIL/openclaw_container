@@ -13,6 +13,7 @@ Use this page when you are unsure where to save something.
   ASSUMPTIONS.md           assumption register
   MEMORY.md                durable working memory
   documents/               shared scientific documents
+  projects/                project routing maps for imports, repos, and external data
   literature/              citation notes and evidence inventories
   data/                    local data manifests and small examples
   analysis/                analysis notes and scripts
@@ -52,3 +53,4 @@ Use this page when you are unsure where to save something.
 
 Large data should live in external storage with a manifest that records source, license, access method, citation, and checksum when available.
 
+Use `projects/<project-slug>/` when a project connects several sources: imported snapshots, GitHub repositories, mounted drives, STAC catalogs, object stores, or remote institutional storage. The project folder should stay small and point to data rather than contain everything.

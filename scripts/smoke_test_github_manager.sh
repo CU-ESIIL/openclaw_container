@@ -76,6 +76,7 @@ assert cms.github_setup_git_credentials()["ok"] is False
 PY
 
 SCIENCECLAW_CMS_PORT="${port}" \
+OPENCLAW_GATEWAY_PORT="18791" \
 OPENCLAW_WORKSPACE="${workspace}" \
 SCIENCECLAW_CMS_ROOTS="${workspace}" \
 SCIENCECLAW_FILE_WRITABLE_ROOTS="${workspace},${tmp_root}/tmp" \
@@ -94,6 +95,12 @@ if curl -sSf "${base_url}/api/github/status" | grep -q '"git_installed"'; then
 else
   fail "GitHub status endpoint failed"
   cat "${tmp_root}/cms.log" >&2 || true
+fi
+
+if curl -sSf "${base_url}/github" | grep -q 'href="http://127.0.0.1:18791/"'; then
+  pass "GitHub manager links back to OpenClaw"
+else
+  fail "GitHub manager missing OpenClaw navigation link"
 fi
 
 if curl -sSf "${base_url}/api/github/status" | grep -q '"token_available"'; then

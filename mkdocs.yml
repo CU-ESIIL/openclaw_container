@@ -21,6 +21,7 @@ nav:
       - Working Group Cockpit: use/working-group-cockpit.md
       - Workspace File Manager: workspace-file-manager.md
       - GitHub Repository Manager: github-repository-manager.md
+      - Project Workspaces: project-workspaces.md
       - Where Files Go: use/where-files-go.md
       - Tasks, Decisions, Checkpoints: use/tasks-decisions-checkpoints.md
       - Outputs and Reports: use/outputs-and-reports.md
@@ -36,6 +37,7 @@ nav:
       - Model/Auth Options: model-options.md
   - Storage:
       - Storage Model: storage-model.md
+      - Project Workspaces: project-workspaces.md
       - Overview: storage/index.md
       - Local Mounts: storage/local-mounts.md
       - Remote Storage: storage/remote-storage.md

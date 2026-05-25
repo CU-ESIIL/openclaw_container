@@ -1,0 +1,29 @@
+slug: fractal-corridors
+title: Urban wildlife corridor geometry and multi-species dispersal
+status: preserved-project-snapshot
+owner: human-pi
+
+paths:
+  repository_snapshot: projects/fractal_corridors
+  snapshot_workspace: projects/fractal_corridors/workspace
+  tracked_handoff: projects/fractal_corridors/GATEWAY1_HANDOFF.md
+  tracked_gateway3_resource_map: projects/fractal_corridors/GATEWAY3_RESOURCE_MAP.md
+  gateway3_project_control: /workspace/projects/fractal-corridors
+  gateway3_import: /workspace/imports/gateway1-2026-05-25
+  gateway3_external_storage: /external_storage/local/fractal-corridors
+
+github:
+  registry: /workspace/.openclaw-github/authorized-repos.yaml
+  public_release_repo: TBD
+
+data_policy:
+  default_mode: stream-or-mount-first
+  copy_into_repository: only reviewed, rights-cleared, size-appropriate artifacts
+  credentials: never in repository files
+
+review:
+  human_approval_required_for:
+    - adding external data
+    - publishing manuscript claims
+    - creating public release repositories
+    - pushing generated outputs to GitHub

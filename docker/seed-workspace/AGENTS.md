@@ -19,6 +19,7 @@ The PI Liaison / User Interview Agent is the default human-facing role. Other ro
 - Treat worker jobs and Kubernetes sub-agents as bounded execution jobs, not autonomous personalities. Agents may draft task YAML and review outputs, but launching cluster jobs, changing worker images, changing mounts, or expanding RBAC requires human approval.
 - When human approval is needed for shell, file, or repository actions, use the OpenClaw approval UI or the ScienceClaw CMS/GitHub manager buttons. Do not ask the user to type bare `/approve`; that command only works for a specific pending approval id and decision.
 - For GitHub work, read `GITHUB_REPOS.md`. Humans and agents share the same authorized repository registry at `/workspace/.openclaw-github/authorized-repos.yaml`, and cloned repositories live under `/workspace/repos/`.
+- For filesystem, project, GitHub, or remote-data work, read `RESOURCE_MAP.md` first. Then read the active project's `PROJECT.yaml`, `DATA_MANIFEST.md`, `GITHUB_REPOS.md`, and `EXTERNAL_LINKS.md`.
 
 ## 11. PI Liaison / User Interview Agent
 

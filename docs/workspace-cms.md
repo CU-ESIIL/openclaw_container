@@ -10,6 +10,8 @@ docker compose up workspace-cms
 
 Then open `http://127.0.0.1:8090` for the review home page, `http://127.0.0.1:8090/files?path=/workspace` for the file manager, or `http://127.0.0.1:8090/github` for selected project repositories.
 
+Every full CMS page includes header navigation back to the matching OpenClaw Control UI, plus links to CMS Home, Files, and GitHub. For spawned instances, `OPENCLAW_GATEWAY_PORT` or `SCIENCECLAW_GATEWAY_URL` tells the CMS which OpenClaw page the **Back to OpenClaw** button should open.
+
 The CMS can browse configured roots:
 
 - `/workspace` for private drafts, notes, notebooks, and agent outputs.

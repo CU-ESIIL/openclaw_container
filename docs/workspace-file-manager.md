@@ -10,6 +10,8 @@ http://127.0.0.1:8090/files?path=/workspace
 
 For additional instances, replace `8090` with that instance's CMS port.
 
+The full file manager shares the CMS header navigation. Use **Back to OpenClaw** to return to the matching OpenClaw chat/control page without relying on the browser back button.
+
 ## What It Shows
 
 The file manager uses `/` as the visual root. This lets users inspect the container layout and understand that `/workspace` is only one part of the running environment. The interface labels system paths as read-only and treats `/workspace` as the normal project area.

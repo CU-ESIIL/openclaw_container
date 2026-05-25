@@ -26,6 +26,7 @@ mkdir -p "${workspace}" "${outputs}" "${scratch}"
 python3 "${repo_root}/scripts/seed_file_manager_demo.py" --workspace "${workspace}" >/dev/null
 
 SCIENCECLAW_CMS_PORT="${port}" \
+OPENCLAW_GATEWAY_PORT="18791" \
 SCIENCECLAW_CMS_ROOTS="${workspace},${outputs}" \
 SCIENCECLAW_FILE_WRITABLE_ROOTS="${workspace},${outputs},${scratch}" \
 python3 "${repo_root}/cms/scienceclaw_cms.py" >"${tmp_root}/cms.log" 2>&1 &
@@ -44,6 +45,12 @@ else
   fail "file manager service did not start"
   cat "${tmp_root}/cms.log" >&2 || true
   exit "${status}"
+fi
+
+if curl -sSf "${base_url}/files?path=${workspace}" | grep -q 'href="http://127.0.0.1:18791/"'; then
+  pass "file manager links back to OpenClaw"
+else
+  fail "file manager missing OpenClaw navigation link"
 fi
 
 if curl -sSf "${base_url}/api/file/list?path=${workspace}" | grep -q '"entries"'; then

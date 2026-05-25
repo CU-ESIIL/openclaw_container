@@ -257,7 +257,11 @@ def write_metadata(path: Path, updates: dict[str, Any]) -> dict[str, Any]:
     return meta
 
 
-def render_page(title: str, body: str) -> bytes:
+def render_page(title: str, body: str, gateway_url: str = "") -> bytes:
+    gateway_link = (
+        f'<a class="nav-button primary" href="{html.escape(gateway_url)}">Back to OpenClaw</a>'
+        if gateway_url else ""
+    )
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -267,9 +271,13 @@ def render_page(title: str, body: str) -> bytes:
 <style>
 :root {{ --blue:#234a65; --cyan:#42bcdc; --green:#007135; --ink:#161a19; --line:#e3e3e3; }}
 body {{ margin:0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color:var(--ink); background:#f7faf9; }}
-header {{ display:flex; align-items:center; gap:0.9rem; padding:0.85rem 1.1rem; border-bottom:1px solid var(--line); background:white; position:sticky; top:0; z-index:2; }}
+header {{ display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:0.85rem 1.1rem; border-bottom:1px solid var(--line); background:white; position:sticky; top:0; z-index:2; }}
+.brand-lockup {{ display:flex; align-items:center; gap:0.9rem; min-width:0; }}
 header img {{ width:2.4rem; height:2.4rem; object-fit:contain; }}
 header strong {{ color:var(--blue); font-size:1.05rem; }}
+.header-nav {{ display:flex; flex-wrap:wrap; justify-content:flex-end; gap:.45rem; }}
+.nav-button {{ display:inline-flex; align-items:center; min-height:2rem; padding:.35rem .6rem; border:1px solid var(--line); border-radius:6px; background:#f9fbfb; color:var(--blue); font-weight:750; white-space:nowrap; }}
+.nav-button.primary {{ background:var(--green); border-color:var(--green); color:white; }}
 main {{ max-width:1280px; margin:0 auto; padding:1.2rem; }}
 a {{ color:#006c8c; text-decoration:none; }}
 a:hover {{ text-decoration:underline; }}
@@ -319,11 +327,21 @@ pre {{ overflow:auto; background:#0f1720; color:#eef7f7; padding:1rem; border-ra
 @media (max-width: 880px) {{
   .file-shell, .preview-grid, .github-grid {{ grid-template-columns:1fr; }}
   .file-sidebar {{ position:static; }}
+  header {{ align-items:flex-start; flex-direction:column; }}
+  .header-nav {{ justify-content:flex-start; }}
 }}
 </style>
 </head>
 <body>
-<header><img src="/brand/scienceclaw.png" alt=""><div><strong>ScienceClaw Workspace</strong><br><span class="muted">files, outputs, previews, and review</span></div></header>
+<header>
+  <div class="brand-lockup"><img src="/brand/scienceclaw.png" alt=""><div><strong>ScienceClaw Workspace</strong><br><span class="muted">files, outputs, previews, and review</span></div></div>
+  <nav class="header-nav" aria-label="Workspace navigation">
+    {gateway_link}
+    <a class="nav-button" href="/">CMS Home</a>
+    <a class="nav-button" href="/files?path=/workspace">Files</a>
+    <a class="nav-button" href="/github">GitHub</a>
+  </nav>
+</header>
 <main>{body}</main>
 </body>
 </html>""".encode("utf-8")
@@ -863,6 +881,21 @@ class Handler(BaseHTTPRequestHandler):
                 self.send_html("GitHub action failed", body, status=400)
             else:
                 self.send_html("Error", f"<div class='panel'><h1>Error</h1><pre>{html.escape(str(exc))}</pre></div>", status=500)
+
+    def gateway_url(self) -> str:
+        configured = os.environ.get("SCIENCECLAW_GATEWAY_URL", "").strip()
+        if configured:
+            return configured
+        port = os.environ.get("OPENCLAW_GATEWAY_PORT", "18789").strip() or "18789"
+        host_header = self.headers.get("Host", "")
+        if host_header.startswith("[") and "]" in host_header:
+            host = host_header[1:host_header.index("]")]
+        else:
+            host = host_header.split(":", 1)[0]
+        host = host.strip() or "127.0.0.1"
+        if host in {"0.0.0.0", "::"}:
+            host = "127.0.0.1"
+        return f"http://{host}:{port}/"
 
     def home(self) -> str:
         roots = " ".join(f"<a class='pill' href='/browse?root={urllib.parse.quote(root.name)}'>{html.escape(root.name)}: {html.escape(str(root.path))}</a>" for root in ROOTS)
@@ -1664,7 +1697,7 @@ Visibility <select name="visibility">{visibility_options}</select>
         self.send_error(404)
 
     def send_html(self, title: str, body: str, status: int = 200) -> None:
-        payload = render_page(title, body)
+        payload = render_page(title, body, gateway_url=self.gateway_url())
         self.send_response(status)
         self.send_header("Content-Type", "text/html; charset=utf-8")
         self.send_header("Content-Length", str(len(payload)))

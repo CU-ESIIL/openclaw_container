@@ -1,0 +1,15 @@
+version: 1
+default_mode: stream
+stores:
+  repository_snapshot:
+    type: local
+    path: projects/fractal_corridors
+    description: Git-tracked preserved project snapshot.
+  snapshot_workspace:
+    type: local
+    path: projects/fractal_corridors/workspace
+    description: Preserved gateway 1 workspace content.
+  gateway3_external:
+    type: local
+    path: /external_storage/local/fractal-corridors
+    description: Live gateway 3 large-data shelf.

@@ -18,6 +18,14 @@ materials, and generated corridor/network data.
 
 Important locations:
 
+- `PROJECT.yaml` - project identity and routing map.
+- `DATA_MANIFEST.md` - data inventory, storage mode, and future data rules.
+- `GITHUB_REPOS.md` - repository plan and live gateway 3 GitHub registry pointer.
+- `EXTERNAL_LINKS.md` - external storage and gateway 3 handoff links.
+- `STORAGE.yml` - project-level storage aliases.
+- `GATEWAY1_HANDOFF.md` - gateway 1 to gateway 3 handoff note.
+- `GATEWAY3_RESOURCE_MAP.md` - tracked copy of the live gateway 3 resource map for this project.
+- `WORKSPACE_NOTES.md` - active next actions and agent handoff notes.
 - `workspace/documents/urban_wildlife_corridors/` - manuscript draft and
   supporting narrative documents.
 - `workspace/agent_reports/urban_wildlife_corridors/` - theory, review,

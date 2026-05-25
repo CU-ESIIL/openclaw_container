@@ -16,3 +16,11 @@ Copy a profile from `storage/profiles/` into `storage/storage.yml`, then put rea
 
 The first helper scripts validate configuration and provide safe dry-run behavior. Provider-specific syncing should be reviewed before enabling writes.
 
+For active projects, also record the remote store in:
+
+```text
+/workspace/projects/<project-slug>/DATA_MANIFEST.md
+/workspace/projects/<project-slug>/EXTERNAL_LINKS.md
+```
+
+That lets agents find and cite the data source without copying the whole dataset into `/workspace`.

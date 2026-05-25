@@ -129,8 +129,10 @@ services:
     environment:
       DATA_ROOT: /data
       OPENCLAW_WORKSPACE: /data/workspace
+      OPENCLAW_GATEWAY_PORT: ${OPENCLAW_GATEWAY_PORT:-18789}
       EXTERNAL_STORAGE_ROOT: /external_storage
       SCIENCECLAW_CMS_PORT: 8090
+      SCIENCECLAW_GATEWAY_URL: ${SCIENCECLAW_GATEWAY_URL:-}
       SCIENCECLAW_STORAGE_CONFIG: /repo/storage/storage.yml
       SCIENCECLAW_REPO_ROOT: /repo
       SCIENCECLAW_CMS_ROOTS: /workspace,/data/outputs,/repo/docs,/repo/examples,/repo/storage,/external_storage/local

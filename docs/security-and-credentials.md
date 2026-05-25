@@ -12,6 +12,24 @@ cp .env.example .env
 
 Edit `.env` locally. Do not commit it.
 
+For GitHub repository access, prefer a token file over a literal token in `.env`:
+
+```bash
+mkdir -p secrets
+printf '%s\n' 'PASTE_YOUR_FINE_GRAINED_TOKEN_HERE' > secrets/github_token
+chmod 600 secrets/github_token
+```
+
+For the gateway 3 prototype, start or restart the instance with the secrets overlay enabled:
+
+```bash
+SCIENCECLAW_GITHUB_TOKEN_FILE=./secrets/github_token \
+SCIENCECLAW_USE_SECRETS_OVERLAY=1 \
+scripts/start-instance.sh project-three 18791 8890 8092
+```
+
+After the instance is running, open **GitHub Auth** in the ScienceClaw sidebar and click **Configure git credentials**. That action configures GitHub CLI and git credential use inside the running services without exposing the token in logs or browser output.
+
 ## GitHub Secrets Deployment Pattern
 
 For scalable launches, store credentials in GitHub Secrets and materialize them only on the runner or deployment host. Do not copy a local `.env` into the repository, image, or workspace.
@@ -36,6 +54,14 @@ chmod 600 secrets/github_token
 
 SCIENCECLAW_GITHUB_TOKEN_FILE=./secrets/github_token \
 docker compose -f docker-compose.yml -f docker-compose.secrets.yml up -d
+```
+
+For spawned instances, use the instance helper instead of raw Compose:
+
+```bash
+SCIENCECLAW_GITHUB_TOKEN_FILE=./secrets/github_token \
+SCIENCECLAW_USE_SECRETS_OVERLAY=1 \
+scripts/start-instance.sh project-three 18791 8890 8092
 ```
 
 For a long-running shared deployment, prefer a self-hosted runner, Kubernetes Secret, or cloud secret manager rather than a GitHub-hosted Actions runner. GitHub-hosted runners are ephemeral and are best for build, smoke-test, or image publication jobs; they are not a durable place to host the live Gateway.

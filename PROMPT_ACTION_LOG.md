@@ -2,6 +2,150 @@
 
 This log records implementation prompts that change the reusable ScienceClaw/OASIS template. Keep private user data, credentials, and live workspace secrets out of this file.
 
+## 2026-05-25 - Project Workspace And External Data Routing
+
+### Prompt Summary
+
+Use the gateway 1 to gateway 3 handoff as an opportunity to establish a durable project-folder structure that lets gateway 3 link to remote drives, external storage, and GitHub repositories without loading everything into the container.
+
+### Files Changed
+
+- `docker/seed-workspace/README.md`
+- `docker/seed-workspace/AGENTS.md`
+- `docker/seed-workspace/TOOLS.md`
+- `docker/seed-workspace/RESOURCE_MAP.md`
+- `docker/seed-workspace/projects/README.md`
+- `docker/seed-workspace/projects/_template/README.md`
+- `docker/seed-workspace/projects/_template/PROJECT.yaml`
+- `docker/seed-workspace/projects/_template/DATA_MANIFEST.md`
+- `docker/seed-workspace/projects/_template/GITHUB_REPOS.md`
+- `docker/seed-workspace/projects/_template/EXTERNAL_LINKS.md`
+- `docker/seed-workspace/projects/_template/STORAGE.yml`
+- `docker/seed-workspace/projects/_template/WORKSPACE_NOTES.md`
+- `docker/seed-workspace/scripts/init-working-group.sh`
+- `docs/project-workspaces.md`
+- `docs/storage-model.md`
+- `docs/storage/local-mounts.md`
+- `docs/storage/remote-storage.md`
+- `docs/use/where-files-go.md`
+- `mkdocs.yml`
+- `instances/project-three/workspace/projects/README.md`
+- `instances/project-three/workspace/AGENTS.md`
+- `instances/project-three/workspace/RESOURCE_MAP.md`
+- `instances/project-three/workspace/projects/fractal-corridors/README.md`
+- `instances/project-three/workspace/projects/fractal-corridors/PROJECT.yaml`
+- `instances/project-three/workspace/projects/fractal-corridors/DATA_MANIFEST.md`
+- `instances/project-three/workspace/projects/fractal-corridors/GITHUB_REPOS.md`
+- `instances/project-three/workspace/projects/fractal-corridors/EXTERNAL_LINKS.md`
+- `instances/project-three/workspace/projects/fractal-corridors/STORAGE.yml`
+- `instances/project-three/workspace/projects/fractal-corridors/WORKSPACE_NOTES.md`
+- `instances/project-three/external_storage/fractal-corridors/README.md`
+- `projects/fractal_corridors/README.md`
+- `projects/fractal_corridors/PROJECT.yaml`
+- `projects/fractal_corridors/GATEWAY1_HANDOFF.md`
+- `projects/fractal_corridors/GATEWAY3_RESOURCE_MAP.md`
+- `projects/fractal_corridors/DATA_MANIFEST.md`
+- `projects/fractal_corridors/GITHUB_REPOS.md`
+- `projects/fractal_corridors/EXTERNAL_LINKS.md`
+- `projects/fractal_corridors/STORAGE.yml`
+- `projects/fractal_corridors/WORKSPACE_NOTES.md`
+- `CHANGELOG.md`
+- `PROMPT_ACTION_LOG.md`
+
+### Architectural Decisions
+
+- Treat `/workspace/projects/<slug>` as a small control plane for each science project, not a bulk data directory.
+- Keep imported snapshots under `/workspace/imports/` and route active work through project manifests.
+- Keep large local or remote-mounted data under `/external_storage/local/<project-slug>`.
+- Use `PROJECT.yaml`, `DATA_MANIFEST.md`, `GITHUB_REPOS.md`, `EXTERNAL_LINKS.md`, `STORAGE.yml`, and `WORKSPACE_NOTES.md` as the standard project control files.
+- Instantiate gateway 3's first project folder as `fractal-corridors`, linked to `/workspace/imports/gateway1-2026-05-25`.
+- Add matching project-routing manifests to the tracked `projects/fractal_corridors` snapshot so the GitHub repository preserves the handoff structure.
+- Add `RESOURCE_MAP.md` as the always-on agent orientation file for filesystem, GitHub, external storage, skill, and job decisions.
+- Mirror gateway-3-only handoff/resource notes into `projects/fractal_corridors` because live `instances/` runtime folders are intentionally ignored by git.
+
+### Tests Run
+
+- `bash -n docker/seed-workspace/scripts/init-working-group.sh`
+- Temporary workspace seed test confirmed `projects/README.md`, `projects/_template/PROJECT.yaml`, and `projects/_template/STORAGE.yml` are created.
+- Temporary workspace seed test confirmed `RESOURCE_MAP.md` is created.
+- `git diff --check`
+- Verified gateway 3 agents can see `/workspace/projects/fractal-corridors` and `/external_storage/local/fractal-corridors`.
+- Verified gateway 3 agents can see `/workspace/RESOURCE_MAP.md`.
+- Verified gateway 3 file manager lists `/workspace/projects/fractal-corridors`.
+- Scanned the gateway 3 fractal-corridors project folder and external shelf for obvious token patterns.
+
+## 2026-05-25 - CMS Back To OpenClaw Navigation
+
+### Prompt Summary
+
+Add clear navigation from the full-page file manager and GitHub manager back to the matching OpenClaw main page so users do not have to rely on browser history.
+
+### Files Changed
+
+- `cms/scienceclaw_cms.py`
+- `docker-compose.yml`
+- `docs/workspace-cms.md`
+- `docs/workspace-file-manager.md`
+- `scripts/smoke_test_github_manager.sh`
+- `scripts/smoke_test_workspace.sh`
+- `CHANGELOG.md`
+- `PROMPT_ACTION_LOG.md`
+
+### Architectural Decisions
+
+- Put the navigation in the shared CMS page shell so Files, GitHub, CMS Home, browse, preview, edit, and result pages all receive the same header.
+- Pass `OPENCLAW_GATEWAY_PORT` into the CMS service and allow `SCIENCECLAW_GATEWAY_URL` as an explicit override for non-local deployments.
+
+### Tests Run
+
+- `python3 -m py_compile cms/scienceclaw_cms.py`
+- `bash -n scripts/smoke_test_workspace.sh scripts/smoke_test_github_manager.sh`
+- `docker compose config --quiet`
+- `scripts/smoke_test_workspace.sh` with local port access enabled after sandbox port binding was blocked.
+- `scripts/smoke_test_github_manager.sh` with local port access enabled after sandbox port binding was blocked.
+- Recreated gateway 3's CMS service with `OPENCLAW_GATEWAY_PORT=18791`, copied in the updated CMS script, and restarted `scienceclaw-project-three-workspace-cms-1`.
+- Verified live gateway 3 Files and GitHub pages include `Back to OpenClaw` pointing to `http://127.0.0.1:18791/`.
+- Verified live gateway 3 CMS `/api/file/list` and `/api/github/status` still return JSON.
+
+## 2026-05-25 - GitHub Auth Directions And OpenClaw Update Guardrails
+
+### Prompt Summary
+
+Document how users authenticate GitHub access for gateway 3 and spawned ScienceClaw instances, then verify that OpenClaw updates can be tested without losing the branded Control UI, embedded Files sidebar, embedded GitHub Auth sidebar, or CMS API access.
+
+### Files Changed
+
+- `docs/github-repository-manager.md`
+- `docs/instance-runbook.md`
+- `docs/quick-start.md`
+- `docs/security-and-credentials.md`
+- `CHANGELOG.md`
+- `PROMPT_ACTION_LOG.md`
+
+### Architectural Decisions
+
+- Keep GitHub credentials outside `.env` by default and use a mounted `secrets/github_token` file for repeatable local and spawned-instance launches.
+- Make **GitHub Auth** in the sidebar the preferred human path for configuring git credentials after token injection.
+- Treat OpenClaw updates as per-instance experiments that require reapplying the ScienceClaw Control UI patch and verifying the CMS content security policy before returning the instance to project work.
+
+### Tests Run
+
+- `docker exec scienceclaw-project-three-openclaw-local-run-96075a70e8ae openclaw update --dry-run --json`
+- `docker exec scienceclaw-project-three-openclaw-local-run-96075a70e8ae openclaw update --yes --no-restart --timeout 600`
+- Reapplied ScienceClaw Control UI branding assets to gateway 3 and restarted `scienceclaw-project-three-openclaw-local-run-96075a70e8ae`.
+- Verified gateway 3 upgraded from OpenClaw `2026.5.18` to `2026.5.22`.
+- Verified the served Control UI content security policy still includes `http://127.0.0.1:8092` and `http://localhost:8092`.
+- Verified `scienceclaw-file-list` and `scienceclaw-repo-form` remain present in the patched Control UI script.
+- Verified CMS `/api/file/list`, `/api/github/repos`, and `/api/github/status` return JSON after the update.
+- Verified `openclaw status` reports OpenClaw `2026.5.22`, 11 agents, and no pending package update.
+- Verified direct Verde smoke test with session `scienceclaw-update-smoke-20260525` returned exactly `UPDATE_OK`.
+
+### Known Limitations
+
+- The token file path must exist on the launch host or runner before the secrets overlay can mount it.
+- Full MkDocs rendering was not validated in this environment because neither host Python nor the CMS container has `mkdocs` installed.
+- The in-app browser connector did not expose an active browser pane for a visual screenshot check, so the live UI was validated through HTTP headers, patched asset checks, CMS API responses, and a direct agent smoke test.
+
 ## 2026-05-24 - Sidebar Workspace Tools And GitHub Secrets Runtime Path
 
 ### Prompt Summary

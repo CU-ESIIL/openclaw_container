@@ -42,6 +42,20 @@ These folders are intentionally ignored by git. They are runtime state, not temp
 
 If `secrets/github_token` exists, or `SCIENCECLAW_GITHUB_TOKEN_FILE` points at a token file, the helper also applies the Docker secrets overlay so the Gateway and CMS receive GitHub credentials. This keeps spawned instances aligned with the base compose setup instead of requiring a hand-edited `.env` for each gateway.
 
+For gateway 3, the explicit authenticated launch is:
+
+```bash
+mkdir -p secrets
+printf '%s\n' 'PASTE_YOUR_FINE_GRAINED_TOKEN_HERE' > secrets/github_token
+chmod 600 secrets/github_token
+
+SCIENCECLAW_GITHUB_TOKEN_FILE=./secrets/github_token \
+SCIENCECLAW_USE_SECRETS_OVERLAY=1 \
+scripts/start-instance.sh project-three 18791 8890 8092
+```
+
+After startup, use **GitHub Auth** in the sidebar and click **Configure git credentials**. The sidebar, CMS GitHub manager, and agents share the same `/workspace/.openclaw-github/authorized-repos.yaml` allowlist and `/workspace/repos/` clone directory.
+
 ## Immediate Validation
 
 After the helper prints URLs, run these checks before sending prompts to the agent.
@@ -221,6 +235,24 @@ docker cp docs/assets/brand/scienceclaw.png <gateway-container>:/opt/scienceclaw
 docker exec <gateway-container> sh -lc 'SCIENCECLAW_CMS_PORT=<cms-port> OPENCLAW_WORKSPACE=/workspace bash /tmp/install-control-ui-branding.sh'
 docker restart <gateway-container>
 ```
+
+The branding installer also reopens the Control UI content security policy for that instance's CMS origin. That is required for the embedded **Files** and **GitHub Auth** sidebar panels to fetch `/api/file/*` and `/api/github/*` from the CMS service.
+
+Verify the update did not strip the ScienceClaw sidebar features:
+
+```bash
+curl -sS -D - -o /tmp/scienceclaw-index.html \
+  http://127.0.0.1:<gateway-port>/ | grep -i content-security-policy
+
+docker exec <gateway-container> sh -lc \
+  'grep -q scienceclaw-file-list /usr/local/lib/node_modules/openclaw/dist/control-ui/scienceclaw-brand.js &&
+   grep -q scienceclaw-repo-form /usr/local/lib/node_modules/openclaw/dist/control-ui/scienceclaw-brand.js'
+
+curl -sS http://127.0.0.1:<cms-port>/api/file/list?path=/workspace
+curl -sS http://127.0.0.1:<cms-port>/api/github/repos
+```
+
+The content security policy should include the CMS origin, for example `http://127.0.0.1:<cms-port>`. The JavaScript checks should pass, and the CMS endpoints should return JSON.
 
 Then hard-refresh the browser. If the page still looks like default OpenClaw, clear the service worker/cache for that local port or open a fresh private window. The CMS routes should remain available at the instance CMS port, for example:
 

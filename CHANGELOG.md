@@ -38,6 +38,11 @@ First alpha baseline for the OpenClaw scientific working group container.
 - Pinned OpenClaw image build argument and separated service entrypoint so only the Gateway owns OpenClaw startup/state while CMS and Jupyter remain workspace services.
 - Embedded Control UI sidebar tools for Files and GitHub Auth, backed by the workspace CMS instead of separate navigation-only links.
 - GitHub credential setup button in the CMS, spawned-instance Docker secrets overlay support, and a manual GitHub Actions runtime workflow for self-hosted runner launches from GitHub Secrets.
+- Gateway 3 GitHub authentication docs for token-file launches, sidebar credential setup, shared `/workspace/repos/` repository visibility, and OpenClaw update checks that preserve ScienceClaw branding, Files, GitHub Auth, and CMS content-security-policy access.
+- CMS full-page navigation back to the matching OpenClaw Control UI from Files, GitHub, and other workspace pages.
+- Project workspace routing folders under `/workspace/projects`, with manifests for GitHub repositories, external links, storage aliases, data policy, and gateway handoffs; gateway 3 now has a `fractal-corridors` project control folder linked to the gateway 1 import.
+- Workspace `RESOURCE_MAP.md` instructions so agents know where to read/write files, find project manifests, use authorized GitHub clones, and route large or remote data through `/external_storage`.
+- Tracked gateway 1 handoff, gateway 3 resource map, and workspace notes inside `projects/fractal_corridors` so the project-routing metadata is visible to GitHub outside the live container runtime.
 
 ### Notes
 

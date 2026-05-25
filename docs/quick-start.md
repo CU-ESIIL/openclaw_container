@@ -129,6 +129,16 @@ docker compose -f docker-compose.yml -f docker-compose.secrets.yml up -d
 
 The token should be fine-grained and scoped to the organization repositories this working group is allowed to use. On startup, ScienceClaw reads the secret file, configures GitHub CLI for git credential use, and makes the same credential available to the OpenClaw agent runtime and the GitHub manager service.
 
+For a spawned prototype instance such as gateway 3, use the same token file with the instance helper:
+
+```bash
+SCIENCECLAW_GITHUB_TOKEN_FILE=./secrets/github_token \
+SCIENCECLAW_USE_SECRETS_OVERLAY=1 \
+scripts/start-instance.sh project-three 18791 8890 8092
+```
+
+Then expand **GitHub Auth** in the sidebar and click **Configure git credentials**. The sidebar, the full GitHub manager, and the agents all refer to the same shared registry at `/workspace/.openclaw-github/authorized-repos.yaml` and cloned repositories under `/workspace/repos/`.
+
 Add repositories explicitly by `owner/repo`. Use the `read` tier for inspection and the `contribute` tier when the working group may create branches, commit changes, push branches, and open pull requests. Direct pushes to `main` and `master` are blocked by default.
 
 ## 7. Validate And Checkpoint

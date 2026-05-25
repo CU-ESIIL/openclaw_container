@@ -29,3 +29,10 @@ docker compose up openclaw-local workspace-ui workspace-cms
 
 Keep `./workspace` and `./external_storage` ignored. Do not mount your whole home directory into the container. Narrow mounts make the agent workspace easier to inspect and safer to reason about.
 
+For project-specific local data, prefer:
+
+```text
+/external_storage/local/<project-slug>
+```
+
+Then add the mount or folder to `/workspace/projects/<project-slug>/EXTERNAL_LINKS.md` and cite it from `/workspace/projects/<project-slug>/DATA_MANIFEST.md`.

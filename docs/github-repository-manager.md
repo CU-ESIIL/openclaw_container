@@ -74,6 +74,22 @@ scripts/start-instance.sh project-three 18791 8890 8092
 
 In the GitHub manager, click **Configure git credentials** after adding or rotating a token. The button reruns the GitHub CLI credential setup inside the CMS process and reports sanitized status output. It is a browser approval/action path and does not require `/approve`.
 
+For the current gateway 3 prototype, the repeatable authentication path is:
+
+```bash
+mkdir -p secrets
+printf '%s\n' 'PASTE_YOUR_FINE_GRAINED_TOKEN_HERE' > secrets/github_token
+chmod 600 secrets/github_token
+
+SCIENCECLAW_GITHUB_TOKEN_FILE=./secrets/github_token \
+SCIENCECLAW_USE_SECRETS_OVERLAY=1 \
+scripts/start-instance.sh project-three 18791 8890 8092
+```
+
+Then open the gateway 3 Control UI, expand **GitHub Auth** in the ScienceClaw sidebar, and click **Configure git credentials**. The status panel should report that a token file is visible and that GitHub CLI/git credential setup is available. Add repositories by `owner/repo`; the cloned path shown in the sidebar is the same `/workspace/repos/<repo>` path the agents should use.
+
+Use a fine-grained token scoped only to the working-group repositories. Grant repository contents read/write when the group needs branch pushes, and pull request read/write when the group should open PRs. Do not commit the token file, paste the token into chat, or store it in the repository registry.
+
 ### GitHub Actions / Self-Hosted Runner
 
 For a GitHub-managed launch, add the repository secrets listed in `docs/security-and-credentials.md`, then run the manual **ScienceClaw runtime from secrets** workflow. Use a self-hosted runner for a durable Gateway. The workflow materializes the secrets only on the runner, starts ScienceClaw with the same instance helper, and smoke-tests OpenClaw plus the CMS GitHub status endpoint.
