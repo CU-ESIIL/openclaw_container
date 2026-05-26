@@ -607,6 +607,24 @@ Compare gateway 3 against working gateways 1 and 2, then make gateway 3 use the 
 - Gateway 3 health returned to OK after the final smoke test settled.
 - Final payload was `VERDE_PERSISTENT_OK`.
 
+## 2026-05-26 - GitHub Actions Secret Alias Support
+
+### Prompt Summary
+
+Make the GitHub Actions runtime launch work with the repository secrets the user added through the GitHub UI.
+
+### Changes Made
+
+- Updated `.github/workflows/scienceclaw-runtime.yml` so the manual runtime workflow accepts local `.env`-style aliases for Verde and Slack secrets:
+  - `VERDE_LLM_API_KEY`
+  - `VERDE_LLM_BASE_URL`
+  - `VERDE_LLM_DEFAULT_MODEL`
+  - `SLACK_BOT_TOKEN`
+  - `SLACK_APP_TOKEN`
+  - `SLACK_DEFAULT_CHANNEL`
+- Kept `SCIENCECLAW_...` names as the documented preferred convention.
+- Documented that agent-visible repository push/pull still requires `SCIENCECLAW_GITHUB_TOKEN`.
+
 ## 2026-05-22 - Gateway 3 Button Approval UX
 
 ### Prompt Summary

@@ -45,6 +45,10 @@ Recommended secret names:
 | `SCIENCECLAW_SLACK_APP_TOKEN` | `SLACK_APP_TOKEN_FILE` | Slack Socket Mode app token |
 | `SCIENCECLAW_TAVILY_API_KEY` | `TAVILY_API_KEY_FILE` | Optional web-search provider |
 
+The manual runtime workflow also accepts common local `.env`-style aliases for Verde and Slack: `VERDE_LLM_API_KEY`, `VERDE_LLM_BASE_URL`, `VERDE_LLM_DEFAULT_MODEL`, `SLACK_BOT_TOKEN`, `SLACK_APP_TOKEN`, and `SLACK_DEFAULT_CHANNEL`. Prefer repository variables for non-secret values such as `VERDE_LLM_BASE_URL`, `VERDE_LLM_DEFAULT_MODEL`, and `SLACK_DEFAULT_CHANNEL`, but the workflow can read them from secrets if they were entered there during setup.
+
+For repository push/pull access from the agents and GitHub manager, add `SCIENCECLAW_GITHUB_TOKEN`. That token should be a fine-grained GitHub personal access token scoped only to the repositories ScienceClaw should manage.
+
 On a GitHub-hosted runner, self-hosted runner, or Codespaces startup task, write each secret to a runner-local file and point the container at that file:
 
 ```bash

@@ -92,7 +92,7 @@ Use a fine-grained token scoped only to the working-group repositories. Grant re
 
 ### GitHub Actions / Self-Hosted Runner
 
-For a GitHub-managed launch, add the repository secrets listed in `docs/security-and-credentials.md`, then run the manual **ScienceClaw runtime from secrets** workflow. Use a self-hosted runner for a durable Gateway. The workflow materializes the secrets only on the runner, starts ScienceClaw with the same instance helper, and smoke-tests OpenClaw plus the CMS GitHub status endpoint.
+For a GitHub-managed launch, add the repository secrets listed in `docs/security-and-credentials.md`, then run the manual **ScienceClaw runtime from secrets** workflow. Use a self-hosted runner for a durable Gateway. The workflow accepts the recommended `SCIENCECLAW_...` secret names and common local `.env` aliases for Verde and Slack. GitHub repository write access still requires `SCIENCECLAW_GITHUB_TOKEN`, which should be a fine-grained token scoped only to the working-group repositories. The workflow materializes the secrets only on the runner, starts ScienceClaw with the same instance helper, and smoke-tests OpenClaw plus the CMS GitHub status endpoint.
 
 ### Future GitHub App Path
 
