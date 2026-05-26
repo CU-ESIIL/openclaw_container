@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+
+- `scripts/start-instance.sh` now validates that `SCIENCECLAW_RUNTIME_ROOT` is writable before use and automatically falls back to `$RUNNER_TEMP`/`/tmp` with a warning when the configured path is unavailable. This prevents startup failures like `mkdir: cannot create directory '/private': Permission denied` on restricted runners.
+
 ## 0.1.0-alpha.1 - 2026-05-17
 
 First alpha baseline for the OpenClaw scientific working group container.

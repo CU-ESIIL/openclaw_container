@@ -58,6 +58,16 @@ if [ -z "${OPENCLAW_STATE_DIR:-}" ]; then
       runtime_parent="${RUNNER_TEMP:-/tmp}"
     fi
   fi
+
+  if [ ! -d "${runtime_parent}" ] || [ ! -w "${runtime_parent}" ]; then
+    fallback_parent="${RUNNER_TEMP:-/tmp}"
+    if [ ! -d "${fallback_parent}" ] || [ ! -w "${fallback_parent}" ]; then
+      fallback_parent="/tmp"
+    fi
+    echo "Warning: SCIENCECLAW_RUNTIME_ROOT='${runtime_parent}' is unavailable; using '${fallback_parent}' instead." >&2
+    runtime_parent="${fallback_parent}"
+  fi
+
   export OPENCLAW_STATE_DIR="${runtime_parent%/}/scienceclaw-${instance_name}-openclaw"
 else
   export OPENCLAW_STATE_DIR
