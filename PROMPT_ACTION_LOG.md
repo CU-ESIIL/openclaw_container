@@ -625,6 +625,20 @@ Make the GitHub Actions runtime launch work with the repository secrets the user
 - Kept `SCIENCECLAW_...` names as the documented preferred convention.
 - Documented that agent-visible repository push/pull still requires `SCIENCECLAW_GITHUB_TOKEN`.
 
+## 2026-05-26 - GitHub Actions Runtime State Path Fix
+
+### Prompt Summary
+
+Fix the manual GitHub Actions runtime workflow failure where `scripts/start-instance.sh` tried to create `/private/tmp` on a Linux runner.
+
+### Changes Made
+
+- Updated `scripts/start-instance.sh` to choose the OpenClaw runtime-state parent directory by platform:
+  - `/private/tmp` when available and writable, mainly macOS local runs
+  - `$RUNNER_TEMP` on GitHub Actions runners
+  - `/tmp` as the generic Linux fallback
+- Updated runtime-state documentation in the security guide and instance runbook.
+
 ## 2026-05-22 - Gateway 3 Button Approval UX
 
 ### Prompt Summary

@@ -49,7 +49,19 @@ export SCIENCECLAW_CONTAINER_NAME="openclaw-${instance_name}"
 export DATA_DIR="${instance_root}/data"
 export WORKSPACE_DIR="${instance_root}/workspace"
 export EXTERNAL_STORAGE_DIR="${instance_root}/external_storage"
-export OPENCLAW_STATE_DIR="${OPENCLAW_STATE_DIR:-/private/tmp/scienceclaw-${instance_name}-openclaw}"
+if [ -z "${OPENCLAW_STATE_DIR:-}" ]; then
+  runtime_parent="${SCIENCECLAW_RUNTIME_ROOT:-}"
+  if [ -z "${runtime_parent}" ]; then
+    if [ -d /private/tmp ] && [ -w /private/tmp ]; then
+      runtime_parent="/private/tmp"
+    else
+      runtime_parent="${RUNNER_TEMP:-/tmp}"
+    fi
+  fi
+  export OPENCLAW_STATE_DIR="${runtime_parent%/}/scienceclaw-${instance_name}-openclaw"
+else
+  export OPENCLAW_STATE_DIR
+fi
 export OPENCLAW_GATEWAY_PORT="${gateway_port}"
 export OPENCLAW_CONTROL_ORIGINS="http://127.0.0.1:${gateway_port},http://localhost:${gateway_port}"
 export OPENCLAW_DEFAULT_MODEL="${OPENCLAW_DEFAULT_MODEL:-verde/js2/gpt-oss-120b}"

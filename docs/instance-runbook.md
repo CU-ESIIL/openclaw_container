@@ -157,7 +157,7 @@ docker exec <new-gateway> openclaw agents list
 
 The fix is to restore the `agents.list` and related agent defaults in the new instance's `openclaw.json`. Preserve the new instance's gateway token, port, allowed origins, sessions, and local workspace paths. Do not copy a whole known-good OpenClaw state directory over another instance; that can mix ports, tokens, sessions, and project memory.
 
-Keep OpenClaw runtime state on local disk rather than in a cloud-synced repository folder. Session files are lock-sensitive, and cloud sync metadata updates can make OpenClaw think another writer changed the transcript. `scripts/start-instance.sh` defaults to `/private/tmp/scienceclaw-<instance>-openclaw` for spawned instances; the project workspace remains under `instances/<name>/workspace`.
+Keep OpenClaw runtime state on local disk rather than in a cloud-synced repository folder. Session files are lock-sensitive, and cloud sync metadata updates can make OpenClaw think another writer changed the transcript. `scripts/start-instance.sh` defaults to `/private/tmp/scienceclaw-<instance>-openclaw` on macOS, `$RUNNER_TEMP/scienceclaw-<instance>-openclaw` on GitHub Actions runners, and `/tmp/scienceclaw-<instance>-openclaw` on other Linux hosts; the project workspace remains under `instances/<name>/workspace`.
 
 ## Update Policy
 

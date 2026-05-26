@@ -44,6 +44,7 @@ First alpha baseline for the OpenClaw scientific working group container.
 - Workspace `RESOURCE_MAP.md` instructions so agents know where to read/write files, find project manifests, use authorized GitHub clones, and route large or remote data through `/external_storage`.
 - Tracked gateway 1 handoff, gateway 3 resource map, and workspace notes inside `projects/fractal_corridors` so the project-routing metadata is visible to GitHub outside the live container runtime.
 - GitHub Actions runtime workflow now accepts local `.env`-style Verde and Slack secret aliases in addition to the recommended `SCIENCECLAW_...` secret names.
+- Spawned instances now choose a platform-appropriate OpenClaw state directory, using `/private/tmp` on macOS, `$RUNNER_TEMP` on GitHub Actions, and `/tmp` on other Linux hosts.
 
 ### Notes
 
