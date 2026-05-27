@@ -17,6 +17,7 @@ nav:
       - Computational Calm: concepts/computational-calm.md
   - Launch and Daily Use:
       - Launch Locally: use/launch-locally.md
+      - Template GitHub Launch: use/template-github-launch.md
       - Multi-Instance Runbook: instance-runbook.md
       - Working Group Cockpit: use/working-group-cockpit.md
       - Workspace File Manager: workspace-file-manager.md

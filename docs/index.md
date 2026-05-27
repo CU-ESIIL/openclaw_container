@@ -12,6 +12,7 @@ Run an environmental synthesis workspace on your laptop, keep agent access narro
 [First 10 minutes](start-here/first-10-minutes.md){ .md-button }
 [What is a container?](concepts/what-is-a-container.md){ .md-button }
 [Launch locally](use/launch-locally.md){ .md-button }
+[Template launch](use/template-github-launch.md){ .md-button }
 [Where files go](use/where-files-go.md){ .md-button }
 [Troubleshooting](troubleshooting.md){ .md-button }
 
@@ -82,4 +83,4 @@ The [First 10 Minutes](start-here/first-10-minutes.md) page gives the calm walkt
 
 Read [Security](security.md) before connecting Slack tokens to the PI Liaison.
 
-For deeper work, continue to [OASIS ScienceClaw Template](oasis-template.md), [Model Routing](model-routing.md), [Storage](storage/index.md), [Publishing Workflow](publishing-workflow.md), and [Distributed Runtime](distributed-runtime.md).
+For deeper work, continue to [Template GitHub Launch](use/template-github-launch.md), [OASIS ScienceClaw Template](oasis-template.md), [Model Routing](model-routing.md), [Storage](storage/index.md), [Publishing Workflow](publishing-workflow.md), and [Distributed Runtime](distributed-runtime.md).

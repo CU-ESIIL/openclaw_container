@@ -2,6 +2,8 @@
 
 This page is the stable happy path for a new OASIS ScienceClaw checkout. It assumes you are comfortable enough to run a few terminal commands, but it does not assume deep Docker or GitHub knowledge.
 
+If you want the GitHub-hosted template path, where a forked or renamed repository launches ScienceClaw from GitHub Actions with secrets and its own repository already visible to agents, use [Template GitHub Launch](use/template-github-launch.md).
+
 ## 1. Prepare Local Settings
 
 ```bash
@@ -140,6 +142,8 @@ scripts/start-instance.sh project-three 18791 8890 8092
 Then expand **GitHub Auth** in the sidebar and click **Configure git credentials**. The sidebar, the full GitHub manager, and the agents all refer to the same shared registry at `/workspace/.openclaw-github/authorized-repos.yaml` and cloned repositories under `/workspace/repos/`.
 
 Add repositories explicitly by `owner/repo`. Use the `read` tier for inspection and the `contribute` tier when the working group may create branches, commit changes, push branches, and open pull requests. Direct pushes to `main` and `master` are blocked by default.
+
+For template repositories launched from GitHub Actions, the launch workflow seeds the current repository into that registry and clones it under `/workspace/repos/<repo>`. Add other repositories later from **GitHub Auth**.
 
 ## 7. Validate And Checkpoint
 

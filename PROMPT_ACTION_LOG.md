@@ -639,6 +639,19 @@ Fix the manual GitHub Actions runtime workflow failure where `scripts/start-inst
   - `/tmp` as the generic Linux fallback
 - Updated runtime-state documentation in the security guide and instance runbook.
 
+## 2026-05-26 - Template GitHub Launch Documentation
+
+### Prompt Summary
+
+Document the desired template/fork launch path where a renamed repository can launch ScienceClaw with credentials and let agents push/pull against that same repository.
+
+### Changes Made
+
+- Added `docs/use/template-github-launch.md`.
+- Added the new guide to MkDocs navigation under Launch and Daily Use.
+- Updated Quick Start, Security and Credentials, and GitHub Repository Manager docs to explain the launch-repository workflow.
+- Updated `.github/workflows/scienceclaw-runtime.yml` to optionally authorize and clone the launch repository into `/workspace/repos/<repo>` before starting the container.
+
 ## 2026-05-22 - Gateway 3 Button Approval UX
 
 ### Prompt Summary

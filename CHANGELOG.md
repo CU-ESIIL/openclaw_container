@@ -51,6 +51,7 @@ First alpha baseline for the OpenClaw scientific working group container.
 - Tracked gateway 1 handoff, gateway 3 resource map, and workspace notes inside `projects/fractal_corridors` so the project-routing metadata is visible to GitHub outside the live container runtime.
 - GitHub Actions runtime workflow now accepts local `.env`-style Verde and Slack secret aliases in addition to the recommended `SCIENCECLAW_...` secret names.
 - Spawned instances now choose a platform-appropriate OpenClaw state directory, using `/private/tmp` on macOS, `$RUNNER_TEMP` on GitHub Actions, and `/tmp` on other Linux hosts.
+- Template GitHub launch docs and workflow support for authorizing and cloning the launch repository into `/workspace/repos/<repo>` so forked repositories can act as their own ScienceClaw project memory.
 
 ### Notes
 

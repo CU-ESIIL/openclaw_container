@@ -19,6 +19,10 @@ on:
         description: CMS and GitHub manager port
         default: "8090"
         required: true
+      authorize_launch_repo:
+        description: Add this repository to the workspace GitHub allowlist
+        default: "true"
+        required: true
       runner_label:
         description: Runner label. Use self-hosted for a durable instance.
         default: ubuntu-latest
@@ -41,6 +45,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Materialize runner-local secrets
         shell: bash
@@ -85,6 +91,40 @@ jobs:
             printf '%s\n' "${SCIENCECLAW_GITHUB_TOKEN_SECRET}" > secrets/github_token
             echo "SCIENCECLAW_GITHUB_TOKEN_FILE=./secrets/github_token" >> "$GITHUB_ENV"
             echo "SCIENCECLAW_USE_SECRETS_OVERLAY=1" >> "$GITHUB_ENV"
+          fi
+
+      - name: Authorize launch repository
+        if: ${{ inputs.authorize_launch_repo == 'true' }}
+        shell: bash
+        env:
+          INSTANCE_NAME: ${{ inputs.instance_name }}
+        run: |
+          set -Eeuo pipefail
+          owner="${GITHUB_REPOSITORY%%/*}"
+          repo="${GITHUB_REPOSITORY#*/}"
+          workspace_dir="instances/${INSTANCE_NAME}/workspace"
+          registry_dir="${workspace_dir}/.openclaw-github"
+          clone_dir="${workspace_dir}/repos/${repo}"
+          mkdir -p "${registry_dir}" "${workspace_dir}/repos"
+          tier="read"
+          if [ -f secrets/github_token ]; then
+            tier="contribute"
+          fi
+          {
+            echo "repositories:"
+            echo "  - owner: \"${owner}\""
+            echo "    repo: \"${repo}\""
+            echo "    url: \"${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git\""
+            echo "    local_path: \"/workspace/repos/${repo}\""
+            echo "    default_branch: \"${GITHUB_REF_NAME:-main}\""
+            echo "    permission_tier: \"${tier}\""
+            echo "    enabled: true"
+            echo "    notes: \"Launch repository for this ScienceClaw appliance.\""
+          } > "${registry_dir}/authorized-repos.yaml"
+          if [ ! -d "${clone_dir}/.git" ]; then
+            git clone --local "${GITHUB_WORKSPACE}" "${clone_dir}"
+            git -C "${clone_dir}" remote set-url origin "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git"
+            git -C "${clone_dir}" checkout -B "${GITHUB_REF_NAME:-main}" >/dev/null 2>&1 || true
           fi
 
       - name: Start ScienceClaw instance

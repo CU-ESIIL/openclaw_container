@@ -94,6 +94,8 @@ Use a fine-grained token scoped only to the working-group repositories. Grant re
 
 For a GitHub-managed launch, add the repository secrets listed in `docs/security-and-credentials.md`, then run the manual **ScienceClaw runtime from secrets** workflow. Use a self-hosted runner for a durable Gateway. The workflow accepts the recommended `SCIENCECLAW_...` secret names and common local `.env` aliases for Verde and Slack. GitHub repository write access still requires `SCIENCECLAW_GITHUB_TOKEN`, which should be a fine-grained token scoped only to the working-group repositories. The workflow materializes the secrets only on the runner, starts ScienceClaw with the same instance helper, and smoke-tests OpenClaw plus the CMS GitHub status endpoint.
 
+By default, the workflow also authorizes and clones the launch repository itself. For a template or forked repository, that means the new project repository appears in `/workspace/repos/<repo>` immediately, and humans and agents can use the GitHub manager to branch, commit, push, and open pull requests back to that same repository. Additional repositories can be added later from the GitHub manager.
+
 ### Future GitHub App Path
 
 GitHub App authentication is the preferred long-term model because it supports selected-repository installation, revocation, organization-friendly permissions, and least-privilege access. This first implementation documents that direction but does not require GitHub App setup.

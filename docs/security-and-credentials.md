@@ -78,6 +78,8 @@ The repository includes a manual workflow for this pattern:
 
 Run **ScienceClaw runtime from secrets** from the GitHub Actions tab. For a durable instance, use a self-hosted runner label. The workflow writes a runner-local `.env` plus a Docker secret file from GitHub Secrets, starts an instance with `scripts/start-instance.sh`, runs gateway and CMS smoke checks, and prints local runtime links in the job summary. The generated files remain on the runner and are not committed to git.
 
+When `authorize_launch_repo` is left at its default `true`, the workflow also records the current repository in `/workspace/.openclaw-github/authorized-repos.yaml` and clones it into `/workspace/repos/<repo>`. If `SCIENCECLAW_GITHUB_TOKEN` is present, that launch repository is registered with `contribute` permission so agents and the GitHub manager can create branches, push branches, and open pull requests back to the same repository.
+
 Keep OpenClaw runtime state separate from secrets. Session files, locks, OAuth caches, and gateway tokens should live on local runtime storage for the instance, not in GitHub and not in cloud-synced repository folders. For local multi-instance runs on macOS, `scripts/start-instance.sh` uses `/private/tmp/scienceclaw-<instance>-openclaw` by default for this reason. On GitHub Actions runners, it uses `$RUNNER_TEMP/scienceclaw-<instance>-openclaw`; on other Linux hosts, it falls back to `/tmp`.
 
 ## What Requires Human Approval
