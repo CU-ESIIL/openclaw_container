@@ -27,6 +27,39 @@ Hard refresh the browser. If branding files changed, restart the container or re
 
 If this happened immediately after `openclaw update`, the update likely replaced the patched Control UI assets. Reapply the ScienceClaw branding layer for that instance, then restart the gateway. The [multi-instance runbook](instance-runbook.md) includes the exact recovery commands.
 
+## The Browser Opened The Wrong Page
+
+The default local stack exposes three different browser surfaces:
+
+- `http://127.0.0.1:18789/` is the main OpenClaw chat and control UI.
+- `http://127.0.0.1:8090/` is the CMS sidecar for files, reports, and GitHub repository management.
+- `http://127.0.0.1:8888/lab` is JupyterLab.
+
+If you opened `8090` expecting the chat page, switch to the Gateway URL or use the tokenized dashboard link from:
+
+```bash
+docker compose exec openclaw-local openclaw dashboard --no-open
+```
+
+That is the most reliable local browser entry point.
+
+## Browser Says `Auth required` Or `Device pairing required`
+
+`Auth required` means the browser reached the Gateway, but it does not yet have a matching token. Use the token-bearing URL from:
+
+```bash
+docker compose exec openclaw-local openclaw dashboard --no-open
+```
+
+`Device pairing required` means the token worked, but this browser still needs one-time approval from the Gateway host:
+
+```bash
+docker compose exec openclaw-local openclaw devices list
+docker compose exec openclaw-local openclaw devices approve <REQUEST_ID>
+```
+
+Reload the chat page after approval. If the transcript itself is stuck after connecting, start one fresh chat session before assuming the Gateway is down.
+
 ## Agent Dropdown Is Missing
 
 The working-group template should show 11 agents, with `main` named PI Liaison. If the dropdown only shows `main`, the new instance did not load the full agent registry.

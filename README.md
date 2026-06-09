@@ -32,6 +32,14 @@ make build
 make up
 ```
 
+Open the main chat UI with the tokenized dashboard URL from:
+
+```bash
+docker compose exec openclaw-local openclaw dashboard --no-open
+```
+
+Use the printed `127.0.0.1:18789` URL for the PI Liaison chat. The `127.0.0.1:8090` service is the workspace CMS and file-review sidecar, not the primary chat page.
+
 Run the end-to-end demo:
 
 ```bash

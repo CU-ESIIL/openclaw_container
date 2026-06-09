@@ -34,6 +34,33 @@ docker ps --filter name=openclaw
 
 For multi-instance local work, keep the service boundaries strict. The OpenClaw Gateway is the only service that owns OpenClaw state and sessions. The workspace CMS and JupyterLab services share `/workspace` for files and outputs, but they use lightweight service entrypoints and must not register Slack channels, rewrite OpenClaw config, or run Gateway startup.
 
+## Open The Main Browser UI
+
+Use the Gateway URL for chat, not the CMS URL. In the default local stack:
+
+```text
+http://127.0.0.1:18789/      main OpenClaw chat and control UI
+http://127.0.0.1:8090/       workspace CMS, files, and GitHub manager
+http://127.0.0.1:8888/lab    JupyterLab
+```
+
+The reproducible local path is to open the tokenized dashboard URL from the running Gateway container:
+
+```bash
+docker exec <container-id> openclaw dashboard --no-open
+```
+
+Open the printed URL directly in the browser you plan to use. This avoids landing on the unauthenticated chat page and then manually copying a token.
+
+If the browser reports `Device pairing required`, approve that exact browser request from the same live Gateway container:
+
+```bash
+docker exec <container-id> openclaw devices list
+docker exec <container-id> openclaw devices approve <REQUEST_ID>
+```
+
+Then reload the chat page or reopen the tokenized dashboard URL.
+
 ## Verify Slack
 
 Probe Slack Socket Mode from inside the running container:
@@ -98,6 +125,9 @@ Then test in Slack:
 
 | Symptom | Likely cause | Fix |
 | --- | --- | --- |
+| Browser opens `http://127.0.0.1:8090/` but no chat is visible | The CMS sidecar opened instead of the main Gateway UI | Open `http://127.0.0.1:18789/` or use `openclaw dashboard --no-open` from the live container |
+| Browser reaches `http://127.0.0.1:18789/` but shows `Auth required` | The Gateway is up, but the browser is using an un-tokenized URL | Use the token-bearing URL from `openclaw dashboard --no-open` |
+| Browser accepts the token but shows `Device pairing required` | The local browser has not been approved for Control UI access yet | Run `openclaw devices list`, then `openclaw devices approve <REQUEST_ID>` inside the live Gateway container |
 | Slack says `access not configured` | Slack user is not paired | Run `openclaw pairing approve slack <PAIRING_CODE>` inside the Gateway container |
 | Slack provider is not connected | Socket Mode token, bot token, channel, or Slack app setup is wrong | Run `scripts/check-secrets.sh`, check Socket Mode, app-level token, bot membership, and event subscriptions |
 | Slack replies with `Model login expired` | Gateway cannot refresh Codex OAuth | Run `openclaw models auth login --provider openai-codex --set-default` inside the live Gateway container |

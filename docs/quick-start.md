@@ -30,6 +30,31 @@ make up
 
 The container starts with the PI Liaison workflow, a seeded `/workspace`, and the OASIS ScienceClaw branding. When multiple instances are running, use `docker compose ps` to confirm ports.
 
+After the stack is up, treat the three local URLs as separate surfaces:
+
+| URL | Purpose |
+| --- | --- |
+| `http://127.0.0.1:18789/` | Main OpenClaw chat and control UI |
+| `http://127.0.0.1:8090/` | Workspace CMS, file browser, and GitHub manager |
+| `http://127.0.0.1:8888/lab` | JupyterLab workspace UI |
+
+To open the main chat in a browser that can connect immediately, ask OpenClaw for the tokenized dashboard URL:
+
+```bash
+docker compose exec openclaw-local openclaw dashboard --no-open
+```
+
+Open the printed `http://127.0.0.1:18789/...` URL in your browser. That is the main ScienceClaw chat surface. The `8090` page is useful, but it is the CMS sidecar rather than the primary chat UI.
+
+On the first Control UI connection from a new browser, OpenClaw may require one-time device approval even when the gateway token is correct. If the page says `Device pairing required`, approve the exact request id from the gateway host:
+
+```bash
+docker compose exec openclaw-local openclaw devices list
+docker compose exec openclaw-local openclaw devices approve <REQUEST_ID>
+```
+
+Then reload the `18789` chat page or reconnect from the tokenized dashboard URL.
+
 ## Restart Or Start Another Working Group
 
 To restart the default local stack:
