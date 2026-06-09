@@ -1,8 +1,8 @@
 # Start Here
 
-This section is for the first ten minutes with OASIS ScienceClaw.
+This section is the shortest path into OpenClaw.
 
-OASIS ScienceClaw is a reproducible scientific working group environment. The container gives you a ready-to-use runtime, the repository gives you durable project memory, and the workspace gives agents and humans a shared place to write down decisions, notes, tasks, data manifests, and reviewed outputs.
+OpenClaw gives you a ready-to-use scientific runtime, a shared workspace for people and agents, and a calmer way to move from setup to outputs.
 
 !!! note "You do not need to understand Docker deeply to begin"
     Start by treating the container as a portable lab bench: it holds the tools. The repository is the lab notebook: it holds the memory.
@@ -25,11 +25,11 @@ Repeat this when you feel lost:
 
 ## First Path
 
-1. Read [First 10 Minutes](first-10-minutes.md).
-2. Launch the workspace with [Launch Locally](../use/launch-locally.md).
-3. Open the [Working Group Cockpit](../use/working-group-cockpit.md).
+1. Read [What is OpenClaw?](what-is-openclaw.md).
+2. Walk through [First 10 Minutes](first-10-minutes.md).
+3. Launch the workspace with [Launch Locally](../use/launch-locally.md).
 4. Learn [Where Files Go](../use/where-files-go.md).
-5. Check the [Troubleshooting](../troubleshooting.md) page if anything feels strange.
+5. Use [Troubleshooting](../troubleshooting.md) if the browser, token, or startup flow feels strange.
 
 The calm command loop is:
 
@@ -43,8 +43,8 @@ make checkpoint
 
 | Mode | Start With | Main Concern |
 | --- | --- | --- |
-| Everyday Scientist | [First 10 Minutes](first-10-minutes.md) | Doing useful work without learning infrastructure first |
-| Working Group Lead | [Create from Template](../oasis-template.md) | Making a reusable working group from the base image |
+| Everyday Scientist | [What is OpenClaw?](what-is-openclaw.md) | Understanding the system without infrastructure overload |
+| Working Group Lead | [Template Mode](../oasis-template.md) | Making a reusable working group from the base image |
 | Data/Workflow Maintainer | [Where Files Go](../use/where-files-go.md) | Data placement, provenance, and reproducible outputs |
 | Infrastructure Admin | [Operations](../operations.md) | Ports, credentials, startup, and deployment |
-| Developer/Customizer | [Template Governance](../template-governance.md) | Extending agents, docs, branding, and workflows |
+| Developer/Customizer | [Architecture](../architecture.md) | Extending agents, docs, branding, and workflows |

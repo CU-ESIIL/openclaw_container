@@ -2,43 +2,42 @@
 
 Different users need different doors into the same system.
 
-<div class="grid cards" markdown>
+<div class="homepage-card-grid" markdown>
 
-- **I am a scientist using the workspace**
+<a class="homepage-card" href="first-10-minutes/">
+  <strong>I am a scientist using the workspace</strong>
+  <p>Start with the quick onboarding path, then learn where the workspace stores notes, outputs, and reports.</p>
+  <span>Begin with the basics</span>
+</a>
 
-  ---
+<a class="homepage-card" href="../oasis-template/">
+  <strong>I am leading a working group</strong>
+  <p>Use the template model, the agent team, and the working-group docs to shape a reusable collaboration space.</p>
+  <span>Set up the team</span>
+</a>
 
-  Start with [First 10 Minutes](first-10-minutes.md), then read [Where Files Go](../use/where-files-go.md).
+<a class="homepage-card" href="../storage/stream-first-data/">
+  <strong>I am adding data</strong>
+  <p>Learn the storage model first, then decide whether the data belongs in the workspace, a mount, or remote storage.</p>
+  <span>Place data carefully</span>
+</a>
 
-- **I am leading a working group**
+<a class="homepage-card" href="../working-group/">
+  <strong>I am customizing agents</strong>
+  <p>Read the working-group model before changing roles, review expectations, or model routing.</p>
+  <span>Understand the boundaries</span>
+</a>
 
-  ---
+<a class="homepage-card" href="../operations/">
+  <strong>I am deploying this somewhere</strong>
+  <p>Use the maintainer docs for startup, auth, security, Slack, and distributed runtime details.</p>
+  <span>Open advanced docs</span>
+</a>
 
-  Read [OASIS ScienceClaw Template](../oasis-template.md), [Working Group Cockpit](../use/working-group-cockpit.md), and [Template Governance](../template-governance.md).
-
-- **I am adding data**
-
-  ---
-
-  Read [Where Files Go](../use/where-files-go.md), [Storage](../storage/index.md), and [Stream-First Data](../storage/stream-first-data.md).
-
-- **I am customizing agents**
-
-  ---
-
-  Read [Scientific Working Group](../working-group.md), [Model Routing](../model-routing.md), and [Template Governance](../template-governance.md).
-
-- **I am deploying this somewhere**
-
-  ---
-
-  Read [Operations](../operations.md), [Security](../security.md), and [Distributed Runtime](../distributed-runtime.md).
-
-- **I am troubleshooting**
-
-  ---
-
-  Start with [Troubleshooting and Recovery](../troubleshooting.md). Most problems are recoverable.
+<a class="homepage-card" href="../troubleshooting/">
+  <strong>I am troubleshooting</strong>
+  <p>Start with the browser, token, storage, and startup recovery notes before making destructive changes.</p>
+  <span>Recover safely</span>
+</a>
 
 </div>
-

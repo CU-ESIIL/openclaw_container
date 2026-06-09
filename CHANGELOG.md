@@ -7,6 +7,12 @@
 - `scripts/start-instance.sh` now validates that `SCIENCECLAW_RUNTIME_ROOT` is writable before use and automatically falls back to `$RUNNER_TEMP`/`/tmp` with a warning when the configured path is unavailable. This prevents startup failures like `mkdir: cannot create directory '/private': Permission denied` on restricted runners.
 - Clarified the local browser startup path in `README.md`, `docs/quick-start.md`, `docs/operations.md`, and `docs/troubleshooting.md` so the main OpenClaw chat opens from the tokenized `127.0.0.1:18789` Gateway URL rather than the `8090` CMS sidecar, and so first-run token auth plus one-time device pairing are documented explicitly.
 
+### Changed
+
+- Reworked the MkDocs information architecture into a simpler product-style navigation with Start Here, Use OpenClaw, Working Groups, Data and Storage, and Maintainer / Advanced sections.
+- Redesigned the homepage with OASIS-inspired hero, section bands, visual interludes, gallery-style card grids, and clearer calls to action for onboarding, working-group use, storage, and advanced customization.
+- Added a new `docs/start-here/what-is-openclaw.md` overview page to explain the container, agent workspace, and scientific collaboration layers in plain language for new scientists.
+
 ## 0.1.0-alpha.1 - 2026-05-17
 
 First alpha baseline for the OpenClaw scientific working group container.
