@@ -61,26 +61,30 @@ workspace:
 agents:
   user_facing_default: "pi-liaison"
   human_review_required: true
-  tiers:
-    coordination:
-      - "PI Liaison / User Interview Agent"
-      - "Working Group Director"
-      - "Project Operations Manager"
-      - "Scientific Review and QA Director"
-    scientific_work:
-      - "Environmental Data Science Agent"
-      - "Geospatial and Remote Sensing Agent"
-      - "Data Curation and Metadata Agent"
-      - "Open Science and Reproducibility Agent"
-      - "Manuscript and Communication Agent"
-      - "Visualization and Interface Agent"
-    infrastructure:
-      - "Cloud and Container Infrastructure Agent"
-      - "Kubernetes and Distributed Compute Agent"
-      - "Storage and Data Infrastructure Agent"
-      - "GitHub and Workflow Automation Agent"
-      - "Literature and Knowledge Synthesis Agent"
-      - "Collaboration and Team Science Agent"
+  roster:
+    - id: "main"
+      name: "PI Liaison"
+      default: true
+    - id: "scientific-director"
+      name: "Scientific Director"
+    - id: "deputy-integrator"
+      name: "Deputy Director / Integrator"
+    - id: "data-engineer"
+      name: "Data Engineer / Infrastructure Scientist"
+    - id: "quantitative-modeler"
+      name: "Quantitative Modeler"
+    - id: "domain-scientist"
+      name: "Domain Scientist"
+    - id: "scientific-narrative-lead"
+      name: "Scientific Narrative Lead"
+    - id: "technical-communicator"
+      name: "Technical Communicator"
+    - id: "citation-evidence-curator"
+      name: "Citation & Evidence Curator"
+    - id: "skeptic"
+      name: "Skeptic / Adversarial Reviewer"
+    - id: "societal-impact-translation"
+      name: "Societal Impact / Translation Agent"
 
 integrations:
   slack:

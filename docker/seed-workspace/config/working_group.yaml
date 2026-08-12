@@ -34,6 +34,30 @@ agents:
   default_human_interface: "PI Liaison / User Interview Agent"
   direct_user_access_to_all_agents: false
   require_human_review_for_public_outputs: true
+  roster:
+    - id: "main"
+      name: "PI Liaison"
+      default: true
+    - id: "scientific-director"
+      name: "Scientific Director"
+    - id: "deputy-integrator"
+      name: "Deputy Director / Integrator"
+    - id: "data-engineer"
+      name: "Data Engineer / Infrastructure Scientist"
+    - id: "quantitative-modeler"
+      name: "Quantitative Modeler"
+    - id: "domain-scientist"
+      name: "Domain Scientist"
+    - id: "scientific-narrative-lead"
+      name: "Scientific Narrative Lead"
+    - id: "technical-communicator"
+      name: "Technical Communicator"
+    - id: "citation-evidence-curator"
+      name: "Citation & Evidence Curator"
+    - id: "skeptic"
+      name: "Skeptic / Adversarial Reviewer"
+    - id: "societal-impact-translation"
+      name: "Societal Impact / Translation Agent"
 
 integrations:
   slack:

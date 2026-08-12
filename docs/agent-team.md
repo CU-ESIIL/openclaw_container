@@ -2,6 +2,8 @@
 
 ScienceClaw agents are structured scientific roles, not an uncontrolled swarm. The PI Liaison is the primary human-facing coordinator. Other agents work through shared files, reports, review packets, and task assignments unless a human explicitly invites direct interaction.
 
+The container restores this canonical 11-agent roster at Gateway startup. This prevents persistent state from a fork or unrelated experiment from silently replacing the ScienceClaw team. Set `OPENCLAW_AGENT_ROSTER_MODE=preserve` only when intentionally maintaining a custom roster; the default `scienceclaw` mode keeps the registry aligned with this repository.
+
 ## Why This Structure Exists
 
 Environmental synthesis work needs memory, disagreement, provenance, and review. A flat chat full of agents can become noisy and hard to trust. The working-group model gives each agent a bounded purpose, expected outputs, review requirements, and escalation pathways.

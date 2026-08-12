@@ -13,6 +13,7 @@ services:
         required: false
     environment:
       OPENCLAW_MODEL: ${OPENCLAW_MODEL:-}
+      OPENCLAW_AGENT_ROSTER_MODE: ${OPENCLAW_AGENT_ROSTER_MODE:-scienceclaw}
       DATA_ROOT: /data
       OPENCLAW_CONFIG_DIR: /data/.openclaw
       OPENCLAW_AUTH_PROFILE_SECRET_DIR: /data/.openclaw/auth-profile-secrets

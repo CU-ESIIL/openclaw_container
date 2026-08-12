@@ -141,6 +141,21 @@ const origins = (process.env.OPENCLAW_CONTROL_ORIGINS || "http://127.0.0.1:18789
   .filter(Boolean);
 const visibleRepliesMode = process.env.OPENCLAW_VISIBLE_REPLIES_MODE || "message_tool";
 const verdeMinimalTools = process.env.OPENCLAW_VERDE_MINIMAL_TOOLS === "1";
+const agentRosterMode = process.env.OPENCLAW_AGENT_ROSTER_MODE || "scienceclaw";
+
+const scienceclawAgents = [
+  ["main", "PI Liaison"],
+  ["scientific-director", "Scientific Director"],
+  ["deputy-integrator", "Deputy Director / Integrator"],
+  ["data-engineer", "Data Engineer / Infrastructure Scientist"],
+  ["quantitative-modeler", "Quantitative Modeler"],
+  ["domain-scientist", "Domain Scientist"],
+  ["scientific-narrative-lead", "Scientific Narrative Lead"],
+  ["technical-communicator", "Technical Communicator"],
+  ["citation-evidence-curator", "Citation & Evidence Curator"],
+  ["skeptic", "Skeptic / Adversarial Reviewer"],
+  ["societal-impact-translation", "Societal Impact / Translation Agent"],
+];
 
 let config = {};
 try {
@@ -156,6 +171,26 @@ config.agents.defaults.models ||= {};
 config.agents.defaults.models[defaultModel] ||= {};
 config.agents.defaults.model ||= {};
 config.agents.defaults.model.primary = defaultModel;
+if (agentRosterMode === "scienceclaw") {
+  const specialistIds = scienceclawAgents.slice(1).map(([id]) => id);
+  config.agents.defaults.subagents ||= {};
+  config.agents.defaults.subagents.allowAgents = specialistIds;
+  config.agents.list = scienceclawAgents.map(([id, name], index) => {
+    const agent = {
+      id,
+      name,
+      workspace,
+      model: { primary: defaultModel },
+    };
+    if (index === 0) {
+      agent.default = true;
+      agent.subagents = { allowAgents: specialistIds };
+    }
+    return agent;
+  });
+} else if (agentRosterMode !== "preserve") {
+  throw new Error(`Unsupported OPENCLAW_AGENT_ROSTER_MODE: ${agentRosterMode}`);
+}
 
 config.models ||= {};
 config.models.mode ||= "merge";

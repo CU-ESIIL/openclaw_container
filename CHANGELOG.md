@@ -4,6 +4,7 @@
 
 ### Fixed
 
+- Restored the canonical 11-agent science-team roster and made Gateway startup reconcile persistent agent state with the tracked roster by default. Custom deployments can explicitly retain their own registry with `OPENCLAW_AGENT_ROSTER_MODE=preserve`.
 - `scripts/start-instance.sh` now validates that `SCIENCECLAW_RUNTIME_ROOT` is writable before use and automatically falls back to `$RUNNER_TEMP`/`/tmp` with a warning when the configured path is unavailable. This prevents startup failures like `mkdir: cannot create directory '/private': Permission denied` on restricted runners.
 - Clarified the local browser startup path in `README.md`, `docs/quick-start.md`, `docs/operations.md`, and `docs/troubleshooting.md` so the main OpenClaw chat opens from the tokenized `127.0.0.1:18789` Gateway URL rather than the `8090` CMS sidecar, and so first-run token auth plus one-time device pairing are documented explicitly.
 

@@ -163,5 +163,29 @@ if ! grep -q "Files updated: 0" <<< "${second_output}"; then
   exit 1
 fi
 
+roster_config="${workspace}/config/working_group.yaml"
+if [ "$(grep -c '^    - id:' "${roster_config}")" -ne 11 ]; then
+  echo "Working-group configuration must contain exactly 11 agent IDs." >&2
+  exit 1
+fi
+
+for agent_id in \
+  main \
+  scientific-director \
+  deputy-integrator \
+  data-engineer \
+  quantitative-modeler \
+  domain-scientist \
+  scientific-narrative-lead \
+  technical-communicator \
+  citation-evidence-curator \
+  skeptic \
+  societal-impact-translation; do
+  if ! grep -q "^    - id: \"${agent_id}\"$" "${roster_config}"; then
+    echo "Missing canonical agent ID: ${agent_id}" >&2
+    exit 1
+  fi
+done
+
 echo "${first_output}" >/dev/null
 echo "Working group smoke test passed: ${workspace}"

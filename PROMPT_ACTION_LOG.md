@@ -688,3 +688,22 @@ Fix the remaining `/approve` problem by making approval flows prefer native UI/C
 - `openclaw exec-policy show` reports `security=allowlist`, `ask=on-miss`, and host `askFallback=deny`.
 - Native approval queue RPC is reachable.
 - `bash -n docker/entrypoint.sh docker/service-entrypoint.sh scripts/start-instance.sh scripts/install-control-ui-branding.sh` passed.
+
+## 2026-08-12 - Restore Canonical Science Team Roster
+
+### Prompt Summary
+
+Restore the default 11-agent science team after persistent OpenClaw state was accidentally replaced with panel-member agents in a fork experiment, and make the durable fix visible to the repository.
+
+### Changes Made
+
+- Restored the live `~/.openclaw/openclaw.json` agent registry while preserving gateway auth, model routing, sessions, and integrations.
+- Added the canonical 11-agent roster to container startup so the tracked repository repairs stale or cross-project persistent rosters by default.
+- Added `OPENCLAW_AGENT_ROSTER_MODE=preserve` as an explicit opt-out for intentionally customized deployments.
+- Aligned the root and seeded working-group configuration with the same 11 roles.
+- Kept API keys, gateway tokens, local sessions, and the live runtime configuration outside git.
+
+### Verification
+
+- Confirmed the live registry contains 11 agents, `main` is the PI Liaison, and ten specialist IDs are allowed as subagents.
+- Confirmed the accidental panel roster was retained only in a local timestamped backup for recovery.

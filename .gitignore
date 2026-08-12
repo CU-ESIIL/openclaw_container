@@ -30,6 +30,10 @@ workspace/services/*
 workspace/services/pi_liaison/*
 !workspace/services/pi_liaison/.env.template
 
+# Runtime copies; canonical project templates live in docker/seed-workspace/projects/.
+workspace/projects/README.md
+workspace/projects/_template/
+
 # Docker temp and local override files
 .docker/
 docker-compose.override.yml
